@@ -1,0 +1,483 @@
+/*
+	Example Styling for a Gallery
+*/
+@media all {
+  /*
+  	pin board / carousel
+  */
+  section.gallery {
+    background: #333;
+    border: solid 2px #333;
+    height: 256px;
+    margin: 0 0 40px 0;
+    position: relative;
+    width: 100%;
+  }
+  section.gallery * {
+    cursor: pointer;
+  }
+
+  /*
+  	pin board toolbar
+  */
+  section.gallery menu.gallery_toolbar {
+    margin: 0;
+    padding: 0;
+  }
+  section.gallery menu.gallery_toolbar button {
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(3%, #ffffff), color-stop(3%, #cccccc), color-stop(97%, #999999), color-stop(97%, #666666), color-stop(100%, #666666));
+    background: -webkit-linear-gradient(top, #ffffff 0%, #ffffff 3%, #cccccc 3%, #999999 97%, #666666 97%, #666666 100%);
+    background: -moz-linear-gradient(top, #ffffff 0%, #ffffff 3%, #cccccc 3%, #999999 97%, #666666 97%, #666666 100%);
+    background: -o-linear-gradient(top, #ffffff 0%, #ffffff 3%, #cccccc 3%, #999999 97%, #666666 97%, #666666 100%);
+    background: linear-gradient(top, #ffffff 0%, #ffffff 3%, #cccccc 3%, #999999 97%, #666666 97%, #666666 100%);
+    -webkit-box-shadow: 0 1px 3px black;
+    -moz-box-shadow: 0 1px 3px black;
+    box-shadow: 0 1px 3px black;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition-property: opacity;
+    -moz-transition-property: opacity;
+    -o-transition-property: opacity;
+    transition-property: opacity;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease;
+    -moz-transition-timing-function: ease;
+    -o-transition-timing-function: ease;
+    transition-timing-function: ease;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    background-color: #ccc;
+    border: solid 1px #000;
+    color: #333 !important;
+    cursor: pointer;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    padding: 0;
+    text-indent: 45px;
+    text-shadow: #ccc 1px 1px 0;
+    text-decoration: none !important;
+    white-space: nowrap;
+    width: 40px;
+    z-index: 500;
+  }
+  section.gallery menu.gallery_toolbar button:before {
+    background-image: url(../img/gallery.png);
+    content: ' ';
+    display: block;
+    height: 40px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 40px;
+  }
+  section.gallery menu.gallery_toolbar button.gallery_tool_next {
+    margin-top: -20px;
+    right: 15px;
+    top: 50%;
+  }
+  section.gallery menu.gallery_toolbar button.gallery_tool_next:before {
+    background-position: 10px 0;
+  }
+  section.gallery menu.gallery_toolbar button.gallery_tool_previous {
+    left: 15px;
+    margin-top: -20px;
+    top: 50%;
+  }
+  section.gallery menu.gallery_toolbar button.gallery_tool_previous:before {
+    background-position: 10px -64px;
+  }
+  section.gallery menu.gallery_toolbar button.gallery_tool_carousel {
+    right: 15px;
+    top: 15px;
+  }
+  section.gallery menu.gallery_toolbar button.gallery_tool_carousel:before {
+    background-position: 4px -128px;
+  }
+  section.gallery menu.gallery_toolbar button.gallery_tool_pinboard {
+    right: 15px;
+    top: 15px;
+  }
+  section.gallery menu.gallery_toolbar button.gallery_tool_pinboard:before {
+    background-position: 4px -192px;
+  }
+  section.gallery menu.gallery_toolbar button.gallery_tool_filter {
+    right: 60px;
+    top: 15px;
+  }
+  section.gallery menu.gallery_toolbar button.gallery_tool_filter:before {
+    background-position: 4px -256px;
+  }
+
+  section.gallery:hover menu.gallery_toolbar button,
+  section.gallery.gallery_interface_visible menu.gallery_toolbar button {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+  section.gallery:hover menu.gallery_toolbar button.gallery_tool_disabled,
+  section.gallery.gallery_interface_visible menu.gallery_toolbar button.gallery_tool_disabled {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+    opacity: 0.3;
+  }
+
+  /*
+  	pin board filter
+  */
+  section.gallery form.gallery_filter {
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(50%, #ffffff), color-stop(100%, #cccccc));
+    background: -webkit-linear-gradient(top, #ffffff 0%, #ffffff 50%, #cccccc 100%);
+    background: -moz-linear-gradient(top, #ffffff 0%, #ffffff 50%, #cccccc 100%);
+    background: -o-linear-gradient(top, #ffffff 0%, #ffffff 50%, #cccccc 100%);
+    background: linear-gradient(top, #ffffff 0%, #ffffff 50%, #cccccc 100%);
+    -webkit-box-shadow: 0 1px 3px black;
+    -moz-box-shadow: 0 1px 3px black;
+    box-shadow: 0 1px 3px black;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition-property: all;
+    -moz-transition-property: all;
+    -o-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease;
+    -moz-transition-timing-function: ease;
+    -o-transition-timing-function: ease;
+    transition-timing-function: ease;
+    background-color: #fff;
+    border: solid 1px #000;
+    height: 38px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 105px;
+    top: 15px;
+    z-index: 400;
+  }
+  section.gallery form.gallery_filter fieldset.gallery_filter_groups {
+    margin: 0;
+    padding: 8px;
+  }
+  section.gallery form.gallery_filter fieldset.gallery_filter_groups legend {
+    display: none;
+  }
+  section.gallery form.gallery_filter_hide {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    visibility: hidden;
+  }
+  section.gallery form.gallery_filter_show {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    visibility: visible;
+  }
+
+  section.gallery:hover form.gallery_filter_show,
+  section.gallery.gallery_interface_visible form.gallery_filter_show {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /*
+  	pin board pager
+  */
+  section.gallery menu.gallery_pager {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transition-property: opacity;
+    -moz-transition-property: opacity;
+    -o-transition-property: opacity;
+    transition-property: opacity;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease;
+    -moz-transition-timing-function: ease;
+    -o-transition-timing-function: ease;
+    transition-timing-function: ease;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 14px;
+    margin: 0;
+    padding: 17px 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    line-height: 12px;
+    text-align: center;
+    z-index: 400;
+  }
+  section.gallery menu.gallery_pager li {
+    border: solid 1px #fff;
+    display: inline-block;
+    list-style-type: none;
+    margin: 0 5px 0 0;
+    vertical-align: middle;
+  }
+  section.gallery menu.gallery_pager li a {
+    background: #333 none;
+    border: solid 1px #333;
+    display: block;
+    height: 8px;
+    line-height: 1;
+    overflow: hidden;
+    text-indent: 10px;
+    vertical-align: top;
+    width: 8px;
+  }
+  section.gallery menu.gallery_pager li.gallery_pager_active a {
+    background: #fff none;
+  }
+  section.gallery menu.gallery_pager li.gallery_pager_passive {
+    border: solid 1px #fff;
+  }
+  section.gallery menu.gallery_pager li.gallery_pager_passive a {
+    background: #ccc none;
+    border: solid 1px #ccc;
+  }
+
+  section.gallery:hover menu.gallery_pager,
+  section.gallery.gallery_interface_visible menu.gallery_pager {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /*
+  	pin board progress indicator
+  */
+  section.gallery div.gallery_busy {
+    background: white url(../img/busy_3.gif) no-repeat 50% 50%;
+    border: solid 1px #000;
+    display: none;
+    height: 32px;
+    left: 50%;
+    margin: -16px 0 0 -16px;
+    position: absolute;
+    top: 50%;
+    width: 32px;
+    z-index: 400;
+  }
+
+  /*
+  	carousel mode
+  */
+  section.gallery.gallery_mode_carousel {
+    height: 256px;
+  }
+  section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_previous {
+    display: block;
+  }
+  section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_next {
+    display: block;
+  }
+  section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_pinboard {
+    display: block;
+  }
+  section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_carousel {
+    display: none;
+  }
+
+  /*
+  	pin board mode
+  */
+  section.gallery.gallery_mode_pinboard {
+    height: 512px;
+  }
+  section.gallery.gallery_mode_pinboard menu.gallery_toolbar {
+    right: 18px;
+  }
+  section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_previous {
+    display: none;
+  }
+  section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_next {
+    display: none;
+  }
+  section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_pinboard {
+    display: none;
+  }
+  section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_carousel {
+    display: block;
+  }
+  section.gallery.gallery_mode_pinboard menu.gallery_pager {
+    display: none;
+  }
+
+  /*
+  	slides in carousel mode
+  */
+  section.gallery div.gallery_slides {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    z-index: 300;
+  }
+  section.gallery article, section.gallery figure {
+    background: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #eeeeee), color-stop(10%, #ffffff));
+    background: -webkit-linear-gradient(to bottom, #eeeeee 0%, #ffffff 10%);
+    background: -moz-linear-gradient(to bottom, #eeeeee 0%, #ffffff 10%);
+    background: -o-linear-gradient(to bottom, #eeeeee 0%, #ffffff 10%);
+    background: linear-gradient(to bottom, #eeeeee 0%, #ffffff 10%);
+    -webkit-box-shadow: 0 1px 3px black;
+    -moz-box-shadow: 0 1px 3px black;
+    box-shadow: 0 1px 3px black;
+    -webkit-transition-property: left, right, opacity;
+    -moz-transition-property: left, right, opacity;
+    -o-transition-property: left, right, opacity;
+    transition-property: left, right, opacity;
+    -webkit-transition-duration: 0.3s, 0.3s, 0.3s;
+    -moz-transition-duration: 0.3s, 0.3s, 0.3s;
+    -o-transition-duration: 0.3s, 0.3s, 0.3s;
+    transition-duration: 0.3s, 0.3s, 0.3s;
+    -webkit-transition-timing-function: ease, ease, ease;
+    -moz-transition-timing-function: ease, ease, ease;
+    -o-transition-timing-function: ease, ease, ease;
+    transition-timing-function: ease, ease, ease;
+    background: #ffffff;
+    border: solid 1px #000;
+    left: 50%;
+    top: 50%;
+    overflow: hidden;
+    position: absolute;
+    height: 100%;
+    margin: -100px 0 0 -100px;
+    top: 50%;
+    visibility: hidden;
+    width: 100%;
+  }
+  section.gallery article {
+    height: 94%;
+    padding: 3%;
+    width: 94%;
+  }
+  section.gallery .gallery_carousel_farleft {
+    left: -50%;
+    top: 50%;
+    visibility: hidden;
+    z-index: 200;
+  }
+  section.gallery .gallery_carousel_left {
+    left: -50%;
+    top: 50%;
+    visibility: visible;
+    z-index: 300;
+  }
+  section.gallery .gallery_carousel_centre {
+    left: 50%;
+    top: 50%;
+    visibility: visible;
+    z-index: 400;
+  }
+  section.gallery .gallery_carousel_right {
+    left: 150%;
+    top: 50%;
+    visibility: visible;
+    z-index: 300;
+  }
+  section.gallery .gallery_carousel_farright {
+    left: 150%;
+    top: 50%;
+    visibility: hidden;
+    z-index: 200;
+  }
+
+  /*
+  	slides in pin board mode
+  */
+  section.gallery.gallery_mode_pinboard div.gallery_slides {
+    height: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+  section.gallery.gallery_mode_pinboard article, section.gallery.gallery_mode_pinboard figure {
+    height: auto !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+    width: 44% !important;
+  }
+  section.gallery.gallery_mode_pinboard article {
+    width: 39% !important;
+  }
+  section.gallery.gallery_mode_pinboard .gallery_pinboard_loading {
+    left: 25%;
+    visibility: visible;
+  }
+  section.gallery.gallery_mode_pinboard .gallery_pinboard_left {
+    left: 3%;
+    visibility: visible;
+  }
+  section.gallery.gallery_mode_pinboard .gallery_pinboard_right {
+    left: 51%;
+    visibility: visible;
+  }
+
+  /*
+  	invitation for interaction
+  */
+  section.gallery div.gallery_hint {
+    background: Transparent url(../img/gallery.png) no-repeat 0 -323px;
+    position: absolute;
+    right: 4px;
+    bottom: 7px;
+    height: 32px;
+    width: 32px;
+    z-index: 1000;
+  }
+
+  section.gallery:hover div.gallery_hint,
+  section.gallery.gallery_interface_visible div.gallery_hint {
+    visibility: hidden;
+  }
+
+  /*
+  	slide content markup
+  */
+  section.gallery article h3 {
+    line-height: 40px;
+  }
+  section.gallery article img {
+    float: left;
+    border: solid 1px #333;
+    margin: 5px 10px 5px 0;
+  }
+  section.gallery figure img {
+    display: block;
+    height: 100%;
+    margin: 0 auto 0 auto;
+    width: auto;
+  }
+  section.gallery figure figcaption {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    opacity: 0.5;
+    background-color: #000;
+    color: #fff;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 13px 15px;
+    text-align: center;
+  }
+
+  section.gallery.gallery_mode_pinboard figure img {
+    height: auto;
+    width: 100%;
+  }
+}

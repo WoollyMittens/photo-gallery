@@ -1,0 +1,473 @@
+/*
+	Example Styling for a Gallery
+*/
+
+@media all {
+
+	@import "compass/css3";
+	@import "compass/utilities";
+
+	/*
+		pin board / carousel
+	*/
+	section.gallery {
+		background : #333;
+		border : solid 2px #333;
+		height : 256px;
+		margin : 0 0 40px 0;
+		position : relative;
+		width : 100%;
+
+		* {
+			cursor : pointer;
+		}
+	}
+
+
+	/*
+		pin board toolbar
+	*/
+	section.gallery {
+		menu.gallery_toolbar {
+			margin : 0;
+			padding : 0;
+
+			button {
+				@include background(linear-gradient(top, #fff 0%, #fff 3%, #ccc 3%, #999 97%, #666 97%, #666 100%));
+				@include box-shadow(0 1px 3px #000);
+				@include border-radius(3px);
+				@include transition-property(opacity);
+				@include transition-duration(0.3s);
+				@include transition-timing-function(ease);
+				@include opacity(0);
+				background-color : #ccc;
+				border : solid 1px #000;
+				color : #333 !important;
+				cursor : pointer;
+				display : inline-block;
+				height : 40px;
+				line-height : 40px;
+				margin : 0;
+				overflow : hidden;
+				position : absolute;
+				padding : 0;
+				text-indent : 45px;
+				text-shadow: #ccc 1px 1px 0;
+				text-decoration : none !important;
+				white-space : nowrap;
+				width : 40px;
+				z-index : 500;
+			}
+			button:before {
+				background-image : url(../img/gallery.png);
+				content : ' ';
+				display : block;
+				height : 40px;
+				left : 0;
+				position : absolute;
+				top : 0;
+				width : 40px;
+			}
+			button.gallery_tool_next {
+				margin-top : -20px;
+				right : 15px;
+				top : 50%;
+			}
+			button.gallery_tool_next:before {
+				background-position : 10px 0;
+			}
+			button.gallery_tool_previous {
+				left : 15px;
+				margin-top : -20px;
+				top : 50%;
+			}
+			button.gallery_tool_previous:before {
+				background-position : 10px -64px;
+			}
+			button.gallery_tool_carousel {
+				right : 15px;
+				top : 15px;
+			}
+			button.gallery_tool_carousel:before {
+				background-position : 4px -128px;
+			}
+			button.gallery_tool_pinboard {
+				right : 15px;
+				top : 15px;
+			}
+			button.gallery_tool_pinboard:before {
+				background-position : 4px -192px;
+			}
+			button.gallery_tool_filter {
+				right : 60px;
+				top : 15px;
+			}
+			button.gallery_tool_filter:before {
+				background-position : 4px -256px;
+			}
+		}
+	}
+	section.gallery:hover,
+	section.gallery.gallery_interface_visible {
+		menu.gallery_toolbar {
+			button {
+				@include opacity(1);
+			}
+			button.gallery_tool_disabled {
+				@include opacity(0.3);
+			}
+		}
+	}
+
+	/*
+		pin board filter
+	*/
+	section.gallery {
+		form.gallery_filter {
+			@include background(linear-gradient(top, #fff 0%, #fff 50%, #ccc 100%));
+			@include box-shadow(0 1px 3px #000);
+			@include border-radius(3px);
+			@include transition-property(all);
+			@include transition-duration(0.3s);
+			@include transition-timing-function(ease);
+			background-color : #fff;
+			border : solid 1px #000;
+			height : 38px;
+			margin : 0;
+			padding : 0;
+			position : absolute;
+			right : 105px;
+			top : 15px;
+			z-index : 400;
+
+			fieldset.gallery_filter_groups {
+				margin : 0;
+				padding : 8px;
+
+				legend {
+					display : none;
+				}
+			}
+		}
+		form.gallery_filter_hide {
+			@include opacity(0);
+			visibility : hidden;
+		}
+		form.gallery_filter_show {
+			@include opacity(0);
+			visibility : visible;
+		}
+	}
+	section.gallery:hover,
+	section.gallery.gallery_interface_visible {
+		form.gallery_filter_show {
+			@include opacity(1);
+		}
+	}
+
+
+	/*
+		pin board pager
+	*/
+	section.gallery {
+		menu.gallery_pager {
+			@include opacity(0);
+			@include transition-property(opacity);
+			@include transition-duration(0.3s);
+			@include transition-timing-function(ease);
+			background-color : rgba(0,0,0,0.5);
+			height : 14px;
+			margin : 0;
+			padding : 17px 0;
+			position : absolute;
+			left : 0;
+			bottom : 0;
+			right : 0;
+			line-height : 12px;
+			text-align : center;
+			z-index : 400;
+
+			li {
+				border : solid 1px #fff;
+				display : inline-block;
+				list-style-type : none;
+				margin : 0 5px 0 0;
+				vertical-align : middle;
+
+				a {
+					background : #333 none;
+					border : solid 1px #333;
+					display : block;
+					height : 8px;
+					line-height : 1;
+					overflow : hidden;
+					text-indent : 10px;
+					vertical-align : top;
+					width : 8px;
+				}
+			}
+			li.gallery_pager_active {
+				a {
+					background : #fff none;
+				}
+			}
+			li.gallery_pager_passive {
+				border : solid 1px #fff;
+
+				a {
+					background : #ccc none;
+					border : solid 1px #ccc;
+				}
+			}
+		}
+	}
+	section.gallery:hover,
+	section.gallery.gallery_interface_visible {
+		menu.gallery_pager {
+			@include opacity(1);
+		}
+	}
+
+
+	/*
+		pin board progress indicator
+	*/
+	section.gallery {
+		div.gallery_busy {
+			background : #fff url(../img/busy_3.gif) no-repeat 50% 50%;
+			border : solid 1px #000;
+			display : none;
+			height : 32px;
+			left : 50%;
+			margin : -16px 0 0 -16px;
+			position : absolute;
+			top : 50%;
+			width : 32px;
+			z-index : 400;
+		}
+	}
+
+
+	/*
+		carousel mode
+	*/
+	section.gallery.gallery_mode_carousel {
+		height : 256px;
+
+		menu.gallery_toolbar {
+			button.gallery_tool_previous {
+				display : block;
+			}
+			button.gallery_tool_next {
+				display : block;
+			}
+			button.gallery_tool_pinboard {
+				display : block;
+			}
+			button.gallery_tool_carousel {
+				display : none;
+			}
+		}
+	}
+
+
+	/*
+		pin board mode
+	*/
+	section.gallery.gallery_mode_pinboard {
+		height : 512px;
+
+		menu.gallery_toolbar {
+			right : 18px;
+
+			button.gallery_tool_previous {
+				display : none;
+			}
+			button.gallery_tool_next {
+				display : none;
+			}
+			button.gallery_tool_pinboard {
+				display : none;
+			}
+			button.gallery_tool_carousel {
+				display : block;
+			}
+		}
+		menu.gallery_pager {
+			display : none;
+		}
+	}
+
+
+	/*
+		slides in carousel mode
+	*/
+	section.gallery {
+		div.gallery_slides {
+			height : 100%;
+			overflow : hidden;
+			position : relative;
+			width : 100%;
+			z-index : 300;
+		}
+		article, figure {
+			@include background(linear-gradient(to bottom, #eeeeee 0%,#ffffff 10%));
+			@include box-shadow(0 1px 3px #000);
+			@include transition-property(left, right, opacity);
+			@include transition-duration(0.3s, 0.3s, 0.3s);
+			@include transition-timing-function(ease, ease, ease);
+			background: #ffffff;
+			border : solid 1px #000;
+			left : 50%;
+			top : 50%;
+			overflow : hidden;
+			position : absolute;
+			height : 100%;
+			margin :  -100px 0 0 -100px;
+			top : 50%;
+			visibility : hidden;
+			width : 100%;
+		}
+		article {
+			height : 94%;
+			padding : 3%;
+			width : 94%;
+		}
+		.gallery_carousel_farleft {
+			left : -50%;
+			top : 50%;
+			visibility : hidden;
+			z-index : 200;
+		}
+		.gallery_carousel_left {
+			left : -50%;
+			top : 50%;
+			visibility : visible;
+			z-index : 300;
+		}
+		.gallery_carousel_centre {
+			left : 50%;
+			top : 50%;
+			visibility : visible;
+			z-index : 400;
+		}
+		.gallery_carousel_right {
+			left : 150%;
+			top : 50%;
+			visibility : visible;
+			z-index : 300;
+		}
+		.gallery_carousel_farright {
+			left : 150%;
+			top : 50%;
+			visibility : hidden;
+			z-index : 200;
+		}
+	}
+
+
+	/*
+		slides in pin board mode
+	*/
+	section.gallery.gallery_mode_pinboard {
+		div.gallery_slides {
+			height : 100%;
+			overflow : auto;
+			overflow-x : hidden;
+			-webkit-overflow-scrolling : touch;
+			width : 100%;
+		}
+		article, figure {
+			height : auto !important;
+			margin-left : 0 !important;
+			margin-top : 0 !important;
+			width : 44% !important;
+		}
+		article {
+			width : 39% !important;
+		}
+		.gallery_pinboard_loading {
+			left : 25%;
+			visibility : visible;
+		}
+		.gallery_pinboard_left {
+			left : 3%;
+			visibility : visible;
+		}
+		.gallery_pinboard_right {
+			left : 51%;
+			visibility : visible;
+		}
+	}
+
+
+	/*
+		invitation for interaction
+	*/
+	section.gallery div.gallery_hint {
+		background : Transparent url(../img/gallery.png) no-repeat 0 -323px;
+		position : absolute;
+		right : 4px;
+		bottom : 7px;
+		height : 32px;
+		width : 32px;
+		z-index : 1000;
+	}
+	section.gallery:hover,
+	section.gallery.gallery_interface_visible {
+		div.gallery_hint {
+			visibility : hidden;
+		}
+	}
+
+
+	/*
+		slide content markup
+	*/
+	section.gallery {
+		article {
+			h3 {
+				line-height : 40px;
+			}
+			img {
+				float : left;
+				border : solid 1px #333;
+				margin : 5px 10px 5px 0;
+			}
+		}
+		figure {
+			img {
+				display : block;
+				height : 100%;
+				margin : 0 auto 0 auto;
+				width : auto;
+			}
+			figcaption {
+				@include opacity(0.5);
+				background-color : #000;
+				color : #fff;
+				position : absolute;
+				right : 0;
+				bottom : 0;
+				left : 0;
+				padding : 13px 15px;
+				text-align : center;
+			}
+		}
+	}
+	section.gallery.gallery_mode_pinboard {
+		figure {
+			img {
+				height : auto;
+				width : 100%;
+			}
+		}
+	}
+
+}
+@media (min-width: 1200px) {}
+@media (min-width: 980px) and (max-width: 1199px) {}
+@media (min-width: 768px) and (max-width: 979px) {}
+@media (max-width: 767px) {}
+@media (max-width: 480px) {}
+@media print {}
