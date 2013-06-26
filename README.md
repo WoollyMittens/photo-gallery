@@ -73,32 +73,48 @@ useful.gallery.start(parent, {
 ```
 
 **id : {string}** - The ID attribute of an element somewhere in the document.
+
 **parent : {DOM node}** - The DOM element around which the functionality is centred.
+
 **aspectRatio : {float}** - Defines the aspect ratio of the gallery (4:3 would be 0.75).
+
 **carouselNames : {array}** - The script will cycle through these classes, the number is not limited.
+
 **pinboardNames : {array}** - The script alternates between these classes to divide the slides across columns.
+
 **pagerLabels : {array}** - By default the page numbers are shown as integers, but these strings will be substituted if given.
 
-**rowOffset : {integer}**
-**pinboardOffset : {integer}**
-Distance between rows of slides in pin board mode
+**pinboardOffset : {integer}** - Tweak for positioning of the pin-board.
+
+**rowOffset : {integer}** - Distance between rows of slides in pin-board mode.
 
 **fetchScrollBottom : {integer}** - Distance from the bottom of the pin board where new slides will be loaded if AJAX is enabled.
+
 **fetchTreshold : {integer}** - How far from the unloaded slides preloading should commence.
+
 **fetchAmount : {integer}** - How many slides to get in one go.
+
 **limitSpeed : {boolean}** - Don't accept new input until the animation finished.
+
 **allowLoop : {boolean}** - Immediately cycle to the first slide after reaching the last.
+
 **idleDelay : {integer}** - Wait this long until starting the automatic slideshow.
+
 **idleDirection : {integer}** - Direction to show the slides in. +1 is left to right, -1 is right to left.
 
-**toggleHint : {boolean}**
-**togglePager : {boolean}**
-**toggleFilter : {string / boolean}**
-**togglePinboard : {string / boolean}**
-**toggleCarousel : {string / boolean}**
-**toggleNext : {string / boolean}**
-**togglePrev : {string / boolean}**
-What interface elements to show. Using a string instead of a boolean will override the label text.
+**toggleHint : {boolean}** - Shows or hides the hint icon.
+
+**togglePager : {boolean}** - Shows or hides the page count.
+
+**toggleFilter : {string / boolean}** - Shows or hides the category filter. A string will override the label text.
+
+**togglePinboard : {string / boolean}** - Shows or hides the pin-board mode switch. A string will override the label text.
+
+**toggleCarousel : {string / boolean}** - Shows or hides the carousel mode switch. A string will override the label text.
+
+**toggleNext : {string / boolean}** - Shows or hides the next slide button. A string will override the label text.
+
+**togglePrev : {string / boolean}** - Shows or hides the previous slide button. A string will override the label text.
 
 **onMobile : {boolean}** - How mobile devices are identified to enable touch controls
 
@@ -137,7 +153,9 @@ useful.css.select({
 ```
 
 **rule : {string}** - The CSS Rule for the intended target(s) of the script.
+
 **handler : {function}** - The public function that starts the script.
+
 **data : {object}** - Name-value pairs with configuration data.
 
 ### Using jQuery
