@@ -2,6 +2,8 @@
 
 This content gallery loads content progressively using AJAX and uses CSS3 transitions for animation and positioning. The optional web service providing the content is based on PHP, but the concept can be easily reproduced in other languages.
 
+Try the <a href="http://www.woollymittens.nl/useful/default.php?url=gallery">gallery demo</a>.
+
 ## How to use the script
 
 The stylesheet is best included in the header of the document.
