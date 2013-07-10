@@ -5,9 +5,11 @@
 		<title>useful.gallery.js: Pinboard Gallery</title>
 		<style>
 			html { font-family:Sans-Serif; font-size:75%; height:100%; }
-			body { _height:100%; line-height:180%; margin:0; min-height:100%; padding:0; }
-			.example { max-width:960px; margin:0 auto; padding:2em; }
-			.example-left, .example-right { max-width:480px; }
+			body { _height:100%; line-height:180%; margin:0; min-height:100%; padding:1%; }
+			.example { max-width:960px; margin:0 auto; padding:0; clear:both; }
+			.example > article, .example > aside { width:98%; padding:2%; }
+			.example-left > article, .example-left > aside { width:48%; padding:1%; float:left; }
+			.example-right > article, .example-right > aside { width:48%; padding:1%; float:right; }
 		</style>
 		<!--[if lte IE 9]>
 			<meta http-equiv="imagetoolbar" content="no"/>
