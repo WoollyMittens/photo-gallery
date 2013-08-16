@@ -19,7 +19,6 @@
 			cursor : pointer;
 		}
 	}
-
 	/*
 		pin board toolbar
 	*/
@@ -307,6 +306,9 @@
 			top : 50%;
 			visibility : hidden;
 			width : 100%;
+			img {
+				border : 0;
+			}
 		}
 		article {
 			padding : 3%;

@@ -362,6 +362,9 @@
     visibility: hidden;
     width: 100%;
   }
+  section.gallery article img, section.gallery figure img {
+    border: 0;
+  }
   section.gallery article {
     padding: 3%;
   }
