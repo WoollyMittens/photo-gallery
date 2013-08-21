@@ -4,7 +4,7 @@ This content gallery loads content progressively using AJAX and uses CSS3 transi
 
 Try the <a href="http://www.woollymittens.nl/useful/default.php?url=gallery">gallery demo</a>.
 
-## How to use the script
+## How to include the script
 
 The stylesheet is best included in the header of the document.
 
@@ -15,7 +15,7 @@ The stylesheet is best included in the header of the document.
 This include can be added to the header or placed inline before the script is invoked.
 
 ```html
-<script src="./js/useful.gallery.js"></script>
+<script src="./js/gallery.min.js"></script>
 ```
 
 To enable the use of HTML5 tags in Internet Explorer 8 and lower, include *html5.js*. To provide an alternative for *document.querySelectorAll* in Internet Explorer 8 and lower, include *jQuery*. To enable CSS3 transition animations in Internet Explorer 9 and lower, include *jQuery UI* as well.
@@ -48,8 +48,7 @@ The form may be left out, if AJAX functionality is not required.
 This is the safest way of starting the script, but allows for only one target element at a time.
 
 ```javascript
-var parent = documentGetElementById('id');
-useful.gallery.start(parent, {
+var gallery = new useful.Gallery( document.getElementById('id'), {
 	'aspectRatio' : 1,
 	'carouselNames' : ['gallery_carousel_farleft', 'gallery_carousel_left', 'gallery_carousel_centre', 'gallery_carousel_right', 'gallery_carousel_farright'],
 	'pinboardNames' : ['gallery_pinboard_left', 'gallery_pinboard_right', 'gallery_pinboard_loading'],
@@ -72,11 +71,10 @@ useful.gallery.start(parent, {
 	'togglePrev' : 'Previous Slide',
 	'onMobile' : (navigator.userAgent.indexOf('Mobile')>-1)
 });
+gallery.start();
 ```
 
 **id : {string}** - The ID attribute of an element somewhere in the document.
-
-**parent : {DOM node}** - The DOM element around which the functionality is centred.
 
 **aspectRatio : {float}** - Defines the aspect ratio of the gallery (4:3 would be 0.75).
 
@@ -120,77 +118,68 @@ useful.gallery.start(parent, {
 
 **onMobile : {boolean}** - How mobile devices are identified to enable touch controls
 
-### Using document.querySelectorAll
+## How to control the script
 
-This method allows CSS Rules to be used to apply the script to one or more nodes at the same time.
-
-```javascript
-useful.css.select({
-	rule : '.gallery',
-	handler : useful.gallery.start,
-	data : {
-		'aspectRatio' : 1,
-		'carouselNames' : ['gallery_carousel_farleft', 'gallery_carousel_left', 'gallery_carousel_centre', 'gallery_carousel_right', 'gallery_carousel_farright'],
-		'pinboardNames' : ['gallery_pinboard_left', 'gallery_pinboard_right', 'gallery_pinboard_loading'],
-		'pagerLabels' : ['I', 'II', 'III', 'IV', 'V'],
-		'rowOffset' : 18,
-		'pinboardOffset' : 0,
-		'fetchScrollBottom' : 100,
-		'fetchTreshold' : 3,
-		'fetchAmount' : 5,
-		'limitSpeed' : true,
-		'allowLoop' : false,
-		'idleDelay' : 8000,
-		'idleDirection' : 1,
-		'toggleHint' : true,
-		'togglePager' : true,
-		'toggleFilter' : 'Filter',
-		'togglePinboard' : 'View Pin Board',
-		'toggleCarousel' : 'View Carousel',
-		'toggleNext' : 'Next Slide',
-		'togglePrev' : 'Previous Slide',
-		'onMobile' : (navigator.userAgent.indexOf('Mobile')>-1)
-	}
-});
-```
-
-**rule : {string}** - The CSS Rule for the intended target(s) of the script.
-
-**handler : {function}** - The public function that starts the script.
-
-**data : {object}** - Name-value pairs with configuration data.
-
-### Using jQuery
-
-This method is similar to the previous one, but uses jQuery for processing the CSS rule.
+### Focus
 
 ```javascript
-$('.gallery').each(function (index, element) {
-	useful.gallery.start(element, {
-		'aspectRatio' : 1,
-		'carouselNames' : ['gallery_carousel_farleft', 'gallery_carousel_left', 'gallery_carousel_centre', 'gallery_carousel_right', 'gallery_carousel_farright'],
-		'pinboardNames' : ['gallery_pinboard_left', 'gallery_pinboard_right', 'gallery_pinboard_loading'],
-		'pagerLabels' : ['I', 'II', 'III', 'IV', 'V'],
-		'rowOffset' : 18,
-		'pinboardOffset' : 0,
-		'fetchScrollBottom' : 100,
-		'fetchTreshold' : 3,
-		'fetchAmount' : 5,
-		'limitSpeed' : true,
-		'allowLoop' : false,
-		'idleDelay' : 8000,
-		'idleDirection' : 1,
-		'toggleHint' : true,
-		'togglePager' : true,
-		'toggleFilter' : 'Filter',
-		'togglePinboard' : 'View Pin Board',
-		'toggleCarousel' : 'View Carousel',
-		'toggleNext' : 'Next Slide',
-		'togglePrev' : 'Previous Slide',
-		'onMobile' : (navigator.userAgent.indexOf('Mobile')>-1)
-	});
-});
+gallery.focus(index);
 ```
+
+Highlights and centres a specific thumbnail.
+
+**index : {integer}** - The index of the slide to show.
+
+### Previous
+
+```javascript
+gallery.previous();
+```
+
+Shows the previous slide.
+
+### Next
+
+```javascript
+gallery.next();
+```
+
+Shows the next slide
+
+### Pause
+
+```javascript
+gallery.pause();
+```
+
+Stops the automatic slideshow.
+
+### Play
+
+```javascript
+gallery.play();
+```
+
+Starts the automatic slideshow.
+
+### Transform
+
+```javascript
+gallery.transform(mode);
+```
+
+Switches between slideshow and  pin-board.
+
+**mode : {integer}** - The index of the mode.
++ 0 - Slideshow mode
++ 1 - Pin-board mode
+
+## Prerequisites
+
+To concatenate and minify the script yourself, the following prerequisites are required:
++ https://github.com/WoollyMittens/useful-requests
++ https://github.com/WoollyMittens/useful-transitions
++ https://github.com/WoollyMittens/useful-polyfills
 
 ## License
 This work is licensed under a Creative Commons Attribution 3.0 Unported License. The latest version of this and other scripts by the same author can be found at http://www.woollymittens.nl/

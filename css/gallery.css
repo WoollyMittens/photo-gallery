@@ -3,6 +3,12 @@
 */
 @media all {
   /*
+  	Definitions
+  */
+  /*
+  	Buttons
+  */
+  /*
   	pin board / carousel
   */
   section.gallery {
@@ -28,19 +34,6 @@
     padding: 0;
   }
   section.gallery menu.gallery_toolbar button {
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(3%, #ffffff), color-stop(3%, #cccccc), color-stop(97%, #999999), color-stop(97%, #666666), color-stop(100%, #666666));
-    background: -webkit-linear-gradient(top, #ffffff 0%, #ffffff 3%, #cccccc 3%, #999999 97%, #666666 97%, #666666 100%);
-    background: -moz-linear-gradient(top, #ffffff 0%, #ffffff 3%, #cccccc 3%, #999999 97%, #666666 97%, #666666 100%);
-    background: -o-linear-gradient(top, #ffffff 0%, #ffffff 3%, #cccccc 3%, #999999 97%, #666666 97%, #666666 100%);
-    background: linear-gradient(top, #ffffff 0%, #ffffff 3%, #cccccc 3%, #999999 97%, #666666 97%, #666666 100%);
-    -webkit-box-shadow: 0 1px 3px black;
-    -moz-box-shadow: 0 1px 3px black;
-    box-shadow: 0 1px 3px black;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px;
     -webkit-transition-property: opacity;
     -moz-transition-property: opacity;
     -o-transition-property: opacity;
@@ -55,33 +48,33 @@
     transition-timing-function: ease;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
     opacity: 0;
-    background-color: #ccc;
-    border: solid 1px #000;
-    color: #333 !important;
-    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    text-align: left;
+    text-indent: 60px;
+    white-space: nowrap;
+    /* Because of Internet Explorer 8 we can't have nice thing. */
+    overflow: visible\9;
+    text-indent: -999em\9;
     display: inline-block;
     height: 40px;
-    line-height: 40px;
     margin: 0;
     overflow: hidden;
     position: absolute;
-    padding: 0;
-    text-indent: 45px;
-    text-shadow: #ccc 1px 1px 0;
-    text-decoration: none !important;
-    white-space: nowrap;
     width: 40px;
     z-index: 500;
   }
   section.gallery menu.gallery_toolbar button:before {
-    background-image: url(../img/gallery.png);
-    content: ' ';
+    content: '';
     display: block;
-    height: 40px;
-    left: 0;
+    height: 32px;
     position: absolute;
-    top: 0;
-    width: 40px;
+    left: 50%;
+    margin-left: -16px;
+    margin-top: -16px;
+    top: 50%;
+    width: 32px;
+    background-image: url(../img/gallery.png);
   }
   section.gallery menu.gallery_toolbar button.gallery_tool_next {
     margin-top: -20px;
@@ -89,7 +82,7 @@
     top: 50%;
   }
   section.gallery menu.gallery_toolbar button.gallery_tool_next:before {
-    background-position: 10px 0;
+    background-position: 0 0;
   }
   section.gallery menu.gallery_toolbar button.gallery_tool_previous {
     left: 15px;
@@ -97,28 +90,28 @@
     top: 50%;
   }
   section.gallery menu.gallery_toolbar button.gallery_tool_previous:before {
-    background-position: 10px -64px;
+    background-position: 0 -32px;
   }
   section.gallery menu.gallery_toolbar button.gallery_tool_carousel {
     right: 15px;
     top: 15px;
   }
   section.gallery menu.gallery_toolbar button.gallery_tool_carousel:before {
-    background-position: 4px -128px;
+    background-position: 0 -64px;
   }
   section.gallery menu.gallery_toolbar button.gallery_tool_pinboard {
     right: 15px;
     top: 15px;
   }
   section.gallery menu.gallery_toolbar button.gallery_tool_pinboard:before {
-    background-position: 4px -192px;
+    background-position: 0 -96px;
   }
   section.gallery menu.gallery_toolbar button.gallery_tool_filter {
     right: 60px;
     top: 15px;
   }
   section.gallery menu.gallery_toolbar button.gallery_tool_filter:before {
-    background-position: 4px -256px;
+    background-position: 0 -128px;
   }
 
   section.gallery:hover menu.gallery_toolbar button,
@@ -128,27 +121,15 @@
   }
   section.gallery:hover menu.gallery_toolbar button.gallery_tool_disabled,
   section.gallery.gallery_interface_visible menu.gallery_toolbar button.gallery_tool_disabled {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
-    opacity: 0.3;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    background-color: #7f7f7f;
   }
 
   /*
   	pin board filter
   */
   section.gallery form.gallery_filter {
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(50%, #ffffff), color-stop(100%, #cccccc));
-    background: -webkit-linear-gradient(top, #ffffff 0%, #ffffff 50%, #cccccc 100%);
-    background: -moz-linear-gradient(top, #ffffff 0%, #ffffff 50%, #cccccc 100%);
-    background: -o-linear-gradient(top, #ffffff 0%, #ffffff 50%, #cccccc 100%);
-    background: linear-gradient(top, #ffffff 0%, #ffffff 50%, #cccccc 100%);
-    -webkit-box-shadow: 0 1px 3px black;
-    -moz-box-shadow: 0 1px 3px black;
-    box-shadow: 0 1px 3px black;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px;
     -webkit-transition-property: all;
     -moz-transition-property: all;
     -o-transition-property: all;
@@ -161,9 +142,8 @@
     -moz-transition-timing-function: ease;
     -o-transition-timing-function: ease;
     transition-timing-function: ease;
-    background-color: #fff;
-    border: solid 1px #000;
-    height: 38px;
+    background-color: #ff6a00;
+    height: 40px;
     margin: 0;
     padding: 0;
     position: absolute;
@@ -172,11 +152,15 @@
     z-index: 400;
   }
   section.gallery form.gallery_filter fieldset.gallery_filter_groups {
+    border: none;
     margin: 0;
-    padding: 8px;
+    padding: 10px 8px 6px 8px;
   }
   section.gallery form.gallery_filter fieldset.gallery_filter_groups legend {
     display: none;
+  }
+  section.gallery form.gallery_filter fieldset.gallery_filter_groups label {
+    color: #fff;
   }
   section.gallery form.gallery_filter_hide {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
@@ -368,6 +352,9 @@
   section.gallery article {
     padding: 3%;
   }
+  section.gallery article h3 {
+    margin: 0 0 0.5em 0;
+  }
   section.gallery .gallery_carousel_farleft {
     left: -50%;
     top: 50%;
@@ -479,5 +466,49 @@
   section.gallery.gallery_mode_pinboard figure img {
     height: auto;
     width: 100%;
+  }
+}
+@media all {
+  button, .button {
+    -webkit-transition-property: background-color;
+    -moz-transition-property: background-color;
+    -o-transition-property: background-color;
+    transition-property: background-color;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease;
+    -moz-transition-timing-function: ease;
+    -o-transition-timing-function: ease;
+    transition-timing-function: ease;
+    height: 48px;
+    height: 3rem;
+    line-height: 48px;
+    line-height: 3rem;
+    padding-top: 0px;
+    padding-top: 0rem;
+    padding-right: 16px;
+    padding-right: 1rem;
+    padding-bottom: 0px;
+    padding-bottom: 0rem;
+    padding-left: 16px;
+    padding-left: 1rem;
+    background-color: #ff6a00;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+    overflow: visible;
+    text-decoration: none;
+  }
+  button:hover, .button:hover {
+    background-color: #ff9800;
+    color: #fff;
+    text-decoration: none;
+  }
+  button.disabled, button.disabled:hover, .button.disabled, .button.disabled:hover {
+    background-color: #7f7f7f;
   }
 }

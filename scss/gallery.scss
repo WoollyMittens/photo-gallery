@@ -4,6 +4,8 @@
 @media all {
 	@import "compass/css3";
 	@import "compass/utilities";
+	@import "_definitions";
+	@import "_buttons";
 	/*
 		pin board / carousel
 	*/
@@ -27,40 +29,22 @@
 			margin : 0;
 			padding : 0;
 			button {
-				@include background(linear-gradient(top, #fff 0%, #fff 3%, #ccc 3%, #999 97%, #666 97%, #666 100%));
-				@include box-shadow(0 1px 3px #000);
-				@include border-radius(3px);
 				@include transition-property(opacity);
 				@include transition-duration(0.3s);
 				@include transition-timing-function(ease);
 				@include opacity(0);
-				background-color : #ccc;
-				border : solid 1px #000;
-				color : #333 !important;
-				cursor : pointer;
+				@include iconParent(50);
 				display : inline-block;
 				height : 40px;
-				line-height : 40px;
 				margin : 0;
 				overflow : hidden;
 				position : absolute;
-				padding : 0;
-				text-indent : 45px;
-				text-shadow: #ccc 1px 1px 0;
-				text-decoration : none !important;
-				white-space : nowrap;
 				width : 40px;
 				z-index : 500;
 			}
 			button:before {
+				@include iconCenter(32);
 				background-image : url(../img/gallery.png);
-				content : ' ';
-				display : block;
-				height : 40px;
-				left : 0;
-				position : absolute;
-				top : 0;
-				width : 40px;
 			}
 			button.gallery_tool_next {
 				margin-top : -20px;
@@ -68,7 +52,7 @@
 				top : 50%;
 			}
 			button.gallery_tool_next:before {
-				background-position : 10px 0;
+				background-position : 0 0;
 			}
 			button.gallery_tool_previous {
 				left : 15px;
@@ -76,28 +60,28 @@
 				top : 50%;
 			}
 			button.gallery_tool_previous:before {
-				background-position : 10px -64px;
+				background-position : 0 -32px;
 			}
 			button.gallery_tool_carousel {
 				right : 15px;
 				top : 15px;
 			}
 			button.gallery_tool_carousel:before {
-				background-position : 4px -128px;
+				background-position : 0 -64px;
 			}
 			button.gallery_tool_pinboard {
 				right : 15px;
 				top : 15px;
 			}
 			button.gallery_tool_pinboard:before {
-				background-position : 4px -192px;
+				background-position : 0 -96px;
 			}
 			button.gallery_tool_filter {
 				right : 60px;
 				top : 15px;
 			}
 			button.gallery_tool_filter:before {
-				background-position : 4px -256px;
+				background-position : 0 -128px;
 			}
 		}
 	}
@@ -108,7 +92,8 @@
 				@include opacity(1);
 			}
 			button.gallery_tool_disabled {
-				@include opacity(0.3);
+				@include opacity(1);
+				background-color : $color-disabled;
 			}
 		}
 	}
@@ -117,15 +102,11 @@
 	*/
 	section.gallery {
 		form.gallery_filter {
-			@include background(linear-gradient(top, #fff 0%, #fff 50%, #ccc 100%));
-			@include box-shadow(0 1px 3px #000);
-			@include border-radius(3px);
 			@include transition-property(all);
 			@include transition-duration(0.3s);
 			@include transition-timing-function(ease);
-			background-color : #fff;
-			border : solid 1px #000;
-			height : 38px;
+			background-color : $color-passive;
+			height : 40px;
 			margin : 0;
 			padding : 0;
 			position : absolute;
@@ -133,10 +114,14 @@
 			top : 15px;
 			z-index : 400;
 			fieldset.gallery_filter_groups {
+				border : none;
 				margin : 0;
-				padding : 8px;
+				padding : 10px 8px 6px 8px;
 				legend {
 					display : none;
+				}
+				label {
+					color : #fff;
 				}
 			}
 		}
@@ -312,6 +297,9 @@
 		}
 		article {
 			padding : 3%;
+			h3 {
+				margin : 0 0 0.5em 0;
+			}
 		}
 		.gallery_carousel_farleft {
 			left : -50%;
