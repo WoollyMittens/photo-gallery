@@ -6,7 +6,7 @@
   	Definitions
   */
   /*
-  	Buttons
+  	Typography
   */
   /*
   	pin board / carousel
@@ -54,8 +54,8 @@
     text-indent: 60px;
     white-space: nowrap;
     /* Because of Internet Explorer 8 we can't have nice thing. */
-    overflow: visible\9;
-    text-indent: -999em\9;
+    overflow: visible;
+    text-indent: -999em;
     display: inline-block;
     height: 40px;
     margin: 0;
@@ -469,6 +469,340 @@
   }
 }
 @media all {
+  /*
+  	The root element
+  */
+  html {
+    font-family: Tahoma, Verdana, Arial, Sans-Serif;
+    font-size: 75%;
+    height: 100%;
+  }
+
+  /*
+  	Sections
+  */
+  body {
+    font-size: 16px;
+    font-size: 1rem;
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 0px;
+    margin-bottom: 0rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+    padding-top: 0px;
+    padding-top: 0rem;
+    padding-right: 0px;
+    padding-right: 0rem;
+    padding-bottom: 0px;
+    padding-bottom: 0rem;
+    padding-left: 0px;
+    padding-left: 0rem;
+    line-height: 28.8px;
+    line-height: 1.8rem;
+    background: #eee;
+    color: #333;
+    _height: 100%;
+    min-height: 100%;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 16px;
+    font-size: 1rem;
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+    display: block;
+    font-weight: normal;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-size: 1.875rem;
+  }
+
+  h2 {
+    font-size: 26px;
+    font-size: 1.625rem;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-size: 1.25rem;
+  }
+
+  address {
+    display: block;
+    font-style: normal;
+  }
+
+  section, nav, article, aside, hgroup, header, footer {
+    display: block;
+  }
+
+  /*
+  	Grouping content
+  */
+  p {
+    font-size: 16px;
+    font-size: 1rem;
+    display: block;
+  }
+
+  hr {
+    margin-top: 16px;
+    margin-top: 1rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 16px;
+    margin-bottom: 1rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+    background-color: #333;
+    border: none;
+    clear: both;
+    color: #333;
+    display: block;
+    height: 1px;
+    width: 100%;
+  }
+
+  ul {
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 16px;
+    margin-bottom: 1rem;
+    margin-left: 32px;
+    margin-left: 2rem;
+    padding-top: 0px;
+    padding-top: 0rem;
+    padding-right: 0px;
+    padding-right: 0rem;
+    padding-bottom: 0px;
+    padding-bottom: 0rem;
+    padding-left: 0px;
+    padding-left: 0rem;
+    display: block;
+  }
+
+  dl {
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 16px;
+    margin-bottom: 1rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+    display: block;
+  }
+
+  dt {
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 0px;
+    margin-bottom: 0rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+    display: block;
+    font-weight: bold;
+  }
+
+  dd {
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 0px;
+    margin-bottom: 0rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+    display: block;
+  }
+
+  pre, dialog, blockquote, ol {
+    display: block;
+  }
+
+  /*
+  	Text-level semantics
+  */
+  a {
+    color: #ff6a00;
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: #ff9800;
+    text-decoration: underline;
+  }
+
+  sub {
+    line-height: 0;
+  }
+
+  sup {
+    line-height: 0;
+  }
+
+  time, progress, meter {
+    display: block;
+  }
+
+  /*
+  	Embedded content
+  */
+  img {
+    border: none;
+    vertical-align: middle;
+  }
+
+  figure, figcaption, video, audio, canvas {
+    display: block;
+  }
+
+  /* Tabular data */
+  table {
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 16px;
+    margin-bottom: 1rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+    border-collapse: collapse;
+  }
+
+  caption {
+    font-size: 20px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  tr {
+    vertical-align: top;
+  }
+
+  th {
+    text-align: left;
+  }
+
+  /*
+  	Forms
+  */
+  form {
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 0px;
+    margin-bottom: 0rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+  }
+
+  fieldset {
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 16px;
+    margin-bottom: 1rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+    padding-top: 0px;
+    padding-top: 0rem;
+    padding-right: 0px;
+    padding-right: 0rem;
+    padding-bottom: 0px;
+    padding-bottom: 0rem;
+    padding-left: 0px;
+    padding-left: 0rem;
+    display: block;
+    border: none;
+  }
+
+  legend {
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+    display: block;
+    font-weight: bold;
+  }
+
+  input, button, select, textarea {
+    font-size: 16px;
+    font-size: 1rem;
+    font-family: Tahoma, Verdana, Arial, Sans-Serif;
+    vertical-align: baseline;
+  }
+
+  input[type=color], input[type=range], input[type=number], input[type=date], input[type=text], input[type=password], input[type=email], select, textarea {
+    -webkit-box-shadow: inset 0 0 5px #cccccc;
+    -moz-box-shadow: inset 0 0 5px #cccccc;
+    box-shadow: inset 0 0 5px #cccccc;
+    height: 48px;
+    height: 3rem;
+    font-size: 16px;
+    font-size: 1rem;
+    padding: 11.2px;
+    padding: 0.7rem;
+    margin-top: 11.2px;
+    margin-top: 0.7rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 11.2px;
+    margin-bottom: 0.7rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+    background: #fff;
+    border: solid 1px #333;
+    font-family: Arial, Sans-Serif;
+  }
+
+  input[type=checkbox], input[type=radio] {
+    margin-top: 11.2px;
+    margin-top: 0.7rem;
+    margin-right: 4.8px;
+    margin-right: 0.3rem;
+    margin-bottom: 11.2px;
+    margin-bottom: 0.7rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+  }
+
+  select {
+    height: 48px;
+    height: 3rem;
+    padding: 11.2px;
+    padding: 0.7rem;
+  }
+
+  textarea {
+    height: 160px;
+    height: 10rem;
+    padding: 11.2px;
+    padding: 0.7rem;
+  }
+
   button, .button {
     -webkit-transition-property: background-color;
     -moz-transition-property: background-color;
@@ -486,6 +820,14 @@
     height: 3rem;
     line-height: 48px;
     line-height: 3rem;
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 0px;
+    margin-bottom: 0rem;
+    margin-left: 0px;
+    margin-left: 0rem;
     padding-top: 0px;
     padding-top: 0rem;
     padding-right: 16px;
@@ -499,7 +841,6 @@
     color: #fff;
     cursor: pointer;
     display: inline-block;
-    margin: 0;
     overflow: visible;
     text-decoration: none;
   }
@@ -510,5 +851,40 @@
   }
   button.disabled, button.disabled:hover, .button.disabled, .button.disabled:hover {
     background-color: #7f7f7f;
+  }
+
+  /*
+  	Interactive elements
+  */
+  menu {
+    margin-top: 0px;
+    margin-top: 0rem;
+    margin-right: 0px;
+    margin-right: 0rem;
+    margin-bottom: 0px;
+    margin-bottom: 0rem;
+    margin-left: 0px;
+    margin-left: 0rem;
+    padding-top: 0px;
+    padding-top: 0rem;
+    padding-right: 0px;
+    padding-right: 0rem;
+    padding-bottom: 0px;
+    padding-bottom: 0rem;
+    padding-left: 0px;
+    padding-left: 0rem;
+    display: block;
+  }
+
+  /*
+  	Miscellaneous elements
+  */
+  div {
+    display: block;
+  }
+}
+@media all and (max-width: 480px) {
+  html {
+    font-size: 62.5%;
   }
 }
