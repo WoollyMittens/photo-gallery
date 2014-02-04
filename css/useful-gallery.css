@@ -482,7 +482,7 @@
   	Sections
   */
   body {
-    font-size: 16px;
+    font-size: "12px";
     font-size: 1rem;
     margin-top: 0px;
     margin-top: 0rem;
@@ -500,7 +500,7 @@
     padding-bottom: 0rem;
     padding-left: 0px;
     padding-left: 0rem;
-    line-height: 28.8px;
+    line-height: 21.6px;
     line-height: 1.8rem;
     background: #eee;
     color: #333;
@@ -509,13 +509,13 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-size: 16px;
+    font-size: "12px";
     font-size: 1rem;
     margin-top: 0px;
     margin-top: 0rem;
     margin-right: 0px;
     margin-right: 0rem;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     margin-bottom: 0.5rem;
     margin-left: 0px;
     margin-left: 0rem;
@@ -524,17 +524,17 @@
   }
 
   h1 {
-    font-size: 30px;
+    font-size: "22.5px";
     font-size: 1.875rem;
   }
 
   h2 {
-    font-size: 26px;
+    font-size: "19.5px";
     font-size: 1.625rem;
   }
 
   h3 {
-    font-size: 20px;
+    font-size: "15px";
     font-size: 1.25rem;
   }
 
@@ -551,17 +551,17 @@
   	Grouping content
   */
   p {
-    font-size: 16px;
+    font-size: "12px";
     font-size: 1rem;
     display: block;
   }
 
   hr {
-    margin-top: 16px;
+    margin-top: 12px;
     margin-top: 1rem;
     margin-right: 0px;
     margin-right: 0rem;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     margin-bottom: 1rem;
     margin-left: 0px;
     margin-left: 0rem;
@@ -579,9 +579,9 @@
     margin-top: 0rem;
     margin-right: 0px;
     margin-right: 0rem;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     margin-bottom: 1rem;
-    margin-left: 32px;
+    margin-left: 24px;
     margin-left: 2rem;
     padding-top: 0px;
     padding-top: 0rem;
@@ -599,7 +599,7 @@
     margin-top: 0rem;
     margin-right: 0px;
     margin-right: 0rem;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     margin-bottom: 1rem;
     margin-left: 0px;
     margin-left: 0rem;
@@ -678,7 +678,7 @@
     margin-top: 0rem;
     margin-right: 0px;
     margin-right: 0rem;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     margin-bottom: 1rem;
     margin-left: 0px;
     margin-left: 0rem;
@@ -686,7 +686,7 @@
   }
 
   caption {
-    font-size: 20px;
+    font-size: "15px";
     font-size: 1.25rem;
     font-weight: bold;
     text-align: left;
@@ -695,9 +695,28 @@
   tr {
     vertical-align: top;
   }
+  tr:nth-child(2n) {
+    background-color: #eeeeee;
+  }
 
-  th {
+  th, td {
+    padding-top: 6px;
+    padding-top: 0.5rem;
+    padding-right: 12px;
+    padding-right: 1rem;
+    padding-bottom: 6px;
+    padding-bottom: 0.5rem;
+    padding-left: 12px;
+    padding-left: 1rem;
+  }
+
+  th, th a, th a:hover {
+    background-color: #ff9800;
+    color: #fff;
+    font-weight: normal;
+    white-space: nowrap;
     text-align: left;
+    text-decoration: none;
   }
 
   /*
@@ -719,7 +738,7 @@
     margin-top: 0rem;
     margin-right: 0px;
     margin-right: 0rem;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     margin-bottom: 1rem;
     margin-left: 0px;
     margin-left: 0rem;
@@ -740,7 +759,7 @@
     margin-top: 0rem;
     margin-right: 0px;
     margin-right: 0rem;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     margin-bottom: 0.5rem;
     margin-left: 0px;
     margin-left: 0rem;
@@ -749,7 +768,7 @@
   }
 
   input, button, select, textarea {
-    font-size: 16px;
+    font-size: "12px";
     font-size: 1rem;
     font-family: Tahoma, Verdana, Arial, Sans-Serif;
     vertical-align: baseline;
@@ -759,17 +778,17 @@
     -webkit-box-shadow: inset 0 0 5px #cccccc;
     -moz-box-shadow: inset 0 0 5px #cccccc;
     box-shadow: inset 0 0 5px #cccccc;
-    height: 48px;
+    height: 36px;
     height: 3rem;
-    font-size: 16px;
+    font-size: 12px;
     font-size: 1rem;
-    padding: 11.2px;
+    padding: 8.4px;
     padding: 0.7rem;
-    margin-top: 11.2px;
+    margin-top: 8.4px;
     margin-top: 0.7rem;
     margin-right: 0px;
     margin-right: 0rem;
-    margin-bottom: 11.2px;
+    margin-bottom: 8.4px;
     margin-bottom: 0.7rem;
     margin-left: 0px;
     margin-left: 0rem;
@@ -779,27 +798,27 @@
   }
 
   input[type=checkbox], input[type=radio] {
-    margin-top: 11.2px;
+    margin-top: 8.4px;
     margin-top: 0.7rem;
-    margin-right: 4.8px;
+    margin-right: 3.6px;
     margin-right: 0.3rem;
-    margin-bottom: 11.2px;
+    margin-bottom: 8.4px;
     margin-bottom: 0.7rem;
     margin-left: 0px;
     margin-left: 0rem;
   }
 
   select {
-    height: 48px;
+    height: 36px;
     height: 3rem;
-    padding: 11.2px;
+    padding: 8.4px;
     padding: 0.7rem;
   }
 
   textarea {
-    height: 160px;
+    height: 120px;
     height: 10rem;
-    padding: 11.2px;
+    padding: 8.4px;
     padding: 0.7rem;
   }
 
@@ -816,9 +835,9 @@
     -moz-transition-timing-function: ease;
     -o-transition-timing-function: ease;
     transition-timing-function: ease;
-    height: 48px;
+    height: 36px;
     height: 3rem;
-    line-height: 48px;
+    line-height: 36px;
     line-height: 3rem;
     margin-top: 0px;
     margin-top: 0rem;
@@ -830,11 +849,11 @@
     margin-left: 0rem;
     padding-top: 0px;
     padding-top: 0rem;
-    padding-right: 16px;
+    padding-right: 12px;
     padding-right: 1rem;
     padding-bottom: 0px;
     padding-bottom: 0rem;
-    padding-left: 16px;
+    padding-left: 12px;
     padding-left: 1rem;
     background-color: #ff6a00;
     border: none;
