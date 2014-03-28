@@ -6,11 +6,39 @@
   	Definitions
   */
   /*
+  	Constants
+  */
+  /*
+  	Hides text in the margin
+  */
+  /*
+  	Turns a button into an icon
+  */
+  /*
+  	Centres a graphic inside an icon
+  */
+  /*
+  	Offers both the pixel and rem value of a single property
+  */
+  /*
+  	Offers both the pixel and rem values of a shorthand property
+  */
+  /*
+  	Offers the text size as both the pixel and rem value
+  */
+  /*
+  	Adds vendor prefixed to a property
+  */
+  /*
+  	Applies the "clearfix" hack to a container with floating content
+  */
+  /*
   	Typography
   */
   /*
   	pin board / carousel
   */
+  /* line 12, ../../src/scss/useful-gallery.scss */
   section.gallery {
     background: #333;
     border: solid 2px #333;
@@ -19,6 +47,7 @@
     position: relative;
     width: 100%;
   }
+  /* line 19, ../../src/scss/useful-gallery.scss */
   section.gallery * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -29,10 +58,12 @@
   /*
   	pin board toolbar
   */
+  /* line 28, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar {
     margin: 0;
     padding: 0;
   }
+  /* line 31, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button {
     -webkit-transition-property: opacity;
     -moz-transition-property: opacity;
@@ -64,6 +95,7 @@
     width: 40px;
     z-index: 500;
   }
+  /* line 45, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button:before {
     content: '';
     display: block;
@@ -76,49 +108,61 @@
     width: 32px;
     background-image: url(../img/gallery.png);
   }
+  /* line 49, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button.gallery_tool_next {
     margin-top: -20px;
     right: 15px;
     top: 50%;
   }
+  /* line 54, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button.gallery_tool_next:before {
     background-position: 0 0;
   }
+  /* line 57, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button.gallery_tool_previous {
     left: 15px;
     margin-top: -20px;
     top: 50%;
   }
+  /* line 62, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button.gallery_tool_previous:before {
     background-position: 0 -32px;
   }
+  /* line 65, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button.gallery_tool_carousel {
     right: 15px;
     top: 15px;
   }
+  /* line 69, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button.gallery_tool_carousel:before {
     background-position: 0 -64px;
   }
+  /* line 72, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button.gallery_tool_pinboard {
     right: 15px;
     top: 15px;
   }
+  /* line 76, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button.gallery_tool_pinboard:before {
     background-position: 0 -96px;
   }
+  /* line 79, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button.gallery_tool_filter {
     right: 60px;
     top: 15px;
   }
+  /* line 83, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_toolbar button.gallery_tool_filter:before {
     background-position: 0 -128px;
   }
 
+  /* line 91, ../../src/scss/useful-gallery.scss */
   section.gallery:hover menu.gallery_toolbar button,
   section.gallery.gallery_interface_visible menu.gallery_toolbar button {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     opacity: 1;
   }
+  /* line 94, ../../src/scss/useful-gallery.scss */
   section.gallery:hover menu.gallery_toolbar button.gallery_tool_disabled,
   section.gallery.gallery_interface_visible menu.gallery_toolbar button.gallery_tool_disabled {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
@@ -129,6 +173,7 @@
   /*
   	pin board filter
   */
+  /* line 104, ../../src/scss/useful-gallery.scss */
   section.gallery form.gallery_filter {
     -webkit-transition-property: all;
     -moz-transition-property: all;
@@ -151,28 +196,34 @@
     top: 15px;
     z-index: 400;
   }
+  /* line 116, ../../src/scss/useful-gallery.scss */
   section.gallery form.gallery_filter fieldset.gallery_filter_groups {
     border: none;
     margin: 0;
     padding: 10px 8px 6px 8px;
   }
+  /* line 120, ../../src/scss/useful-gallery.scss */
   section.gallery form.gallery_filter fieldset.gallery_filter_groups legend {
     display: none;
   }
+  /* line 123, ../../src/scss/useful-gallery.scss */
   section.gallery form.gallery_filter fieldset.gallery_filter_groups label {
     color: #fff;
   }
+  /* line 128, ../../src/scss/useful-gallery.scss */
   section.gallery form.gallery_filter_hide {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
     opacity: 0;
     visibility: hidden;
   }
+  /* line 132, ../../src/scss/useful-gallery.scss */
   section.gallery form.gallery_filter_show {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
     opacity: 0;
     visibility: visible;
   }
 
+  /* line 139, ../../src/scss/useful-gallery.scss */
   section.gallery:hover form.gallery_filter_show,
   section.gallery.gallery_interface_visible form.gallery_filter_show {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
@@ -182,6 +233,7 @@
   /*
   	pin board pager
   */
+  /* line 148, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_pager {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
     opacity: 0;
@@ -209,6 +261,7 @@
     text-align: center;
     z-index: 400;
   }
+  /* line 164, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_pager li {
     border: solid 1px #fff;
     display: inline-block;
@@ -216,6 +269,7 @@
     margin: 0 5px 0 0;
     vertical-align: middle;
   }
+  /* line 170, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_pager li a {
     background: #333 none;
     border: solid 1px #333;
@@ -227,17 +281,21 @@
     vertical-align: top;
     width: 8px;
   }
+  /* line 183, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_pager li.gallery_pager_active a {
     background: #fff none;
   }
+  /* line 187, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_pager li.gallery_pager_passive {
     border: solid 1px #fff;
   }
+  /* line 189, ../../src/scss/useful-gallery.scss */
   section.gallery menu.gallery_pager li.gallery_pager_passive a {
     background: #ccc none;
     border: solid 1px #ccc;
   }
 
+  /* line 198, ../../src/scss/useful-gallery.scss */
   section.gallery:hover menu.gallery_pager,
   section.gallery.gallery_interface_visible menu.gallery_pager {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
@@ -247,6 +305,7 @@
   /*
   	pin board progress indicator
   */
+  /* line 207, ../../src/scss/useful-gallery.scss */
   section.gallery div.gallery_busy {
     background: white url(../img/busy_3.gif) no-repeat 50% 50%;
     border: solid 1px #000;
@@ -263,18 +322,23 @@
   /*
   	carousel mode
   */
+  /* line 224, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_carousel {
     height: 256px;
   }
+  /* line 227, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_previous {
     display: block;
   }
+  /* line 230, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_next {
     display: block;
   }
+  /* line 233, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_pinboard {
     display: block;
   }
+  /* line 236, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_carousel {
     display: none;
   }
@@ -282,24 +346,31 @@
   /*
   	pin board mode
   */
+  /* line 245, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard {
     height: 512px;
   }
+  /* line 247, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard menu.gallery_toolbar {
     right: 18px;
   }
+  /* line 249, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_previous {
     display: none;
   }
+  /* line 252, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_next {
     display: none;
   }
+  /* line 255, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_pinboard {
     display: none;
   }
+  /* line 258, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_carousel {
     display: block;
   }
+  /* line 262, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard menu.gallery_pager {
     display: none;
   }
@@ -307,6 +378,7 @@
   /*
   	slides in carousel mode
   */
+  /* line 271, ../../src/scss/useful-gallery.scss */
   section.gallery div.gallery_slides {
     height: 100%;
     overflow: hidden;
@@ -314,12 +386,13 @@
     width: 100%;
     z-index: 300;
   }
+  /* line 278, ../../src/scss/useful-gallery.scss */
   section.gallery article, section.gallery figure {
-    background: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #eeeeee), color-stop(10%, #ffffff));
-    background: -webkit-linear-gradient(to bottom, #eeeeee 0%, #ffffff 10%);
-    background: -moz-linear-gradient(to bottom, #eeeeee 0%, #ffffff 10%);
-    background: -o-linear-gradient(to bottom, #eeeeee 0%, #ffffff 10%);
-    background: linear-gradient(to bottom, #eeeeee 0%, #ffffff 10%);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eeeeee), color-stop(10%, #ffffff));
+    background: -webkit-linear-gradient(top, #eeeeee 0%, #ffffff 10%);
+    background: -moz-linear-gradient(top, #eeeeee 0%, #ffffff 10%);
+    background: -o-linear-gradient(top, #eeeeee 0%, #ffffff 10%);
+    background: linear-gradient(top, #eeeeee 0%, #ffffff 10%);
     -webkit-box-shadow: 0 1px 3px black;
     -moz-box-shadow: 0 1px 3px black;
     box-shadow: 0 1px 3px black;
@@ -346,39 +419,47 @@
     visibility: hidden;
     width: 100%;
   }
+  /* line 294, ../../src/scss/useful-gallery.scss */
   section.gallery article img, section.gallery figure img {
     border: 0;
   }
+  /* line 298, ../../src/scss/useful-gallery.scss */
   section.gallery article {
     padding: 3%;
   }
+  /* line 300, ../../src/scss/useful-gallery.scss */
   section.gallery article h3 {
     margin: 0 0 0.5em 0;
   }
+  /* line 304, ../../src/scss/useful-gallery.scss */
   section.gallery .gallery_carousel_farleft {
     left: -50%;
     top: 50%;
     visibility: hidden;
     z-index: 200;
   }
+  /* line 310, ../../src/scss/useful-gallery.scss */
   section.gallery .gallery_carousel_left {
     left: -50%;
     top: 50%;
     visibility: visible;
     z-index: 300;
   }
+  /* line 316, ../../src/scss/useful-gallery.scss */
   section.gallery .gallery_carousel_centre {
     left: 50%;
     top: 50%;
     visibility: visible;
     z-index: 400;
   }
+  /* line 322, ../../src/scss/useful-gallery.scss */
   section.gallery .gallery_carousel_right {
     left: 150%;
     top: 50%;
     visibility: visible;
     z-index: 300;
   }
+  /* line 328, ../../src/scss/useful-gallery.scss */
   section.gallery .gallery_carousel_farright {
     left: 150%;
     top: 50%;
@@ -389,6 +470,7 @@
   /*
   	slides in pin board mode
   */
+  /* line 340, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard div.gallery_slides {
     height: 100%;
     overflow: auto;
@@ -396,20 +478,24 @@
     -webkit-overflow-scrolling: touch;
     width: 100%;
   }
+  /* line 347, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard article, section.gallery.gallery_mode_pinboard figure {
     height: auto !important;
     margin-left: 0 !important;
     margin-top: 0 !important;
     width: 44% !important;
   }
+  /* line 353, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard .gallery_pinboard_loading {
     left: 25%;
     visibility: visible;
   }
+  /* line 357, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard .gallery_pinboard_left {
     left: 3%;
     visibility: visible;
   }
+  /* line 361, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard .gallery_pinboard_right {
     left: 51%;
     visibility: visible;
@@ -418,6 +504,7 @@
   /*
   	invitation for interaction
   */
+  /* line 370, ../../src/scss/useful-gallery.scss */
   section.gallery div.gallery_hint {
     background: Transparent url(../img/gallery.png) no-repeat 0 -323px;
     position: absolute;
@@ -428,6 +515,7 @@
     z-index: 1000;
   }
 
+  /* line 381, ../../src/scss/useful-gallery.scss */
   section.gallery:hover div.gallery_hint,
   section.gallery.gallery_interface_visible div.gallery_hint {
     visibility: hidden;
@@ -436,20 +524,24 @@
   /*
   	slide content markup
   */
+  /* line 391, ../../src/scss/useful-gallery.scss */
   section.gallery article h3 {
     line-height: 40px;
   }
+  /* line 394, ../../src/scss/useful-gallery.scss */
   section.gallery article img {
     float: left;
     border: solid 1px #333;
     margin: 5px 10px 5px 0;
   }
+  /* line 401, ../../src/scss/useful-gallery.scss */
   section.gallery figure img {
     display: block;
     height: 100%;
     margin: 0 auto 0 auto;
     width: auto;
   }
+  /* line 407, ../../src/scss/useful-gallery.scss */
   section.gallery figure figcaption {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
     opacity: 0.5;
@@ -463,6 +555,7 @@
     text-align: center;
   }
 
+  /* line 422, ../../src/scss/useful-gallery.scss */
   section.gallery.gallery_mode_pinboard figure img {
     height: auto;
     width: 100%;
@@ -472,6 +565,7 @@
   /*
   	The root element
   */
+  /* line 8, ../../src/scss/_typography.scss */
   html {
     font-family: Tahoma, Verdana, Arial, Sans-Serif;
     font-size: 75%;
@@ -481,8 +575,9 @@
   /*
   	Sections
   */
+  /* line 16, ../../src/scss/_typography.scss */
   body {
-    font-size: "12px";
+    font-size: 12px;
     font-size: 1rem;
     margin-top: 0px;
     margin-top: 0rem;
@@ -508,8 +603,9 @@
     min-height: 100%;
   }
 
+  /* line 26, ../../src/scss/_typography.scss */
   h1, h2, h3, h4, h5, h6 {
-    font-size: "12px";
+    font-size: 12px;
     font-size: 1rem;
     margin-top: 0px;
     margin-top: 0rem;
@@ -523,26 +619,31 @@
     font-weight: normal;
   }
 
+  /* line 32, ../../src/scss/_typography.scss */
   h1 {
-    font-size: "22.5px";
+    font-size: 22.5px;
     font-size: 1.875rem;
   }
 
+  /* line 35, ../../src/scss/_typography.scss */
   h2 {
-    font-size: "19.5px";
+    font-size: 19.5px;
     font-size: 1.625rem;
   }
 
+  /* line 38, ../../src/scss/_typography.scss */
   h3 {
-    font-size: "15px";
+    font-size: 15px;
     font-size: 1.25rem;
   }
 
+  /* line 41, ../../src/scss/_typography.scss */
   address {
     display: block;
     font-style: normal;
   }
 
+  /* line 45, ../../src/scss/_typography.scss */
   section, nav, article, aside, hgroup, header, footer {
     display: block;
   }
@@ -550,12 +651,14 @@
   /*
   	Grouping content
   */
+  /* line 51, ../../src/scss/_typography.scss */
   p {
-    font-size: "12px";
+    font-size: 12px;
     font-size: 1rem;
     display: block;
   }
 
+  /* line 55, ../../src/scss/_typography.scss */
   hr {
     margin-top: 12px;
     margin-top: 1rem;
@@ -574,6 +677,7 @@
     width: 100%;
   }
 
+  /* line 65, ../../src/scss/_typography.scss */
   ul {
     margin-top: 0px;
     margin-top: 0rem;
@@ -594,6 +698,7 @@
     display: block;
   }
 
+  /* line 71, ../../src/scss/_typography.scss */
   dl {
     margin-top: 0px;
     margin-top: 0rem;
@@ -606,6 +711,7 @@
     display: block;
   }
 
+  /* line 75, ../../src/scss/_typography.scss */
   dt {
     margin-top: 0px;
     margin-top: 0rem;
@@ -619,6 +725,7 @@
     font-weight: bold;
   }
 
+  /* line 80, ../../src/scss/_typography.scss */
   dd {
     margin-top: 0px;
     margin-top: 0rem;
@@ -631,6 +738,7 @@
     display: block;
   }
 
+  /* line 84, ../../src/scss/_typography.scss */
   pre, dialog, blockquote, ol {
     display: block;
   }
@@ -638,24 +746,29 @@
   /*
   	Text-level semantics
   */
+  /* line 90, ../../src/scss/_typography.scss */
   a {
     color: #ff6a00;
     text-decoration: underline;
   }
 
+  /* line 94, ../../src/scss/_typography.scss */
   a:hover {
     color: #ff9800;
     text-decoration: underline;
   }
 
+  /* line 98, ../../src/scss/_typography.scss */
   sub {
     line-height: 0;
   }
 
+  /* line 101, ../../src/scss/_typography.scss */
   sup {
     line-height: 0;
   }
 
+  /* line 104, ../../src/scss/_typography.scss */
   time, progress, meter {
     display: block;
   }
@@ -663,16 +776,19 @@
   /*
   	Embedded content
   */
+  /* line 110, ../../src/scss/_typography.scss */
   img {
     border: none;
     vertical-align: middle;
   }
 
+  /* line 114, ../../src/scss/_typography.scss */
   figure, figcaption, video, audio, canvas {
     display: block;
   }
 
   /* Tabular data */
+  /* line 118, ../../src/scss/_typography.scss */
   table {
     margin-top: 0px;
     margin-top: 0rem;
@@ -685,20 +801,24 @@
     border-collapse: collapse;
   }
 
+  /* line 122, ../../src/scss/_typography.scss */
   caption {
-    font-size: "15px";
+    font-size: 15px;
     font-size: 1.25rem;
     font-weight: bold;
     text-align: left;
   }
 
+  /* line 128, ../../src/scss/_typography.scss */
   tr {
     vertical-align: top;
   }
+  /* line 130, ../../src/scss/_typography.scss */
   tr:nth-child(2n) {
     background-color: #eeeeee;
   }
 
+  /* line 132, ../../src/scss/_typography.scss */
   th, td {
     padding-top: 6px;
     padding-top: 0.5rem;
@@ -710,6 +830,7 @@
     padding-left: 1rem;
   }
 
+  /* line 135, ../../src/scss/_typography.scss */
   th, th a, th a:hover {
     background-color: #ff9800;
     color: #fff;
@@ -722,6 +843,7 @@
   /*
   	Forms
   */
+  /* line 146, ../../src/scss/_typography.scss */
   form {
     margin-top: 0px;
     margin-top: 0rem;
@@ -733,6 +855,7 @@
     margin-left: 0rem;
   }
 
+  /* line 149, ../../src/scss/_typography.scss */
   fieldset {
     margin-top: 0px;
     margin-top: 0rem;
@@ -754,6 +877,7 @@
     border: none;
   }
 
+  /* line 155, ../../src/scss/_typography.scss */
   legend {
     margin-top: 0px;
     margin-top: 0rem;
@@ -767,13 +891,15 @@
     font-weight: bold;
   }
 
+  /* line 161, ../../src/scss/_typography.scss */
   input, button, select, textarea {
-    font-size: "12px";
+    font-size: 12px;
     font-size: 1rem;
     font-family: Tahoma, Verdana, Arial, Sans-Serif;
     vertical-align: baseline;
   }
 
+  /* line 166, ../../src/scss/_typography.scss */
   input[type=color], input[type=range], input[type=number], input[type=date], input[type=text], input[type=password], input[type=email], select, textarea {
     -webkit-box-shadow: inset 0 0 5px #cccccc;
     -moz-box-shadow: inset 0 0 5px #cccccc;
@@ -797,6 +923,7 @@
     font-family: Arial, Sans-Serif;
   }
 
+  /* line 176, ../../src/scss/_typography.scss */
   input[type=checkbox], input[type=radio] {
     margin-top: 8.4px;
     margin-top: 0.7rem;
@@ -808,6 +935,7 @@
     margin-left: 0rem;
   }
 
+  /* line 179, ../../src/scss/_typography.scss */
   select {
     height: 36px;
     height: 3rem;
@@ -815,6 +943,7 @@
     padding: 0.7rem;
   }
 
+  /* line 183, ../../src/scss/_typography.scss */
   textarea {
     height: 120px;
     height: 10rem;
@@ -822,6 +951,7 @@
     padding: 0.7rem;
   }
 
+  /* line 187, ../../src/scss/_typography.scss */
   button, .button {
     -webkit-transition-property: background-color;
     -moz-transition-property: background-color;
@@ -863,11 +993,13 @@
     overflow: visible;
     text-decoration: none;
   }
+  /* line 202, ../../src/scss/_typography.scss */
   button:hover, .button:hover {
     background-color: #ff9800;
     color: #fff;
     text-decoration: none;
   }
+  /* line 207, ../../src/scss/_typography.scss */
   button.disabled, button.disabled:hover, .button.disabled, .button.disabled:hover {
     background-color: #7f7f7f;
   }
@@ -875,6 +1007,7 @@
   /*
   	Interactive elements
   */
+  /* line 214, ../../src/scss/_typography.scss */
   menu {
     margin-top: 0px;
     margin-top: 0rem;
@@ -898,11 +1031,13 @@
   /*
   	Miscellaneous elements
   */
+  /* line 222, ../../src/scss/_typography.scss */
   div {
     display: block;
   }
 }
 @media all and (max-width: 480px) {
+  /* line 231, ../../src/scss/_typography.scss */
   html {
     font-size: 62.5%;
   }

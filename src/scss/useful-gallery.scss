@@ -276,7 +276,7 @@
 			z-index : 300;
 		}
 		article, figure {
-			@include background(linear-gradient(to bottom, #eeeeee 0%,#ffffff 10%));
+			@include background(linear-gradient(top, #eeeeee 0%,#ffffff 10%));
 			@include box-shadow(0 1px 3px #000);
 			@include transition-property(left, right, opacity);
 			@include transition-duration(0.3s, 0.3s, 0.3s);

@@ -81,6 +81,8 @@
 				// update the slides that are already there
 				context.updateAll(context);
 			}
+			// disable the start function so it can't be started twice
+			this.start = function () {};
 		};
 		this.defaultSettings = function (context) {
 			// EXTERNAL SETTINGS
@@ -1078,6 +1080,8 @@
 				this.toolbar.transformToCarousel(this);
 			}
 		};
+		// go
+		this.start();
 	};
 
 }(window.useful = window.useful || {}));
