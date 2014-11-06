@@ -145,13 +145,13 @@ section.gallery menu.gallery_toolbar button.gallery_tool_filter:before {
 /* line 86, ../../src/scss/useful-gallery.scss */
 section.gallery:hover menu.gallery_toolbar button,
 section.gallery.gallery_interface_visible menu.gallery_toolbar button {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
 }
 /* line 89, ../../src/scss/useful-gallery.scss */
 section.gallery:hover menu.gallery_toolbar button.gallery_tool_disabled,
 section.gallery.gallery_interface_visible menu.gallery_toolbar button.gallery_tool_disabled {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
   background-color: #7f7f7f;
 }
@@ -206,7 +206,7 @@ section.gallery form.gallery_filter_show {
 /* line 134, ../../src/scss/useful-gallery.scss */
 section.gallery:hover form.gallery_filter_show,
 section.gallery.gallery_interface_visible form.gallery_filter_show {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
 }
 
@@ -272,7 +272,7 @@ section.gallery menu.gallery_pager li.gallery_pager_passive a {
 /* line 193, ../../src/scss/useful-gallery.scss */
 section.gallery:hover menu.gallery_pager,
 section.gallery.gallery_interface_visible menu.gallery_pager {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
 }
 
@@ -281,7 +281,7 @@ section.gallery.gallery_interface_visible menu.gallery_pager {
 */
 /* line 202, ../../src/scss/useful-gallery.scss */
 section.gallery div.gallery_busy {
-  background: white url(../img/busy_3.gif) no-repeat 50% 50%;
+  background: #fff url(../img/busy_3.gif) no-repeat 50% 50%;
   border: solid 1px #000;
   display: none;
   height: 32px;
@@ -362,10 +362,11 @@ section.gallery div.gallery_slides {
 }
 /* line 273, ../../src/scss/useful-gallery.scss */
 section.gallery article, section.gallery figure {
+  background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VlZWVlZSIvPjxzdG9wIG9mZnNldD0iMTAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eeeeee), color-stop(10%, #ffffff));
   background: -webkit-linear-gradient(top, #eeeeee 0%, #ffffff 10%);
-  background: linear-gradient(top, #eeeeee 0%, #ffffff 10%);
-  box-shadow: 0 1px 3px black;
+  background: linear-gradient(to bottom, #eeeeee 0%, #ffffff 10%);
+  box-shadow: 0 1px 3px #000;
   -webkit-transition-property: left, right, opacity;
   transition-property: left, right, opacity;
   -webkit-transition-duration: 0.3s, 0.3s, 0.3s;
