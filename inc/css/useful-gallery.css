@@ -1,29 +1,29 @@
 /*
-	Constants
+Constants
 */
 /*
-	Hides text in the margin
+Hides text in the margin
 */
 /*
-	Turns a button into an icon
+Turns a button into an icon
 */
 /*
-	Centres a graphic or glyph inside an icon
+Centres a graphic or glyph inside an icon
 */
 /*
-	Offers both the pixel and rem value of a single property
+Offers both the pixel and rem value of a single property
 */
 /*
-	Offers both the pixel and rem values of a shorthand property
+Offers both the pixel and rem values of a shorthand property
 */
 /*
-	Offers the text size as both the pixel and rem value
+Offers the text size as both the pixel and rem value
 */
 /*
-	Adds vendor prefixed to a property
+Adds vendor prefixed to a property
 */
 /*
-	Applies the "clearfix" hack to a container with floating content
+Applies the "clearfix" hack to a container with floating content
 */
 /*
 	pin board / carousel
@@ -69,6 +69,8 @@ section.gallery menu.gallery_toolbar button {
   /* Because of Internet Explorer 8 we can't have nice thing. */
   overflow: visible;
   text-indent: -999em;
+  background-color: #ff6a00;
+  border: none;
   display: inline-block;
   height: 40px;
   margin: 0;
@@ -77,7 +79,7 @@ section.gallery menu.gallery_toolbar button {
   width: 40px;
   z-index: 500;
 }
-/* line 40, ../../src/scss/useful-gallery.scss */
+/* line 42, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_toolbar button:before {
   content: "";
   display: block;
@@ -94,61 +96,61 @@ section.gallery menu.gallery_toolbar button:before {
   top: 50%;
   background-image: url(../img/gallery.png);
 }
-/* line 44, ../../src/scss/useful-gallery.scss */
+/* line 46, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_toolbar button.gallery_tool_next {
   margin-top: -20px;
   right: 15px;
   top: 50%;
 }
-/* line 49, ../../src/scss/useful-gallery.scss */
+/* line 51, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_toolbar button.gallery_tool_next:before {
   background-position: 0 0;
 }
-/* line 52, ../../src/scss/useful-gallery.scss */
+/* line 54, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_toolbar button.gallery_tool_previous {
   left: 15px;
   margin-top: -20px;
   top: 50%;
 }
-/* line 57, ../../src/scss/useful-gallery.scss */
+/* line 59, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_toolbar button.gallery_tool_previous:before {
   background-position: 0 -32px;
 }
-/* line 60, ../../src/scss/useful-gallery.scss */
+/* line 62, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_toolbar button.gallery_tool_carousel {
   right: 15px;
   top: 15px;
 }
-/* line 64, ../../src/scss/useful-gallery.scss */
+/* line 66, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_toolbar button.gallery_tool_carousel:before {
   background-position: 0 -64px;
 }
-/* line 67, ../../src/scss/useful-gallery.scss */
+/* line 69, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_toolbar button.gallery_tool_pinboard {
   right: 15px;
   top: 15px;
 }
-/* line 71, ../../src/scss/useful-gallery.scss */
+/* line 73, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_toolbar button.gallery_tool_pinboard:before {
   background-position: 0 -96px;
 }
-/* line 74, ../../src/scss/useful-gallery.scss */
+/* line 76, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_toolbar button.gallery_tool_filter {
   right: 60px;
   top: 15px;
 }
-/* line 78, ../../src/scss/useful-gallery.scss */
+/* line 80, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_toolbar button.gallery_tool_filter:before {
   background-position: 0 -128px;
 }
 
-/* line 86, ../../src/scss/useful-gallery.scss */
+/* line 88, ../../src/scss/useful-gallery.scss */
 section.gallery:hover menu.gallery_toolbar button,
 section.gallery.gallery_interface_visible menu.gallery_toolbar button {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
 }
-/* line 89, ../../src/scss/useful-gallery.scss */
+/* line 91, ../../src/scss/useful-gallery.scss */
 section.gallery:hover menu.gallery_toolbar button.gallery_tool_disabled,
 section.gallery.gallery_interface_visible menu.gallery_toolbar button.gallery_tool_disabled {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
@@ -159,7 +161,7 @@ section.gallery.gallery_interface_visible menu.gallery_toolbar button.gallery_to
 /*
 	pin board filter
 */
-/* line 99, ../../src/scss/useful-gallery.scss */
+/* line 101, ../../src/scss/useful-gallery.scss */
 section.gallery form.gallery_filter {
   -webkit-transition-property: all;
   transition-property: all;
@@ -176,34 +178,34 @@ section.gallery form.gallery_filter {
   top: 15px;
   z-index: 400;
 }
-/* line 111, ../../src/scss/useful-gallery.scss */
+/* line 113, ../../src/scss/useful-gallery.scss */
 section.gallery form.gallery_filter fieldset.gallery_filter_groups {
   border: none;
   margin: 0;
   padding: 10px 8px 6px 8px;
 }
-/* line 115, ../../src/scss/useful-gallery.scss */
+/* line 117, ../../src/scss/useful-gallery.scss */
 section.gallery form.gallery_filter fieldset.gallery_filter_groups legend {
   display: none;
 }
-/* line 118, ../../src/scss/useful-gallery.scss */
+/* line 120, ../../src/scss/useful-gallery.scss */
 section.gallery form.gallery_filter fieldset.gallery_filter_groups label {
   color: #fff;
 }
-/* line 123, ../../src/scss/useful-gallery.scss */
+/* line 125, ../../src/scss/useful-gallery.scss */
 section.gallery form.gallery_filter_hide {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
   visibility: hidden;
 }
-/* line 127, ../../src/scss/useful-gallery.scss */
+/* line 129, ../../src/scss/useful-gallery.scss */
 section.gallery form.gallery_filter_show {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
   visibility: visible;
 }
 
-/* line 134, ../../src/scss/useful-gallery.scss */
+/* line 136, ../../src/scss/useful-gallery.scss */
 section.gallery:hover form.gallery_filter_show,
 section.gallery.gallery_interface_visible form.gallery_filter_show {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
@@ -213,7 +215,7 @@ section.gallery.gallery_interface_visible form.gallery_filter_show {
 /*
 	pin board pager
 */
-/* line 143, ../../src/scss/useful-gallery.scss */
+/* line 145, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_pager {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
@@ -235,7 +237,7 @@ section.gallery menu.gallery_pager {
   text-align: center;
   z-index: 400;
 }
-/* line 159, ../../src/scss/useful-gallery.scss */
+/* line 161, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_pager li {
   border: solid 1px #fff;
   display: inline-block;
@@ -243,7 +245,7 @@ section.gallery menu.gallery_pager li {
   margin: 0 5px 0 0;
   vertical-align: middle;
 }
-/* line 165, ../../src/scss/useful-gallery.scss */
+/* line 167, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_pager li a {
   background: #333 none;
   border: solid 1px #333;
@@ -255,21 +257,21 @@ section.gallery menu.gallery_pager li a {
   vertical-align: top;
   width: 8px;
 }
-/* line 178, ../../src/scss/useful-gallery.scss */
+/* line 180, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_pager li.gallery_pager_active a {
   background: #fff none;
 }
-/* line 182, ../../src/scss/useful-gallery.scss */
+/* line 184, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_pager li.gallery_pager_passive {
   border: solid 1px #fff;
 }
-/* line 184, ../../src/scss/useful-gallery.scss */
+/* line 186, ../../src/scss/useful-gallery.scss */
 section.gallery menu.gallery_pager li.gallery_pager_passive a {
   background: #ccc none;
   border: solid 1px #ccc;
 }
 
-/* line 193, ../../src/scss/useful-gallery.scss */
+/* line 195, ../../src/scss/useful-gallery.scss */
 section.gallery:hover menu.gallery_pager,
 section.gallery.gallery_interface_visible menu.gallery_pager {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
@@ -279,7 +281,7 @@ section.gallery.gallery_interface_visible menu.gallery_pager {
 /*
 	pin board progress indicator
 */
-/* line 202, ../../src/scss/useful-gallery.scss */
+/* line 204, ../../src/scss/useful-gallery.scss */
 section.gallery div.gallery_busy {
   background: #fff url(../img/busy_3.gif) no-repeat 50% 50%;
   border: solid 1px #000;
@@ -296,23 +298,23 @@ section.gallery div.gallery_busy {
 /*
 	carousel mode
 */
-/* line 219, ../../src/scss/useful-gallery.scss */
+/* line 221, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_carousel {
   height: 256px;
 }
-/* line 222, ../../src/scss/useful-gallery.scss */
+/* line 224, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_previous {
   display: block;
 }
-/* line 225, ../../src/scss/useful-gallery.scss */
+/* line 227, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_next {
   display: block;
 }
-/* line 228, ../../src/scss/useful-gallery.scss */
+/* line 230, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_pinboard {
   display: block;
 }
-/* line 231, ../../src/scss/useful-gallery.scss */
+/* line 233, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_carousel {
   display: none;
 }
@@ -320,31 +322,31 @@ section.gallery.gallery_mode_carousel menu.gallery_toolbar button.gallery_tool_c
 /*
 	pin board mode
 */
-/* line 240, ../../src/scss/useful-gallery.scss */
+/* line 242, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard {
   height: 512px;
 }
-/* line 242, ../../src/scss/useful-gallery.scss */
+/* line 244, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard menu.gallery_toolbar {
   right: 18px;
 }
-/* line 244, ../../src/scss/useful-gallery.scss */
+/* line 246, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_previous {
   display: none;
 }
-/* line 247, ../../src/scss/useful-gallery.scss */
+/* line 249, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_next {
   display: none;
 }
-/* line 250, ../../src/scss/useful-gallery.scss */
+/* line 252, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_pinboard {
   display: none;
 }
-/* line 253, ../../src/scss/useful-gallery.scss */
+/* line 255, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard menu.gallery_toolbar button.gallery_tool_carousel {
   display: block;
 }
-/* line 257, ../../src/scss/useful-gallery.scss */
+/* line 259, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard menu.gallery_pager {
   display: none;
 }
@@ -352,7 +354,7 @@ section.gallery.gallery_mode_pinboard menu.gallery_pager {
 /*
 	slides in carousel mode
 */
-/* line 266, ../../src/scss/useful-gallery.scss */
+/* line 268, ../../src/scss/useful-gallery.scss */
 section.gallery div.gallery_slides {
   height: 100%;
   overflow: hidden;
@@ -360,7 +362,7 @@ section.gallery div.gallery_slides {
   width: 100%;
   z-index: 300;
 }
-/* line 273, ../../src/scss/useful-gallery.scss */
+/* line 275, ../../src/scss/useful-gallery.scss */
 section.gallery article, section.gallery figure {
   background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VlZWVlZSIvPjxzdG9wIG9mZnNldD0iMTAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eeeeee), color-stop(10%, #ffffff));
@@ -384,47 +386,47 @@ section.gallery article, section.gallery figure {
   visibility: hidden;
   width: 100%;
 }
-/* line 289, ../../src/scss/useful-gallery.scss */
+/* line 291, ../../src/scss/useful-gallery.scss */
 section.gallery article img, section.gallery figure img {
   border: 0;
 }
-/* line 293, ../../src/scss/useful-gallery.scss */
+/* line 295, ../../src/scss/useful-gallery.scss */
 section.gallery article {
   padding: 3%;
 }
-/* line 295, ../../src/scss/useful-gallery.scss */
+/* line 297, ../../src/scss/useful-gallery.scss */
 section.gallery article h3 {
   margin: 0 0 0.5em 0;
 }
-/* line 299, ../../src/scss/useful-gallery.scss */
+/* line 301, ../../src/scss/useful-gallery.scss */
 section.gallery .gallery_carousel_farleft {
   left: -50%;
   top: 50%;
   visibility: hidden;
   z-index: 200;
 }
-/* line 305, ../../src/scss/useful-gallery.scss */
+/* line 307, ../../src/scss/useful-gallery.scss */
 section.gallery .gallery_carousel_left {
   left: -50%;
   top: 50%;
   visibility: visible;
   z-index: 300;
 }
-/* line 311, ../../src/scss/useful-gallery.scss */
+/* line 313, ../../src/scss/useful-gallery.scss */
 section.gallery .gallery_carousel_centre {
   left: 50%;
   top: 50%;
   visibility: visible;
   z-index: 400;
 }
-/* line 317, ../../src/scss/useful-gallery.scss */
+/* line 319, ../../src/scss/useful-gallery.scss */
 section.gallery .gallery_carousel_right {
   left: 150%;
   top: 50%;
   visibility: visible;
   z-index: 300;
 }
-/* line 323, ../../src/scss/useful-gallery.scss */
+/* line 325, ../../src/scss/useful-gallery.scss */
 section.gallery .gallery_carousel_farright {
   left: 150%;
   top: 50%;
@@ -435,7 +437,7 @@ section.gallery .gallery_carousel_farright {
 /*
 	slides in pin board mode
 */
-/* line 335, ../../src/scss/useful-gallery.scss */
+/* line 337, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard div.gallery_slides {
   height: 100%;
   overflow: auto;
@@ -443,24 +445,24 @@ section.gallery.gallery_mode_pinboard div.gallery_slides {
   -webkit-overflow-scrolling: touch;
   width: 100%;
 }
-/* line 342, ../../src/scss/useful-gallery.scss */
+/* line 344, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard article, section.gallery.gallery_mode_pinboard figure {
   height: auto !important;
   margin-left: 0 !important;
   margin-top: 0 !important;
   width: 44% !important;
 }
-/* line 348, ../../src/scss/useful-gallery.scss */
+/* line 350, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard .gallery_pinboard_loading {
   left: 25%;
   visibility: visible;
 }
-/* line 352, ../../src/scss/useful-gallery.scss */
+/* line 354, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard .gallery_pinboard_left {
   left: 3%;
   visibility: visible;
 }
-/* line 356, ../../src/scss/useful-gallery.scss */
+/* line 358, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard .gallery_pinboard_right {
   left: 51%;
   visibility: visible;
@@ -469,7 +471,7 @@ section.gallery.gallery_mode_pinboard .gallery_pinboard_right {
 /*
 	invitation for interaction
 */
-/* line 365, ../../src/scss/useful-gallery.scss */
+/* line 367, ../../src/scss/useful-gallery.scss */
 section.gallery div.gallery_hint {
   background: Transparent url(../img/gallery.png) no-repeat 0 -323px;
   position: absolute;
@@ -480,7 +482,7 @@ section.gallery div.gallery_hint {
   z-index: 1000;
 }
 
-/* line 376, ../../src/scss/useful-gallery.scss */
+/* line 378, ../../src/scss/useful-gallery.scss */
 section.gallery:hover div.gallery_hint,
 section.gallery.gallery_interface_visible div.gallery_hint {
   visibility: hidden;
@@ -489,24 +491,24 @@ section.gallery.gallery_interface_visible div.gallery_hint {
 /*
 	slide content markup
 */
-/* line 386, ../../src/scss/useful-gallery.scss */
+/* line 388, ../../src/scss/useful-gallery.scss */
 section.gallery article h3 {
   line-height: 40px;
 }
-/* line 389, ../../src/scss/useful-gallery.scss */
+/* line 391, ../../src/scss/useful-gallery.scss */
 section.gallery article img {
   float: left;
   border: solid 1px #333;
   margin: 5px 10px 5px 0;
 }
-/* line 396, ../../src/scss/useful-gallery.scss */
+/* line 398, ../../src/scss/useful-gallery.scss */
 section.gallery figure img {
   display: block;
   height: 100%;
   margin: 0 auto 0 auto;
   width: auto;
 }
-/* line 402, ../../src/scss/useful-gallery.scss */
+/* line 404, ../../src/scss/useful-gallery.scss */
 section.gallery figure figcaption {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
@@ -520,7 +522,7 @@ section.gallery figure figcaption {
   text-align: center;
 }
 
-/* line 417, ../../src/scss/useful-gallery.scss */
+/* line 419, ../../src/scss/useful-gallery.scss */
 section.gallery.gallery_mode_pinboard figure img {
   height: auto;
   width: 100%;

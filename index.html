@@ -80,7 +80,9 @@
 				<script src="./inc/js/useful-gallery.js"></script>
 				<script>
 				//<!--
-					var gallery = new useful.Gallery( document.getElementById('exampleGallery'), {
+					var gallery = new useful.Gallery().init({
+						// the target element
+						'element' : document.getElementById('exampleGallery'),
 						// defines the aspect ratio of the gallery - 4:3 would be 0.75
 						'aspectRatio' : 1,
 						// the script will cycle through these classes, the number is not limited

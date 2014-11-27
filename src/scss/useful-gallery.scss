@@ -29,6 +29,8 @@ section.gallery {
 			@include transition-timing-function(ease);
 			@include opacity(0);
 			@include iconParent(50);
+			background-color : #ff6a00;
+			border : none;
 			display : inline-block;
 			height : 40px;
 			margin : 0;
