@@ -622,21 +622,21 @@ useful.Gallery.prototype.Hint = function (parent) {
 	// properties
 	"use strict";
 	this.parent = parent;
-	this.cfg = parent.cfg;
-	this.obj = parent.obj;
+	this.config = parent.config;
+	this.element = parent.element;
 	// methods
 	this.buildHint = function () {
 		// if the hint is enabled
-		if (this.cfg.toggleHint) {
+		if (this.config.toggleHint) {
 			// create an element for the invitation
-			this.cfg.hintElement = document.createElement('div');
-			this.cfg.hintElement.className = 'gallery_hint';
+			this.config.hintElement = document.createElement('div');
+			this.config.hintElement.className = 'gallery_hint';
 			// add the element to the slideshow
-			this.obj.appendChild(this.cfg.hintElement);
+			this.element.appendChild(this.config.hintElement);
 			// a a status class to the parent element
-			this.obj.className += ' gallery_interface_hidden';
+			this.element.className += ' gallery_interface_hidden';
 			// on the mobile version
-			if (this.cfg.onMobile) {
+			if (this.config.onMobile) {
 				// set its event handler
 				this.handleHintiOS();
 			}
@@ -644,9 +644,9 @@ useful.Gallery.prototype.Hint = function (parent) {
 	};
 	this.handleHintiOS = function () {
 		var _this = this;
-		this.obj.addEventListener('touchend', function () {
+		this.element.addEventListener('touchend', function () {
 			// show the interface
-			_this.obj.className = _this.obj.className.replace(/gallery_interface_hidden/gi, 'gallery_interface_visible');
+			_this.element.className = _this.element.className.replace(/gallery_interface_hidden/gi, 'gallery_interface_visible');
 		}, false);
 	};
 };
@@ -669,25 +669,424 @@ var useful = useful || {};
 useful.Gallery = useful.Gallery || function () {};
 
 // extend the constructor
+useful.Gallery.prototype.Main = function (config, context) {
+	// properties
+	"use strict";
+	this.config = config;
+	this.context = context;
+	this.element = config.element;
+	// methods
+	this.init = function () {
+		// if the component is not already active
+		if (!this.config.isActive) {
+			// mark this node as active
+			this.config.isActive = true;
+			// set the default mode
+			this.element.className += ' gallery_mode_carousel';
+			// store the settings
+			this.defaultSettings();
+			// build the container for the slides
+			this.slides.buildSlideContainer();
+			// build the progress indicator
+			this.progress.buildProgressIndicator();
+			// build the toolbar
+			this.toolbar.buildToolbar();
+			// build the pager
+			this.pager.buildPager();
+			// build the interaction invitation
+			this.hint.buildHint();
+			// if this is the mobile website
+			if (this.config.onMobile) {
+				// add the click events
+				this.toolbar.handleClicksiOS();
+				// add the gesture events
+				this.handleGesturesiOS();
+			// otherwise
+			} else {
+				// add the click events
+				this.toolbar.handleClicks();
+				// add the gesture events
+				this.handleGestures();
+			}
+			// add the mousewheel events
+			this.handleMousewheel();
+			// add the idle animation
+			this.handleIdle();
+			// add the filter handlers
+			this.toolbar.handleFilters();
+			// handle resizing of the browser
+			this.handleResize();
+			// if AJAX is used
+			var _this = this;
+			if (this.config.allowAjax) {
+				// order the first batch of slides
+				setTimeout(function () {
+					// load the first batch
+					_this.slides.loadSlides(_this.config.activeSlide, _this.config.fetchAmount);
+					// load the pager
+					_this.pager.loadPager();
+				}, 200);
+			}
+			// build the pager based on the slides that are already there
+			this.pager.fillPager({'responseText' : '[' + (this.config.slideNodes.length - 1) + ']'});
+			// update the slides that are already there
+			this.updateAll();
+		}
+		// return the object
+		return this;
+	};
+	this.defaultSettings = function () {
+		// EXTERNAL SETTINGS
+		// defines the aspect ratio of the gallery - 4:3 would be 0.75
+		this.config.aspectRatio = this.config.aspectRatio || 1;
+		// the script will cycle through these classes, the number is not limited
+		this.config.carouselNames = this.config.carouselNames || ['gallery_carousel_farleft', 'gallery_carousel_left', 'gallery_carousel_centre', 'gallery_carousel_right', 'gallery_carousel_farright'];
+		// the script alternates between these classes to divide the slides across columns
+		this.config.pinboardNames = this.config.pinboardNames || ['gallery_pinboard_left', 'gallery_pinboard_right', 'gallery_pinboard_loading'];
+		// default behaviour is to show numbers
+		this.config.pagerLabels = this.config.pagerLabels || ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'];
+		// distance between rows of slides in pin board mode
+		this.config.rowOffset = this.config.rowOffset || 18;
+		this.config.pinboardOffset = this.config.pinboardOffset || 0;
+		// distance from the bottom of the pin board where new slides will be loaded if AJAX is enabled
+		this.config.fetchScrollBottom = this.config.fetchScrollBottom || 100;
+		// how far from the unloaded slides preloading should commence
+		this.config.fetchTreshold = this.config.fetchTreshold || 3;
+		// how many slides to get in one go
+		this.config.fetchAmount = this.config.fetchAmount || 5;
+		// don't accept new input until the animation finished
+		this.config.limitSpeed = this.config.limitSpeed || true;
+		// immediately cycle to the first slide after reaching the last
+		this.config.allowLoop = this.config.allowLoop || false;
+		// wait this long until starting the automatic slideshow
+		this.config.idleDelay = this.config.idleDelay || 8000;
+		// direction to show the slides in
+		this.config.idleDirection = this.config.idleDirection || 1; // -1 | 1
+		// what interface elements to show
+		this.config.toggleHint = this.config.toggleHint || true; // true | false
+		this.config.togglePager = this.config.togglePager || true; // true | false
+		this.config.toggleFilter = this.config.toggleFilter || 'Filter'; // string | true | false
+		this.config.togglePinboard = this.config.togglePinboard || 'View Pin Board'; // string | true | false
+		this.config.toggleCarousel = this.config.toggleCarousel || 'View Carousel'; // string | true | false
+		this.config.toggleNext = this.config.toggleNext || 'Next Slide'; // string | true | false
+		this.config.togglePrev = this.config.togglePrev || 'Previous Slide'; // string | true | false
+		// how mobile devices are identified to enable touch controls
+		this.config.onMobile = this.config.onMobile || (navigator.userAgent.indexOf('Mobile') > -1);
+		// INTERNAL SETTINGS
+		// store the starting index
+		this.config.activeSlide = 0;
+		// set the initial keywords
+		this.config.activeFilterGroup = [];
+		// store the initial mode
+		this.config.carouselMode = (this.element.className.indexOf('gallery_mode_carousel') > -1);
+		this.config.allowAjax = this.config.allowAjax || (this.element.getElementsByTagName('form').length > 0);
+		// report animations in progress
+		this.config.animationInProgress = false;
+		// report AJAX fetches in progress
+		this.config.fetchInProgress = false;
+		// report that slides have not run out yet
+		this.config.noSlidesLeft = false;
+		// indicator for interferance of gestures
+		this.config.recentGesture = false;
+	};
+	this.updateAll = function () {
+		// re-implement the aspect ratio
+		this.element.style.height = parseInt(this.element.offsetWidth * this.config.aspectRatio, 10) + 'px';
+		// update the components
+		this.pager.updatePager();
+		this.slides.updateSlides();
+		this.toolbar.updateToolbar();
+	};
+	this.resetAll = function () {
+		// restore the global parameters to the default situation
+		this.config.activeSlide = 0;
+		this.config.slideNodes = [];
+		this.config.fetchInProgress = false;
+		this.config.fetchInProgress = false;
+		this.config.noSlidesLeft = false;
+		// empty the current set of slides
+		this.config.slideContainer.innerHTML = '';
+		// get the slides that match the filter
+		this.slides.loadSlides(0, 3);
+	};
+	// components
+	this.toolbar = new this.context.Toolbar(this);
+	this.slides = new this.context.Slides(this);
+	this.progress = new this.context.Progress(this);
+	this.pager = new this.context.Pager(this);
+	this.hint = new this.context.Hint(this);
+	// events
+	this.handleResize = function () {
+		var _this = this;
+		window.addEventListener('resize', function () {
+			_this.updateAll();
+		}, false);
+	};
+	this.handleGestures = function () {
+		var _this = this;
+		this.config.startX = null;
+		this.element.onmousedown = function (event) {
+			event = event || window.event;
+			if (_this.config.carouselMode) {
+				_this.config.startX = (navigator.userAgent.indexOf('MSIE ') > -1) ? event.x : event.screenX;
+				// cancel the click event
+				return false;
+			}
+		};
+		this.element.onmousemove = function (event) {
+			event = event || window.event;
+			if (_this.config.carouselMode) {
+				if (_this.config.startX !== null) {
+					var increment;
+					// lock the click events
+					_this.config.recentGesture = true;
+					_this.config.endX = (navigator.userAgent.indexOf('MSIE ') > -1) ? event.x : event.screenX;
+					// if the distance has been enough
+					if (Math.abs(_this.config.endX - _this.config.startX) > _this.element.offsetWidth / 4) {
+						// move one increment
+						increment = (_this.config.endX - _this.config.startX < 0) ? 1 : -1;
+						if (!_this.config.animationInProgress) {
+							_this.slides.slideBy(increment);
+						}
+						// reset the positions
+						_this.config.startX = _this.config.endX;
+					}
+					// cancel the click event
+					return false;
+				}
+			}
+		};
+		this.element.onmouseup = function (event) {
+			event = event || window.event;
+			if (_this.config.carouselMode) {
+				// cancel the gesture
+				_this.config.endX = null;
+				_this.config.startX = null;
+				setTimeout(function () { _this.config.recentGesture = false; }, 100);
+				// cancel the click event
+				return false;
+			}
+		};
+		this.element.addEventListener('mouseout', function (event) {
+			event = event || window.event;
+			if (_this.config.carouselMode) {
+				// whipe the gesture if the mouse remains out of bounds
+				_this.config.timeOut = setTimeout(function () {
+					_this.config.endX = null;
+					_this.config.startX = null;
+				}, 100);
+				// cancel the click event
+				event.preventDefault();
+			}
+		}, false);
+		this.element.addEventListener('mouseover', function (event) {
+			event = event || window.event;
+			if (_this.config.carouselMode) {
+				// stop the gesture from resetting when the mouse goes back in bounds
+				clearTimeout(_this.config.timeOut);
+				// cancel the click event
+				event.preventDefault();
+			}
+		}, false);
+	};
+	this.handleGesturesiOS = function () {
+		var _this = this;
+		this.config.touchStartX = null;
+		this.config.touchStartY = null;
+		this.element.addEventListener('touchstart', function (event) {
+			if (_this.config.carouselMode) {
+				_this.config.touchStartX = event.touches[0].pageX;
+				_this.config.touchStartY = event.touches[0].pageY;
+			}
+		}, false);
+		this.element.addEventListener('touchmove', function (event) {
+			if (_this.config.carouselMode) {
+				if (_this.config.touchStartX !== null) {
+					// lock the click events
+					_this.config.recentGesture = true;
+					_this.config.touchEndX = event.touches[0].pageX;
+					_this.config.touchEndY = event.touches[0].pageY;
+					// if the distance has been enough
+					if (Math.abs(_this.config.touchEndX - _this.config.touchStartX) > _this.element.offsetWidth / 4) {
+						// move one increment
+						var increment = (_this.config.touchEndX - _this.config.touchStartX < 0) ? 1 : -1;
+						if (!_this.config.animationInProgress) {
+							_this.slides.slideBy(increment);
+						}
+						// reset the positions
+						_this.config.touchStartX = _this.config.touchEndX;
+					}
+					// cancel the default browser behaviour if there was horizontal motion
+					if (Math.abs(_this.config.touchEndX - _this.config.touchStartX) > Math.abs(_this.config.touchEndY - _this.config.touchStartY)) {
+						event.preventDefault();
+					}
+				}
+			}
+		}, false);
+		this.element.eventListener('touchend', function () {
+			if (_this.config.carouselMode) {
+				// cancel the gesture
+				_this.config.touchEndX = null;
+				_this.config.touchStartX = null;
+				_this.config.touchEndY = null;
+				_this.config.touchStartY = null;
+				setTimeout(function () { _this.config.recentGesture = false; }, 100);
+			}
+		}, false);
+		this.element.addEventListener('touchcancel', function (event) {
+			if (_this.config.carouselMode) {
+				// cancel the gesture
+				_this.config.touchEndX = null;
+				_this.config.touchStartX = null;
+				_this.config.touchEndY = null;
+				_this.config.touchStartY = null;
+				setTimeout(function () { _this.config.recentGesture = false; }, 100);
+				// cancel the default browser behaviour
+				event.preventDefault();
+			}
+		}, false);
+	};
+	this.handleMousewheel = function () {
+		var _this = this;
+		var onMoveSlides = function (event) {
+			var distance, increment;
+			// get the scroll distance
+			distance = (window.event) ? window.event.wheelDelta / 120 : -event.detail / 3;
+			increment = (distance < 0) ? 1 : -1;
+			// if this is carousel mode
+			if (_this.config.carouselMode) {
+				// scroll the page
+				if (!_this.config.animationInProgress) {
+					_this.slides.slideBy(increment);
+				}
+				// cancel the click event
+				event.preventDefault();
+			}
+		};
+		var onLoadSlides = function () {
+			// if the scroll position is close to the scroll height
+			if (_this.config.slideContainer.scrollHeight - _this.config.slideContainer.offsetHeight - _this.config.slideContainer.scrollTop < _this.config.fetchScrollBottom) {
+				// ask for more slides
+				_this.slides.loadSlides(_this.config.slideNodes.length, _this.config.fetchAmount);
+			}
+		};
+		this.element.addEventListener('mousewheel', onMoveSlides, false);
+		this.element.addEventListener('DOMMouseScroll', onMoveSlides, false);
+		this.config.slideContainer.addEventListener('scroll', onLoadSlides, false);
+	};
+	this.handleIdle = function () {
+		var _this = this;
+		// timer constant
+		this.config.idleTimer = null;
+		this.config.idleLoop = this.config.allowLoop;
+		// events to cancel the timer
+		this.element.addEventListener('mouseout', function () {
+			// allow looping
+			_this.config.allowLoop = true;
+			// a set the automatic gallery to start after while
+			if (_this.config.idleDelay > -1) {
+				clearInterval(_this.config.idleTimer);
+				_this.config.idleTimer = setInterval(function () {
+					if (_this.config.carouselMode) {
+						_this.slides.slideBy(_this.config.idleDirection);
+					}
+				}, _this.config.idleDelay);
+			}
+		}, false);
+		this.element.addEventListener('mouseover', function () {
+			// restore looping setting
+			_this.config.allowLoop = _this.config.idleLoop;
+			// cancel the automatic gallery
+			clearInterval(_this.config.idleTimer);
+		}, false);
+		// a set the automatic gallery to start after while
+		if (this.config.idleDelay > -1) {
+			clearInterval(this.config.idleTimer);
+			this.config.idleTimer = setInterval(function () {
+				if (_this.config.carouselMode) {
+					_this.slides.slideBy(_this.config.idleDirection);
+				}
+			}, this.config.idleDelay);
+		}
+	};
+	// external API
+	this.focus = function (index) {
+		this.slides.slideTo(index);
+	};
+	this.previous = function () {
+		this.slides.slideBy(-1);
+	};
+	this.next = function () {
+		this.slides.slideBy(1);
+	};
+	this.pause = function () {
+		// restore looping setting
+		this.config.allowLoop = this.config.idleLoop;
+		// cancel the automatic gallery
+		clearInterval(this.config.idleTimer);
+	};
+	this.play = function () {
+		var _this = this;
+		// allow looping
+		this.config.allowLoop = true;
+		// a set the automatic gallery to start after while
+		if (this.config.idleDelay > -1) {
+			clearInterval(this.config.idleTimer);
+			this.config.idleTimer = setInterval(function () {
+				if (_this.config.carouselMode) {
+					_this.slides.slideBy(_this.config.idleDirection);
+				}
+			}, this.config.idleDelay);
+		}
+	};
+	this.transform = function (mode) {
+		switch (mode) {
+		case 1 :
+			this.toolbar.transformToPinboard(this);
+			break;
+		default :
+			this.toolbar.transformToCarousel(this);
+		}
+	};
+};
+
+// return as a require.js module
+if (typeof module !== 'undefined') {
+	exports = module.exports = useful.Gallery.Main;
+}
+
+/*
+	Source:
+	van Creij, Maurice (2014). "useful.this.js: An scrolling content this.", version 20141127, http://www.woollymittens.nl/.
+
+	License:
+	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
+*/
+
+// create the constructor if needed
+var useful = useful || {};
+useful.Gallery = useful.Gallery || function () {};
+
+// extend the constructor
 useful.Gallery.prototype.Pager = function (parent) {
 	// properties
 	"use strict";
 	this.parent = parent;
-	this.cfg = parent.cfg;
-	this.obj = parent.obj;
+	this.config = parent.config;
+	this.element = parent.element;
 	// methods
 	this.buildPager = function () {
 		// build the page indicators
-		this.cfg.pagerContainer = document.createElement('menu');
-		this.cfg.pagerContainer.className = 'gallery_pager';
-		this.obj.appendChild(this.cfg.pagerContainer);
+		this.config.pagerContainer = document.createElement('menu');
+		this.config.pagerContainer.className = 'gallery_pager';
+		this.element.appendChild(this.config.pagerContainer);
 	};
 	this.loadPager = function () {
 		var _this = this;
 		var fetchURL;
 		// get the url for the ajax call
-		fetchURL = this.obj.getElementsByTagName('form')[0].getAttribute('action');
-		fetchURL += '&inf=1&grp=' + this.cfg.activeFilterGroup.join(',');
+		fetchURL = this.element.getElementsByTagName('form')[0].getAttribute('action');
+		fetchURL += '&inf=1&grp=' + this.config.activeFilterGroup.join(',');
 		// formulate the ajax call
 		useful.request.send({
 			url : fetchURL,
@@ -705,7 +1104,7 @@ useful.Gallery.prototype.Pager = function (parent) {
 		// decode the JSON string
 		fetchedPager = useful.request.decode(reply.responseText);
 		// empty the pager
-		this.cfg.pagerContainer.innerHTML = '';
+		this.config.pagerContainer.innerHTML = '';
 		// for all pages reported
 		for (a = 0 , b = fetchedPager[fetchedPager.length - 1] + 1; a < b; a += 1) {
 			// create a new pager element
@@ -713,16 +1112,16 @@ useful.Gallery.prototype.Pager = function (parent) {
 			// create a new pager link
 			newPagerLink = document.createElement('a');
 			// fill with a page number or a custom label
-			newPagerLink.innerHTML = (this.cfg.pagerLabels !== null && a < this.cfg.pagerLabels.length) ? this.cfg.pagerLabels[a] : a + 1;
+			newPagerLink.innerHTML = (this.config.pagerLabels !== null && a < this.config.pagerLabels.length) ? this.config.pagerLabels[a] : a + 1;
 			// add the link to the pager element
 			newPagerElement.appendChild(newPagerLink);
 			// add the pager element to the pager container
-			this.cfg.pagerContainer.appendChild(newPagerElement);
+			this.config.pagerContainer.appendChild(newPagerElement);
 			// set the link target
 			newPagerLink.setAttribute('href', '#gallery_slide_' + a);
 			newPagerLink.setAttribute('id', 'gallery_page_' + a);
 			// add the event handler
-			if (this.cfg.onMobile) {
+			if (this.config.onMobile) {
 				this.handlePageriOS(a, newPagerLink);
 			// else
 			} else {
@@ -735,26 +1134,26 @@ useful.Gallery.prototype.Pager = function (parent) {
 	this.updatePager = function () {
 		var a, b, childNodes;
 		// get the slides from the container
-		childNodes = this.cfg.pagerContainer.getElementsByTagName('a');
+		childNodes = this.config.pagerContainer.getElementsByTagName('a');
 		// for all pager elements in the container
 		for (a = 0 , b = childNodes.length; a < b; a += 1) {
 			// highlight or reset the element
-			if (a < this.cfg.slideNodes.length) {
-				childNodes[a].parentNode.className = (a === this.cfg.activeSlide) ? 'gallery_pager_active' : 'gallery_pager_link';
+			if (a < this.config.slideNodes.length) {
+				childNodes[a].parentNode.className = (a === this.config.activeSlide) ? 'gallery_pager_active' : 'gallery_pager_link';
 			} else {
 				childNodes[a].parentNode.className = 'gallery_pager_passive';
 			}
 		}
 		// hide the pager if it's not wanted
-		if (!this.cfg.togglePager) {
-			this.cfg.pagerContainer.style.visibility = 'hidden';
+		if (!this.config.togglePager) {
+			this.config.pagerContainer.style.visibility = 'hidden';
 		}
 	};
 	this.handlePager = function (a, newPagerLink) {
 		var _this = this;
 		newPagerLink.onclick = function () {
 			// handle the event
-			if (!_this.cfg.animationInProgress && newPagerLink.parentNode.className.match(/gallery_pager_link/gi)) {
+			if (!_this.config.animationInProgress && newPagerLink.parentNode.className.match(/gallery_pager_link/gi)) {
 				_this.parent.slides.slideTo(a);
 			}
 			// cancel the click
@@ -765,7 +1164,7 @@ useful.Gallery.prototype.Pager = function (parent) {
 		var _this = this;
 		newPagerLink.ontouchend = function () {
 			// handle the event
-			if (!_this.cfg.animationInProgress && newPagerLink.parentNode.className.match(/gallery_pager_link/gi)) {
+			if (!_this.config.animationInProgress && newPagerLink.parentNode.className.match(/gallery_pager_link/gi)) {
 				_this.parent.slides.slideTo(a);
 			}
 			// cancel the click
@@ -796,16 +1195,16 @@ useful.Gallery.prototype.Progress = function (parent) {
 	// properties
 	"use strict";
 	this.parent = parent;
-	this.cfg = parent.cfg;
-	this.obj = parent.obj;
+	this.config = parent.config;
+	this.element = parent.element;
 	// methods
 	this.buildProgressIndicator = function () {
 		// create the indicator element
-		this.cfg.progressIndicator = document.createElement('div');
+		this.config.progressIndicator = document.createElement('div');
 		// add the element's properties
-		this.cfg.progressIndicator.className = 'gallery_busy';
+		this.config.progressIndicator.className = 'gallery_busy';
 		// insert it into the component
-		this.obj.appendChild(this.cfg.progressIndicator);
+		this.element.appendChild(this.config.progressIndicator);
 	};
 };
 
@@ -831,52 +1230,52 @@ useful.Gallery.prototype.Slides = function (parent) {
 	// properties
 	"use strict";
 	this.parent = parent;
-	this.cfg = parent.cfg;
-	this.obj = parent.obj;
+	this.config = parent.config;
+	this.element = parent.element;
 	// methods
 	this.buildSlideContainer = function () {
 		var a, b, movedSlide;
 		// get all the slides
-		this.cfg.slideNodes = useful.transitions.select('figure, article', this.obj);
+		this.config.slideNodes = useful.transitions.select('figure, article', this.element);
 		// create the slide container
-		this.cfg.slideContainer = document.createElement('div');
+		this.config.slideContainer = document.createElement('div');
 		// add its properties
-		this.cfg.slideContainer.className = 'gallery_slides';
+		this.config.slideContainer.className = 'gallery_slides';
 		// for all childnodes
-		for (a = 0 , b = this.cfg.slideNodes.length; a < b; a += 1) {
+		for (a = 0 , b = this.config.slideNodes.length; a < b; a += 1) {
 			// get the slide node
-			movedSlide = this.obj.removeChild(this.cfg.slideNodes[a]);
+			movedSlide = this.element.removeChild(this.config.slideNodes[a]);
 			// set its starting class name
-			movedSlide.className += ' ' + this.cfg.carouselNames[this.cfg.carouselNames.length - 1];
+			movedSlide.className += ' ' + this.config.carouselNames[this.config.carouselNames.length - 1];
 			// move it to the container
-			this.cfg.slideContainer.appendChild(movedSlide);
+			this.config.slideContainer.appendChild(movedSlide);
 		}
 		// add the container to the component
-		this.obj.appendChild(this.cfg.slideContainer);
+		this.element.appendChild(this.config.slideContainer);
 	};
 	this.loadSlides = function (overrideIndex, overrideAmount) {
 		// if there's ajax functionality
-		if (this.cfg.allowAjax) {
+		if (this.config.allowAjax) {
 			var a, b, slideIndex, slideAmount, filterForm, filterInputs, fetchURL;
 			// if no fetch request is in progress
-			if (!this.cfg.fetchInProgress && !this.cfg.noSlidesLeft) {
+			if (!this.config.fetchInProgress && !this.config.noSlidesLeft) {
 				// normalise the values
-				slideIndex = (overrideIndex) ? overrideIndex : this.cfg.activeSlide;
-				slideAmount = (overrideAmount) ? overrideAmount : this.cfg.fetchAmount;
+				slideIndex = (overrideIndex) ? overrideIndex : this.config.activeSlide;
+				slideAmount = (overrideAmount) ? overrideAmount : this.config.fetchAmount;
 				// get the form element
-				filterForm = this.obj.getElementsByTagName('form')[0];
+				filterForm = this.element.getElementsByTagName('form')[0];
 				// gather the filter group from the form
 				filterInputs = filterForm.getElementsByTagName('input');
-				this.cfg.activeFilterGroup = [];
+				this.config.activeFilterGroup = [];
 				for (a = 0 , b = filterInputs.length; a < b; a += 1) {
 					if (filterInputs[a].checked || !filterInputs[a].type.match(/checkbox|radio/gi)) {
 						// store the active filter group
-						this.cfg.activeFilterGroup[this.cfg.activeFilterGroup.length] = filterInputs[a].value;
+						this.config.activeFilterGroup[this.config.activeFilterGroup.length] = filterInputs[a].value;
 					}
 				}
 				// get the url for the ajax call
 				fetchURL = filterForm.getAttribute('action');
-				fetchURL += '&idx=' + slideIndex + '&amt=' + slideAmount + '&grp=' + this.cfg.activeFilterGroup.join(',');
+				fetchURL += '&idx=' + slideIndex + '&amt=' + slideAmount + '&grp=' + this.config.activeFilterGroup.join(',');
 				// formulate the ajax call
 				var _this = this;
 				useful.request.send({
@@ -887,11 +1286,11 @@ useful.Gallery.prototype.Slides = function (parent) {
 					onSuccess : function (reply) { _this.insertSlides(reply); }
 				});
 				// show the progress meter
-				this.cfg.progressTimeout = setTimeout(function () { this.cfg.progressIndicator.style.display = 'block'; }, 500);
+				this.config.progressTimeout = setTimeout(function () { this.config.progressIndicator.style.display = 'block'; }, 500);
 				// prevent any further ajax calls from piling up
-				this.cfg.fetchInProgress = true;
+				this.config.fetchInProgress = true;
 				// give up if it takes too long
-				setTimeout(function () { _this.cfg.fetchInProgress = false; _this.cfg.progressIndicator.style.display = 'none'; }, 1000);
+				setTimeout(function () { _this.config.fetchInProgress = false; _this.config.progressIndicator.style.display = 'none'; }, 1000);
 			}
 		}
 	};
@@ -903,7 +1302,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 		var a, b, newSlide, fetchedSlides, fetchedSlide;
 		fetchedSlides = [];
 		// if there's ajax functionality
-		if (this.cfg.allowAjax) {
+		if (this.config.allowAjax) {
 			// decode the JSON string
 			fetchedSlides = useful.request.decode(reply.responseText);
 			// for every new slide
@@ -918,9 +1317,9 @@ useful.Gallery.prototype.Slides = function (parent) {
 				// check if the id already exists
 				if (!document.getElementById(newSlide.id)) {
 					// set the starting class name
-					newSlide.className += (this.cfg.carouselMode) ? ' ' + this.cfg.carouselNames[this.cfg.carouselNames.length - 1] : ' ' + this.cfg.pinboardNames[this.cfg.pinboardNames.length - 1];
+					newSlide.className += (this.config.carouselMode) ? ' ' + this.config.carouselNames[this.config.carouselNames.length - 1] : ' ' + this.config.pinboardNames[this.config.pinboardNames.length - 1];
 					// add it to the end of the line
-					this.cfg.slideContainer.appendChild(newSlide);
+					this.config.slideContainer.appendChild(newSlide);
 					// center it in its column
 					newSlide.style.marginLeft = '-' + Math.round(newSlide.offsetWidth / 2) + 'px';
 					newSlide.style.marginTop = '-' + Math.round(newSlide.offsetHeight / 2) + 'px';
@@ -928,17 +1327,17 @@ useful.Gallery.prototype.Slides = function (parent) {
 			}
 			// if no new slides were sent, stop asking for them
 			if (fetchedSlides.length <= 1) {
-				this.cfg.noSlidesLeft = true;
+				this.config.noSlidesLeft = true;
 			}
 			// unlock further ajax calls
-			this.cfg.fetchInProgress = false;
+			this.config.fetchInProgress = false;
 			// hide the progress meter
-			clearTimeout(this.cfg.progressTimeout);
-			this.cfg.progressIndicator.style.display = 'none';
+			clearTimeout(this.config.progressTimeout);
+			this.config.progressIndicator.style.display = 'none';
 			// update the slides
 			this.updateSlides();
 			// update the pinboard
-			if (!this.cfg.carouselMode) {
+			if (!this.config.carouselMode) {
 				this.parent.toolbar.transformToPinboard();
 			}
 			// update the pager
@@ -948,58 +1347,58 @@ useful.Gallery.prototype.Slides = function (parent) {
 	this.updateSlides = function () {
 		var b, c, slideWidth, slideHeight, slideClass, centerClass, resetProgressIndicator;
 		// store the individual slides in an array
-		this.cfg.slideNodes = useful.transitions.select('figure, article', this.cfg.slideContainer);
+		this.config.slideNodes = useful.transitions.select('figure, article', this.config.slideContainer);
 		// get the centre class name from the array
-		centerClass = Math.floor(this.cfg.carouselNames.length / 2);
+		centerClass = Math.floor(this.config.carouselNames.length / 2);
 		// create a function to reset the progress indicator
 		var _this = this;
-		resetProgressIndicator = function () { _this.cfg.animationInProgress = false; };
+		resetProgressIndicator = function () { _this.config.animationInProgress = false; };
 		// for all slides in the list
-		for (b = 0 , c = this.cfg.slideNodes.length; b < c; b += 1) {
+		for (b = 0 , c = this.config.slideNodes.length; b < c; b += 1) {
 			// redo the slides event handler
-			if (this.cfg.slideNodes[b].className.indexOf('slide_active') < 0) {
-				if (this.cfg.onMobile) {
+			if (this.config.slideNodes[b].className.indexOf('slide_active') < 0) {
+				if (this.config.onMobile) {
 					this.handleSlideiOS(b);
 				} else {
 					this.handleSlide(b);
 				}
-				this.cfg.slideNodes[b].className = 'slide_active ' + this.cfg.slideNodes[b].className;
+				this.config.slideNodes[b].className = 'slide_active ' + this.config.slideNodes[b].className;
 			}
 			// if the slideshow is in carousel mode
-			if (this.cfg.carouselMode) {
+			if (this.config.carouselMode) {
 				// determine their new class name
-				slideClass = b - this.cfg.activeSlide + centerClass;
-				slideClass = (this.cfg.allowLoop && b - this.cfg.activeSlide - centerClass > 0) ? b - this.cfg.slideNodes.length - this.cfg.activeSlide + centerClass : slideClass;
-				slideClass = (this.cfg.allowLoop && b - this.cfg.activeSlide + centerClass < 0) ? b + this.cfg.slideNodes.length - this.cfg.activeSlide + centerClass : slideClass;
+				slideClass = b - this.config.activeSlide + centerClass;
+				slideClass = (this.config.allowLoop && b - this.config.activeSlide - centerClass > 0) ? b - this.config.slideNodes.length - this.config.activeSlide + centerClass : slideClass;
+				slideClass = (this.config.allowLoop && b - this.config.activeSlide + centerClass < 0) ? b + this.config.slideNodes.length - this.config.activeSlide + centerClass : slideClass;
 				slideClass = (slideClass < 0) ? 0 : slideClass;
-				slideClass = (slideClass >= this.cfg.carouselNames.length) ? this.cfg.carouselNames.length - 1 : slideClass;
+				slideClass = (slideClass >= this.config.carouselNames.length) ? this.config.carouselNames.length - 1 : slideClass;
 				// if the slide doesn't have this class already
-				if (this.cfg.slideNodes[b].className.indexOf(this.cfg.carouselNames[slideClass]) < 0) {
+				if (this.config.slideNodes[b].className.indexOf(this.config.carouselNames[slideClass]) < 0) {
 					// report than an animation is in progress
-					if (this.cfg.limitSpeed) {
-						this.cfg.animationInProgress = true;
+					if (this.config.limitSpeed) {
+						this.config.animationInProgress = true;
 					}
 					// transition this class
 					useful.transitions.byClass(
-						this.cfg.slideNodes[b],
-						this.cfg.carouselNames.join(' '),
-						this.cfg.carouselNames[slideClass],
+						this.config.slideNodes[b],
+						this.config.carouselNames.join(' '),
+						this.config.carouselNames[slideClass],
 						resetProgressIndicator
 					);
 				}
 				// re-centre the slide
-				slideWidth = this.cfg.slideNodes[b].offsetWidth;
-				slideHeight = this.cfg.slideNodes[b].offsetHeight;
-				this.cfg.slideNodes[b].style.marginLeft = parseInt(slideWidth / -2, 10) + 'px';
-				this.cfg.slideNodes[b].style.marginTop = parseInt(slideHeight / -2, 10) + 'px';
+				slideWidth = this.config.slideNodes[b].offsetWidth;
+				slideHeight = this.config.slideNodes[b].offsetHeight;
+				this.config.slideNodes[b].style.marginLeft = parseInt(slideWidth / -2, 10) + 'px';
+				this.config.slideNodes[b].style.marginTop = parseInt(slideHeight / -2, 10) + 'px';
 			} else {
 				// store the assigned column positions
-				var cols = this.cfg.pinboardNames.length - 1;
+				var cols = this.config.pinboardNames.length - 1;
 				// replace the carousel styles with pinboard one
 				useful.transitions.byClass(
-					this.cfg.slideNodes[b],
-					this.cfg.pinboardNames.join(' '),
-					this.cfg.pinboardNames[b % cols],
+					this.config.slideNodes[b],
+					this.config.pinboardNames.join(' '),
+					this.config.pinboardNames[b % cols],
 					resetProgressIndicator
 				);
 				// un-centre the slide
@@ -1007,35 +1406,35 @@ useful.Gallery.prototype.Slides = function (parent) {
 			}
 		}
 		// fix the positioning in pinboard mode
-		if (!this.cfg.carouselMode) {
+		if (!this.config.carouselMode) {
 			this.parent.toolbar.transformToPinboard();
 		}
 	};
 	this.slideBy = function (increment) {
 		// update the index
-		this.cfg.activeSlide = this.cfg.activeSlide + increment;
+		this.config.activeSlide = this.config.activeSlide + increment;
 		// if the right limit is passed
-		if (this.cfg.activeSlide > this.cfg.slideNodes.length - 1) {
+		if (this.config.activeSlide > this.config.slideNodes.length - 1) {
 			// reset to the right limit
-			this.cfg.activeSlide = this.cfg.slideNodes.length - 1;
+			this.config.activeSlide = this.config.slideNodes.length - 1;
 			// if the idle loop is active
-			if (this.cfg.allowLoop) {
+			if (this.config.allowLoop) {
 				// loop around
-				this.cfg.activeSlide = 0;
+				this.config.activeSlide = 0;
 			}
 		}
 		// if the left limit is passed
-		if (this.cfg.activeSlide < 0) {
+		if (this.config.activeSlide < 0) {
 			// reset to the left limit
-			this.cfg.activeSlide = 0;
+			this.config.activeSlide = 0;
 			// if the idle loop is active
-			if (this.cfg.allowLoop) {
+			if (this.config.allowLoop) {
 				// loop around
-				this.cfg.activeSlide = this.cfg.slideNodes.length - 1;
+				this.config.activeSlide = this.config.slideNodes.length - 1;
 			}
 		}
 		// if the index is close to the max
-		if (this.cfg.slideNodes.length - this.cfg.activeSlide < this.cfg.fetchTreshold) {
+		if (this.config.slideNodes.length - this.config.activeSlide < this.config.fetchTreshold) {
 			// check if there's more using ajax
 			this.loadSlides();
 		}
@@ -1044,9 +1443,9 @@ useful.Gallery.prototype.Slides = function (parent) {
 	};
 	this.slideTo = function (index) {
 		// update the index
-		this.cfg.activeSlide = index;
+		this.config.activeSlide = index;
 		// if the index is close to the max
-		if (this.cfg.slideNodes.length - this.cfg.activeSlide < this.cfg.fetchTreshold) {
+		if (this.config.slideNodes.length - this.config.activeSlide < this.config.fetchTreshold) {
 			// check if there's more using ajax
 			this.loadSlides();
 		}
@@ -1055,14 +1454,14 @@ useful.Gallery.prototype.Slides = function (parent) {
 	};
 	this.handleSlide = function (index) {
 		var _this = this;
-		this.cfg.slideNodes[index].addEventListener('click', function (event) {
-			if (_this.cfg.carouselMode) {
+		this.config.slideNodes[index].addEventListener('click', function (event) {
+			if (_this.config.carouselMode) {
 				// check if there wasn't a recent gesture
-				if (!_this.cfg.recentGesture) {
+				if (!_this.config.recentGesture) {
 					// if the event was triggered on the active slide
-					if (index === _this.cfg.activeSlide) {
+					if (index === _this.config.activeSlide) {
 						// find the url in the slide and open it
-						var slideLinks = _this.cfg.slideNodes[_this.cfg.activeSlide].getElementsByTagName('a');
+						var slideLinks = _this.config.slideNodes[_this.config.activeSlide].getElementsByTagName('a');
 						// if there is just one link in the slide
 						if (slideLinks.length === 1) {
 							// open the link
@@ -1081,14 +1480,14 @@ useful.Gallery.prototype.Slides = function (parent) {
 	};
 	this.handleSlideiOS = function (index) {
 		var _this = this;
-		this.cfg.slideNodes[index].addEventListener('touchend', function (event) {
-			if (_this.cfg.carouselMode) {
+		this.config.slideNodes[index].addEventListener('touchend', function (event) {
+			if (_this.config.carouselMode) {
 				// check if there wasn't a recent gesture
-				if (!_this.cfg.recentGesture) {
+				if (!_this.config.recentGesture) {
 					// if the event was triggered on the active slide
-					if (index === _this.cfg.activeSlide) {
+					if (index === _this.config.activeSlide) {
 						// find the url in the slide and open it
-						var slideLinks = _this.cfg.slideNodes[_this.cfg.activeSlide].getElementsByTagName('a');
+						var slideLinks = _this.config.slideNodes[_this.config.activeSlide].getElementsByTagName('a');
 						// if there is just one link in the slide
 						if (slideLinks.length === 1) {
 							// open the link
@@ -1129,61 +1528,61 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 	// properties
 	"use strict";
 	this.parent = parent;
-	this.cfg = parent.cfg;
-	this.obj = parent.obj;
+	this.config = parent.config;
+	this.element = parent.element;
 	// methods
 	this.buildToolbar = function () {
 		var a, b, newButton;
 		// create the toolbar container
-		this.cfg.toolbarContainer = document.createElement('menu');
+		this.config.toolbarContainer = document.createElement('menu');
 		// add the element's properties
-		this.cfg.toolbarContainer.className = 'gallery_toolbar';
+		this.config.toolbarContainer.className = 'gallery_toolbar';
 		// define the toolbar elements
-		this.cfg.toolbarElements = [];
-		if (this.cfg.togglePrev) { this.cfg.toolbarElements.push([this.cfg.togglePrev, 'gallery_tool_previous']); }
-		if (this.cfg.toggleNext) { this.cfg.toolbarElements.push([this.cfg.toggleNext, 'gallery_tool_next']); }
-		if (this.cfg.toggleCarousel) { this.cfg.toolbarElements.push([this.cfg.toggleCarousel, 'gallery_tool_carousel']); }
-		if (this.cfg.togglePinboard) { this.cfg.toolbarElements.push([this.cfg.togglePinboard, 'gallery_tool_pinboard']); }
-		if (this.cfg.toggleFilter) { this.cfg.toolbarElements.push([this.cfg.toggleFilter, 'gallery_tool_filter']); }
+		this.config.toolbarElements = [];
+		if (this.config.togglePrev) { this.config.toolbarElements.push([this.config.togglePrev, 'gallery_tool_previous']); }
+		if (this.config.toggleNext) { this.config.toolbarElements.push([this.config.toggleNext, 'gallery_tool_next']); }
+		if (this.config.toggleCarousel) { this.config.toolbarElements.push([this.config.toggleCarousel, 'gallery_tool_carousel']); }
+		if (this.config.togglePinboard) { this.config.toolbarElements.push([this.config.togglePinboard, 'gallery_tool_pinboard']); }
+		if (this.config.toggleFilter) { this.config.toolbarElements.push([this.config.toggleFilter, 'gallery_tool_filter']); }
 		// add the defined controls
-		for (a = 0 , b = this.cfg.toolbarElements.length; a < b; a += 1) {
+		for (a = 0 , b = this.config.toolbarElements.length; a < b; a += 1) {
 			// if the element is defined
-			if (this.cfg.toolbarElements[a][0] !== null) {
+			if (this.config.toolbarElements[a][0] !== null) {
 				// create the next button
 				newButton = document.createElement('button');
 				// add its properties
-				newButton.innerHTML = this.cfg.toolbarElements[a][0];
-				newButton.className = this.cfg.toolbarElements[a][1] + ' gallery_tool_enabled';
+				newButton.innerHTML = this.config.toolbarElements[a][0];
+				newButton.className = this.config.toolbarElements[a][1] + ' gallery_tool_enabled';
 				// add the button to the menu
-				this.cfg.toolbarContainer.appendChild(newButton);
+				this.config.toolbarContainer.appendChild(newButton);
 			}
 		}
 		// insert into the component
-		this.obj.appendChild(this.cfg.toolbarContainer);
+		this.element.appendChild(this.config.toolbarContainer);
 	};
 	this.updateToolbar = function () {
 		// if looping is turned off
-		if (!this.cfg.allowLoop && this.cfg.previousButton && this.cfg.nextButton) {
+		if (!this.config.allowLoop && this.config.previousButton && this.config.nextButton) {
 			// if the first slide is active disable/enable the previous button
-			this.cfg.previousButton.className = (this.cfg.activeSlide === 0) ? this.cfg.previousButton.className.replace(/gallery_tool_enabled/gi, 'gallery_tool_disabled') : this.cfg.previousButton.className.replace(/gallery_tool_disabled/gi, 'gallery_tool_enabled');
+			this.config.previousButton.className = (this.config.activeSlide === 0) ? this.config.previousButton.className.replace(/gallery_tool_enabled/gi, 'gallery_tool_disabled') : this.config.previousButton.className.replace(/gallery_tool_disabled/gi, 'gallery_tool_enabled');
 			// if the last slide is active
-			this.cfg.nextButton.className = (this.cfg.activeSlide === this.cfg.slideNodes.length - 1) ? this.cfg.nextButton.className.replace(/gallery_tool_enabled/gi, 'gallery_tool_disabled') : this.cfg.nextButton.className.replace(/gallery_tool_disabled/gi, 'gallery_tool_enabled');
+			this.config.nextButton.className = (this.config.activeSlide === this.config.slideNodes.length - 1) ? this.config.nextButton.className.replace(/gallery_tool_enabled/gi, 'gallery_tool_disabled') : this.config.nextButton.className.replace(/gallery_tool_disabled/gi, 'gallery_tool_enabled');
 		}
 	};
 	this.toggleFilter = function (button) {
 		// get the filter interface
-		this.cfg.filterForm = this.cfg.filterForm || this.obj.getElementsByTagName('form');
-		if (this.cfg.filterForm.length > 0) {
+		this.config.filterForm = this.config.filterForm || this.element.getElementsByTagName('form');
+		if (this.config.filterForm.length > 0) {
 			// if the filter is invisible
-			if (this.cfg.filterForm[0].className.indexOf('gallery_filter_hide') > -1) {
+			if (this.config.filterForm[0].className.indexOf('gallery_filter_hide') > -1) {
 				// reveal it
 				button.parentNode.className = button.parentNode.className.replace('Passive', 'Active');
-				useful.transitions.byClass(this.cfg.filterForm[0], 'gallery_filter_hide', 'gallery_filter_show', null, null, null, null);
+				useful.transitions.byClass(this.config.filterForm[0], 'gallery_filter_hide', 'gallery_filter_show', null, null, null, null);
 			// else
 			} else {
 				// hide it
 				button.parentNode.className = button.parentNode.className.replace('Active', 'Passive');
-				useful.transitions.byClass(this.cfg.filterForm[0], 'gallery_filter_show', 'gallery_filter_hide', null, null, null, null);
+				useful.transitions.byClass(this.config.filterForm[0], 'gallery_filter_show', 'gallery_filter_hide', null, null, null, null);
 			}
 		}
 	};
@@ -1191,92 +1590,92 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 		var _this = this;
 		var a, b, resetScroll, cols, rows, rowHeight;
 		// if the node is not already in pinboard mode, remember to reset the scroll position
-		resetScroll = (this.cfg.carouselMode) ? true : false;
+		resetScroll = (this.config.carouselMode) ? true : false;
 		// hide the slides to avoid glitches
-		if (this.cfg.slideNodes.length > 0) {
-			clearTimeout(this.cfg.transformTimeout);
-			this.cfg.slideNodes[0].parentNode.style.visibility = 'hidden';
-			this.cfg.transformTimeout = setTimeout(function () {
-				_this.cfg.slideNodes[0].parentNode.style.visibility = 'visible';
+		if (this.config.slideNodes.length > 0) {
+			clearTimeout(this.config.transformTimeout);
+			this.config.slideNodes[0].parentNode.style.visibility = 'hidden';
+			this.config.transformTimeout = setTimeout(function () {
+				_this.config.slideNodes[0].parentNode.style.visibility = 'visible';
 			}, 1000);
 		}
 		// switch the classname of the parent
-		useful.transitions.byClass(this.obj, 'gallery_mode_carousel', 'gallery_mode_pinboard');
+		useful.transitions.byClass(this.element, 'gallery_mode_carousel', 'gallery_mode_pinboard');
 		// change to pinboard mode
-		this.cfg.carouselMode = false;
+		this.config.carouselMode = false;
 		// store the assigned column positions
-		cols = this.cfg.pinboardNames.length - 1;
+		cols = this.config.pinboardNames.length - 1;
 		// for all slides
-		for (a = 0 , b = this.cfg.slideNodes.length; a < b; a += 1) {
+		for (a = 0 , b = this.config.slideNodes.length; a < b; a += 1) {
 			// replace the carousel styles with pinboard one
 			useful.transitions.byClass(
-				this.cfg.slideNodes[a],
-				this.cfg.carouselNames.join(' '),
-				this.cfg.pinboardNames[a % cols]
+				this.config.slideNodes[a],
+				this.config.carouselNames.join(' '),
+				this.config.pinboardNames[a % cols]
 			);
 		}
 		// update the vertical positions of the slides
 		rows = [];
-		for (a = 0 , b = this.cfg.slideNodes.length; a < b; a += 1) {
+		for (a = 0 , b = this.config.slideNodes.length; a < b; a += 1) {
 			// set the first values
 			if (a < cols) {
-				rows[a] = this.cfg.rowOffset + this.cfg.pinboardOffset;
+				rows[a] = this.config.rowOffset + this.config.pinboardOffset;
 			}
 			// calculate the height to go with this slide
-			rowHeight = this.cfg.slideNodes[a].offsetHeight + this.cfg.rowOffset;
+			rowHeight = this.config.slideNodes[a].offsetHeight + this.config.rowOffset;
 			// set the proper vertical position for this mode
-			this.cfg.slideNodes[a].style.top = rows[a % cols] + 'px';
+			this.config.slideNodes[a].style.top = rows[a % cols] + 'px';
 			// update the total height
 			rows[a % cols] += rowHeight;
 		}
 		// reset the scroll position
 		if (resetScroll) {
-			this.cfg.slideContainer.scrollTop = 0;
+			this.config.slideContainer.scrollTop = 0;
 		}
 		// get new slides to fill the scrollable section
-		if (this.cfg.slideContainer.scrollHeight <= this.cfg.slideContainer.offsetHeight) {
+		if (this.config.slideContainer.scrollHeight <= this.config.slideContainer.offsetHeight) {
 			// ask for more slides
-			this.parent.slides.loadSlides(this.cfg.slideNodes.length, this.cfg.fetchAmount);
+			this.parent.slides.loadSlides(this.config.slideNodes.length, this.config.fetchAmount);
 		}
 	};
 	this.transformToCarousel = function () {
 		var _this = this;
 		var slideClassName;
 		// reset the scroll position
-		this.cfg.slideContainer.scrollTop = 0;
+		this.config.slideContainer.scrollTop = 0;
 		// hide the slides to avoid glitches
-		if (this.cfg.slideNodes.length > 0) {
-			clearTimeout(this.cfg.transformTimeout);
-			this.cfg.slideNodes[0].parentNode.style.visibility = 'hidden';
-			this.cfg.transformTimeout = setTimeout(function () {
-				_this.cfg.slideNodes[0].parentNode.style.visibility = 'visible';
+		if (this.config.slideNodes.length > 0) {
+			clearTimeout(this.config.transformTimeout);
+			this.config.slideNodes[0].parentNode.style.visibility = 'hidden';
+			this.config.transformTimeout = setTimeout(function () {
+				_this.config.slideNodes[0].parentNode.style.visibility = 'visible';
 			}, 1000);
 		}
 		// switch the classname op the parent
-		useful.transitions.byClass(this.obj, 'gallery_mode_pinboard', 'gallery_mode_carousel');
+		useful.transitions.byClass(this.element, 'gallery_mode_pinboard', 'gallery_mode_carousel');
 		// change to carousel mode
-		this.cfg.carouselMode = true;
+		this.config.carouselMode = true;
 		// for all slides
-		for (var a = 0, b = this.cfg.slideNodes.length; a < b; a += 1) {
+		for (var a = 0, b = this.config.slideNodes.length; a < b; a += 1) {
 			// etermine the target class name
-			slideClassName = (a + 2 < this.cfg.carouselNames.length) ? this.cfg.carouselNames[a + 2] : this.cfg.carouselNames[this.cfg.carouselNames.length - 1];
+			slideClassName = (a + 2 < this.config.carouselNames.length) ? this.config.carouselNames[a + 2] : this.config.carouselNames[this.config.carouselNames.length - 1];
 			// set the proper vertical position for this mode
-			this.cfg.slideNodes[a].style.top = '50%';
+			this.config.slideNodes[a].style.top = '50%';
 			// replace the carousel styles with pinboard one
 			useful.transitions.byClass(
-				this.cfg.slideNodes[a],
-				this.cfg.pinboardNames.join(' '),
+				this.config.slideNodes[a],
+				this.config.pinboardNames.join(' '),
 				slideClassName
 			);
 		}
 		// restart the carousel
-		this.cfg.activeSlide = 0;
+		this.config.activeSlide = 0;
 		this.parent.updateAll();
 	};
 	this.handleFilters = function () {
 		var a, b, filterForms, filterGroups, changeEvent;
 		// get all the filter groups
-		filterForms = this.obj.getElementsByTagName('form');
+		filterForms = this.element.getElementsByTagName('form');
 		if (filterForms.length > 0) {
 			// for the filter groups
 			filterGroups = filterForms[0].getElementsByTagName('input');
@@ -1298,7 +1697,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 	this.handleClicks = function () {
 		var a, b, allButtons;
 		// set the event handlers of the controls
-		allButtons = this.cfg.toolbarContainer.getElementsByTagName('button');
+		allButtons = this.config.toolbarContainer.getElementsByTagName('button');
 		for (a = 0 , b = allButtons.length; a < b; a += 1) {
 			this.handleClick(allButtons[a]);
 		}
@@ -1308,10 +1707,10 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 		switch (button.className.split(' ')[0]) {
 		case 'gallery_tool_previous' :
 			// store the button
-			this.cfg.previousButton = button;
+			this.config.previousButton = button;
 			// add the event handler
 			button.onclick = function () {
-				if (!_this.cfg.animationInProgress) {
+				if (!_this.config.animationInProgress) {
 					_this.parent.slides.slideBy(-1);
 				}
 				// cancel the click event
@@ -1320,10 +1719,10 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			break;
 		case 'gallery_tool_next' :
 			// store the button
-			this.cfg.nextButton = button;
+			this.config.nextButton = button;
 			// add the event handler
 			button.onclick = function () {
-				if (!_this.cfg.animationInProgress) {
+				if (!_this.config.animationInProgress) {
 					_this.parent.slides.slideBy(1);
 				}
 				// cancel the click event
@@ -1332,7 +1731,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			break;
 		case 'gallery_tool_pinboard' :
 			// store the button
-			this.cfg.pinboardButton = button;
+			this.config.pinboardButton = button;
 			// add the event handler
 			button.onclick = function () {
 				_this.transformToPinboard();
@@ -1342,7 +1741,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			break;
 		case 'gallery_tool_carousel' :
 			// store the button
-			this.cfg.carouselButton = button;
+			this.config.carouselButton = button;
 			// add the event handler
 			button.onclick = function () {
 				_this.transformToCarousel();
@@ -1352,7 +1751,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			break;
 		case 'gallery_tool_filter' :
 			// store the button
-			this.cfg.filterButton = button;
+			this.config.filterButton = button;
 			// add the event handler
 			button.onclick = function () {
 				// handle the event
@@ -1366,7 +1765,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 	this.handleClicksiOS = function () {
 		var a, b, allButtons;
 		// set the event handlers of the controls
-		allButtons = this.cfg.toolbarContainer.getElementsByTagName('button');
+		allButtons = this.config.toolbarContainer.getElementsByTagName('button');
 		for (a = 0 , b = allButtons.length; a < b; a += 1) {
 			this.handleClickiOS(allButtons[a]);
 		}
@@ -1376,10 +1775,10 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 		switch (button.className.split(' ')[0]) {
 		case 'gallery_tool_previous' :
 			// store the button
-			this.cfg.previousButton = button;
+			this.config.previousButton = button;
 			// add the event handler
 			button.ontouchend = function (event) {
-				if (!_this.cfg.animationInProgress) {
+				if (!_this.config.animationInProgress) {
 					_this.parent.slides.slideBy(-1);
 				}
 				// cancel the default browser behaviour
@@ -1388,10 +1787,10 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			break;
 		case 'gallery_tool_next' :
 			// store the button
-			this.cfg.nextButton = button;
+			this.config.nextButton = button;
 			// add the event handler
 			button.ontouchend = function (event) {
-				if (!_this.cfg.animationInProgress) {
+				if (!_this.config.animationInProgress) {
 					_this.parent.slides.slideBy(1);
 				}
 				// cancel the default browser behaviour
@@ -1400,7 +1799,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			break;
 		case 'gallery_tool_pinboard' :
 			// store the button
-			this.cfg.pinboardButton = button;
+			this.config.pinboardButton = button;
 			// add the event handler
 			button.ontouchend = function (event) {
 				_this.transformToPinboard();
@@ -1410,7 +1809,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			break;
 		case 'gallery_tool_carousel' :
 			// store the button
-			this.cfg.carouselButton = button;
+			this.config.carouselButton = button;
 			// add the event handler
 			button.ontouchend = function (event) {
 				_this.transformToCarousel();
@@ -1420,7 +1819,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			break;
 		case 'gallery_tool_filter' :
 			// store the button
-			this.cfg.filterButton = button;
+			this.config.filterButton = button;
 			// add the event handler
 			button.ontouchend = function (event) {
 				// handle the event
@@ -1440,7 +1839,7 @@ if (typeof module !== 'undefined') {
 
 /*
 	Source:
-	van Creij, Maurice (2014). "useful.this.js: An scrolling content this.", version 20141127, http://www.woollymittens.nl/.
+	van Creij, Maurice (2014). "useful.photowall.js: Simple photo wall", version 20141127, http://www.woollymittens.nl/.
 
 	License:
 	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
@@ -1451,386 +1850,32 @@ var useful = useful || {};
 useful.Gallery = useful.Gallery || function () {};
 
 // extend the constructor
-useful.Gallery.prototype.init = function (cfg) {
+useful.Gallery.prototype.init = function (config) {
 	// properties
 	"use strict";
-	this.cfg = cfg;
-	this.obj = cfg.element;
 	// methods
-	this.start = function () {
-		// if the component is not already active
-		if (!this.cfg.isActive) {
-			// mark this node as active
-			this.cfg.isActive = true;
-			// set the default mode
-			this.obj.className += ' gallery_mode_carousel';
-			// store the settings
-			this.defaultSettings();
-			// build the container for the slides
-			this.slides.buildSlideContainer();
-			// build the progress indicator
-			this.progress.buildProgressIndicator();
-			// build the toolbar
-			this.toolbar.buildToolbar();
-			// build the pager
-			this.pager.buildPager();
-			// build the interaction invitation
-			this.hint.buildHint();
-			// if this is the mobile website
-			if (this.cfg.onMobile) {
-				// add the click events
-				this.toolbar.handleClicksiOS();
-				// add the gesture events
-				this.handleGesturesiOS();
-			// otherwise
-			} else {
-				// add the click events
-				this.toolbar.handleClicks();
-				// add the gesture events
-				this.handleGestures();
-			}
-			// add the mousewheel events
-			this.handleMousewheel();
-			// add the idle animation
-			this.handleIdle();
-			// add the filter handlers
-			this.toolbar.handleFilters();
-			// handle resizing of the browser
-			this.handleResize();
-			// if AJAX is used
-			var _this = this;
-			if (this.cfg.allowAjax) {
-				// order the first batch of slides
-				setTimeout(function () {
-					// load the first batch
-					_this.slides.loadSlides(_this.cfg.activeSlide, _this.cfg.fetchAmount);
-					// load the pager
-					_this.pager.loadPager();
-				}, 200);
-			}
-			// build the pager based on the slides that are already there
-			this.pager.fillPager({'responseText' : '[' + (this.cfg.slideNodes.length - 1) + ']'});
-			// update the slides that are already there
-			this.updateAll();
+	this.only = function (config) {
+		// start an instance of the script
+		return new this.Main(config, this).init();
+	};
+	this.each = function (config) {
+		var _config, _context = this, instances = [];
+		// for all element
+		for (var a = 0, b = config.elements.length; a < b; a += 1) {
+			// clone the configuration
+			_config = Object.create(config);
+			// insert the current element
+			_config.element = config.elements[a];
+			// delete the list of elements from the clone
+			delete _config.elements;
+			// start a new instance of the object
+			instances[a] = new this.Main(_config, _context).init();
 		}
-		// disable the start function so it can't be started twice
-		this.start = function () {};
+		// return the instances
+		return instances;
 	};
-	this.defaultSettings = function () {
-		// EXTERNAL SETTINGS
-		// defines the aspect ratio of the gallery - 4:3 would be 0.75
-		this.cfg.aspectRatio = this.cfg.aspectRatio || 1;
-		// the script will cycle through these classes, the number is not limited
-		this.cfg.carouselNames = this.cfg.carouselNames || ['gallery_carousel_farleft', 'gallery_carousel_left', 'gallery_carousel_centre', 'gallery_carousel_right', 'gallery_carousel_farright'];
-		// the script alternates between these classes to divide the slides across columns
-		this.cfg.pinboardNames = this.cfg.pinboardNames || ['gallery_pinboard_left', 'gallery_pinboard_right', 'gallery_pinboard_loading'];
-		// default behaviour is to show numbers
-		this.cfg.pagerLabels = this.cfg.pagerLabels || ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'];
-		// distance between rows of slides in pin board mode
-		this.cfg.rowOffset = this.cfg.rowOffset || 18;
-		this.cfg.pinboardOffset = this.cfg.pinboardOffset || 0;
-		// distance from the bottom of the pin board where new slides will be loaded if AJAX is enabled
-		this.cfg.fetchScrollBottom = this.cfg.fetchScrollBottom || 100;
-		// how far from the unloaded slides preloading should commence
-		this.cfg.fetchTreshold = this.cfg.fetchTreshold || 3;
-		// how many slides to get in one go
-		this.cfg.fetchAmount = this.cfg.fetchAmount || 5;
-		// don't accept new input until the animation finished
-		this.cfg.limitSpeed = this.cfg.limitSpeed || true;
-		// immediately cycle to the first slide after reaching the last
-		this.cfg.allowLoop = this.cfg.allowLoop || false;
-		// wait this long until starting the automatic slideshow
-		this.cfg.idleDelay = this.cfg.idleDelay || 8000;
-		// direction to show the slides in
-		this.cfg.idleDirection = this.cfg.idleDirection || 1; // -1 | 1
-		// what interface elements to show
-		this.cfg.toggleHint = this.cfg.toggleHint || true; // true | false
-		this.cfg.togglePager = this.cfg.togglePager || true; // true | false
-		this.cfg.toggleFilter = this.cfg.toggleFilter || 'Filter'; // string | true | false
-		this.cfg.togglePinboard = this.cfg.togglePinboard || 'View Pin Board'; // string | true | false
-		this.cfg.toggleCarousel = this.cfg.toggleCarousel || 'View Carousel'; // string | true | false
-		this.cfg.toggleNext = this.cfg.toggleNext || 'Next Slide'; // string | true | false
-		this.cfg.togglePrev = this.cfg.togglePrev || 'Previous Slide'; // string | true | false
-		// how mobile devices are identified to enable touch controls
-		this.cfg.onMobile = this.cfg.onMobile || (navigator.userAgent.indexOf('Mobile') > -1);
-		// INTERNAL SETTINGS
-		// store the starting index
-		this.cfg.activeSlide = 0;
-		// set the initial keywords
-		this.cfg.activeFilterGroup = [];
-		// store the initial mode
-		this.cfg.carouselMode = (this.obj.className.indexOf('gallery_mode_carousel') > -1);
-		this.cfg.allowAjax = this.cfg.allowAjax || (this.obj.getElementsByTagName('form').length > 0);
-		// report animations in progress
-		this.cfg.animationInProgress = false;
-		// report AJAX fetches in progress
-		this.cfg.fetchInProgress = false;
-		// report that slides have not run out yet
-		this.cfg.noSlidesLeft = false;
-		// indicator for interferance of gestures
-		this.cfg.recentGesture = false;
-	};
-	this.updateAll = function () {
-		// re-implement the aspect ratio
-		this.obj.style.height = parseInt(this.obj.offsetWidth * this.cfg.aspectRatio, 10) + 'px';
-		// update the components
-		this.pager.updatePager();
-		this.slides.updateSlides();
-		this.toolbar.updateToolbar();
-	};
-	this.resetAll = function () {
-		// restore the global parameters to the default situation
-		this.cfg.activeSlide = 0;
-		this.cfg.slideNodes = [];
-		this.cfg.fetchInProgress = false;
-		this.cfg.fetchInProgress = false;
-		this.cfg.noSlidesLeft = false;
-		// empty the current set of slides
-		this.cfg.slideContainer.innerHTML = '';
-		// get the slides that match the filter
-		this.slides.loadSlides(0, 3);
-	};
-	// components
-	this.toolbar = new this.Toolbar(this);
-	this.slides = new this.Slides(this);
-	this.progress = new this.Progress(this);
-	this.pager = new this.Pager(this);
-	this.hint = new this.Hint(this);
-	// events
-	this.handleResize = function () {
-		var _this = this;
-		window.addEventListener('resize', function () {
-			_this.updateAll();
-		}, false);
-	};
-	this.handleGestures = function () {
-		var _this = this;
-		this.cfg.startX = null;
-		this.obj.onmousedown = function (event) {
-			event = event || window.event;
-			if (_this.cfg.carouselMode) {
-				_this.cfg.startX = (navigator.userAgent.indexOf('MSIE ') > -1) ? event.x : event.screenX;
-				// cancel the click event
-				return false;
-			}
-		};
-		this.obj.onmousemove = function (event) {
-			event = event || window.event;
-			if (_this.cfg.carouselMode) {
-				if (_this.cfg.startX !== null) {
-					var increment;
-					// lock the click events
-					_this.cfg.recentGesture = true;
-					_this.cfg.endX = (navigator.userAgent.indexOf('MSIE ') > -1) ? event.x : event.screenX;
-					// if the distance has been enough
-					if (Math.abs(_this.cfg.endX - _this.cfg.startX) > _this.obj.offsetWidth / 4) {
-						// move one increment
-						increment = (_this.cfg.endX - _this.cfg.startX < 0) ? 1 : -1;
-						if (!_this.cfg.animationInProgress) {
-							_this.slides.slideBy(increment);
-						}
-						// reset the positions
-						_this.cfg.startX = _this.cfg.endX;
-					}
-					// cancel the click event
-					return false;
-				}
-			}
-		};
-		this.obj.onmouseup = function (event) {
-			event = event || window.event;
-			if (_this.cfg.carouselMode) {
-				// cancel the gesture
-				_this.cfg.endX = null;
-				_this.cfg.startX = null;
-				setTimeout(function () { _this.cfg.recentGesture = false; }, 100);
-				// cancel the click event
-				return false;
-			}
-		};
-		this.obj.addEventListener('mouseout', function (event) {
-			event = event || window.event;
-			if (_this.cfg.carouselMode) {
-				// whipe the gesture if the mouse remains out of bounds
-				_this.cfg.timeOut = setTimeout(function () {
-					_this.cfg.endX = null;
-					_this.cfg.startX = null;
-				}, 100);
-				// cancel the click event
-				event.preventDefault();
-			}
-		}, false);
-		this.obj.addEventListener('mouseover', function (event) {
-			event = event || window.event;
-			if (_this.cfg.carouselMode) {
-				// stop the gesture from resetting when the mouse goes back in bounds
-				clearTimeout(_this.cfg.timeOut);
-				// cancel the click event
-				event.preventDefault();
-			}
-		}, false);
-	};
-	this.handleGesturesiOS = function () {
-		var _this = this;
-		this.cfg.touchStartX = null;
-		this.cfg.touchStartY = null;
-		this.obj.addEventListener('touchstart', function (event) {
-			if (_this.cfg.carouselMode) {
-				_this.cfg.touchStartX = event.touches[0].pageX;
-				_this.cfg.touchStartY = event.touches[0].pageY;
-			}
-		}, false);
-		this.obj.addEventListener('touchmove', function (event) {
-			if (_this.cfg.carouselMode) {
-				if (_this.cfg.touchStartX !== null) {
-					// lock the click events
-					_this.cfg.recentGesture = true;
-					_this.cfg.touchEndX = event.touches[0].pageX;
-					_this.cfg.touchEndY = event.touches[0].pageY;
-					// if the distance has been enough
-					if (Math.abs(_this.cfg.touchEndX - _this.cfg.touchStartX) > _this.obj.offsetWidth / 4) {
-						// move one increment
-						var increment = (_this.cfg.touchEndX - _this.cfg.touchStartX < 0) ? 1 : -1;
-						if (!_this.cfg.animationInProgress) {
-							_this.slides.slideBy(increment);
-						}
-						// reset the positions
-						_this.cfg.touchStartX = _this.cfg.touchEndX;
-					}
-					// cancel the default browser behaviour if there was horizontal motion
-					if (Math.abs(_this.cfg.touchEndX - _this.cfg.touchStartX) > Math.abs(_this.cfg.touchEndY - _this.cfg.touchStartY)) {
-						event.preventDefault();
-					}
-				}
-			}
-		}, false);
-		this.obj.eventListener('touchend', function () {
-			if (_this.cfg.carouselMode) {
-				// cancel the gesture
-				_this.cfg.touchEndX = null;
-				_this.cfg.touchStartX = null;
-				_this.cfg.touchEndY = null;
-				_this.cfg.touchStartY = null;
-				setTimeout(function () { _this.cfg.recentGesture = false; }, 100);
-			}
-		}, false);
-		this.obj.addEventListener('touchcancel', function (event) {
-			if (_this.cfg.carouselMode) {
-				// cancel the gesture
-				_this.cfg.touchEndX = null;
-				_this.cfg.touchStartX = null;
-				_this.cfg.touchEndY = null;
-				_this.cfg.touchStartY = null;
-				setTimeout(function () { _this.cfg.recentGesture = false; }, 100);
-				// cancel the default browser behaviour
-				event.preventDefault();
-			}
-		}, false);
-	};
-	this.handleMousewheel = function () {
-		var _this = this;
-		var onMoveSlides = function (event) {
-			var distance, increment;
-			// get the scroll distance
-			distance = (window.event) ? window.event.wheelDelta / 120 : -event.detail / 3;
-			increment = (distance < 0) ? 1 : -1;
-			// if this is carousel mode
-			if (_this.cfg.carouselMode) {
-				// scroll the page
-				if (!_this.cfg.animationInProgress) {
-					_this.slides.slideBy(increment);
-				}
-				// cancel the click event
-				event.preventDefault();
-			}
-		};
-		var onLoadSlides = function () {
-			// if the scroll position is close to the scroll height
-			if (_this.cfg.slideContainer.scrollHeight - _this.cfg.slideContainer.offsetHeight - _this.cfg.slideContainer.scrollTop < _this.cfg.fetchScrollBottom) {
-				// ask for more slides
-				_this.slides.loadSlides(_this.cfg.slideNodes.length, _this.cfg.fetchAmount);
-			}
-		};
-		this.obj.addEventListener('mousewheel', onMoveSlides, false);
-		this.obj.addEventListener('DOMMouseScroll', onMoveSlides, false);
-		this.cfg.slideContainer.addEventListener('scroll', onLoadSlides, false);
-	};
-	this.handleIdle = function () {
-		var _this = this;
-		// timer constant
-		this.cfg.idleTimer = null;
-		this.cfg.idleLoop = this.cfg.allowLoop;
-		// events to cancel the timer
-		this.obj.addEventListener('mouseout', function () {
-			// allow looping
-			_this.cfg.allowLoop = true;
-			// a set the automatic gallery to start after while
-			if (_this.cfg.idleDelay > -1) {
-				clearInterval(_this.cfg.idleTimer);
-				_this.cfg.idleTimer = setInterval(function () {
-					if (_this.cfg.carouselMode) {
-						_this.slides.slideBy(_this.cfg.idleDirection);
-					}
-				}, _this.cfg.idleDelay);
-			}
-		}, false);
-		this.obj.addEventListener('mouseover', function () {
-			// restore looping setting
-			_this.cfg.allowLoop = _this.cfg.idleLoop;
-			// cancel the automatic gallery
-			clearInterval(_this.cfg.idleTimer);
-		}, false);
-		// a set the automatic gallery to start after while
-		if (this.cfg.idleDelay > -1) {
-			clearInterval(this.cfg.idleTimer);
-			this.cfg.idleTimer = setInterval(function () {
-				if (_this.cfg.carouselMode) {
-					_this.slides.slideBy(_this.cfg.idleDirection);
-				}
-			}, this.cfg.idleDelay);
-		}
-	};
-	// external API
-	this.focus = function (index) {
-		this.slides.slideTo(index);
-	};
-	this.previous = function () {
-		this.slides.slideBy(-1);
-	};
-	this.next = function () {
-		this.slides.slideBy(1);
-	};
-	this.pause = function () {
-		// restore looping setting
-		this.cfg.allowLoop = this.cfg.idleLoop;
-		// cancel the automatic gallery
-		clearInterval(this.cfg.idleTimer);
-	};
-	this.play = function () {
-		var _this = this;
-		// allow looping
-		this.cfg.allowLoop = true;
-		// a set the automatic gallery to start after while
-		if (this.cfg.idleDelay > -1) {
-			clearInterval(this.cfg.idleTimer);
-			this.cfg.idleTimer = setInterval(function () {
-				if (_this.cfg.carouselMode) {
-					_this.slides.slideBy(_this.cfg.idleDirection);
-				}
-			}, this.cfg.idleDelay);
-		}
-	};
-	this.transform = function (mode) {
-		switch (mode) {
-		case 1 :
-			this.toolbar.transformToPinboard(this);
-			break;
-		default :
-			this.toolbar.transformToCarousel(this);
-		}
-	};
-	// go
-	this.start();
+	// return a single or multiple instances of the script
+	return (config.elements) ? this.each(config) : this.only(config);
 };
 
 // return as a require.js module

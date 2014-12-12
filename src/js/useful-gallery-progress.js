@@ -15,16 +15,16 @@ useful.Gallery.prototype.Progress = function (parent) {
 	// properties
 	"use strict";
 	this.parent = parent;
-	this.cfg = parent.cfg;
-	this.obj = parent.obj;
+	this.config = parent.config;
+	this.element = parent.element;
 	// methods
 	this.buildProgressIndicator = function () {
 		// create the indicator element
-		this.cfg.progressIndicator = document.createElement('div');
+		this.config.progressIndicator = document.createElement('div');
 		// add the element's properties
-		this.cfg.progressIndicator.className = 'gallery_busy';
+		this.config.progressIndicator.className = 'gallery_busy';
 		// insert it into the component
-		this.obj.appendChild(this.cfg.progressIndicator);
+		this.element.appendChild(this.config.progressIndicator);
 	};
 };
 

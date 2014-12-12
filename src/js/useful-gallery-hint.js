@@ -15,21 +15,21 @@ useful.Gallery.prototype.Hint = function (parent) {
 	// properties
 	"use strict";
 	this.parent = parent;
-	this.cfg = parent.cfg;
-	this.obj = parent.obj;
+	this.config = parent.config;
+	this.element = parent.element;
 	// methods
 	this.buildHint = function () {
 		// if the hint is enabled
-		if (this.cfg.toggleHint) {
+		if (this.config.toggleHint) {
 			// create an element for the invitation
-			this.cfg.hintElement = document.createElement('div');
-			this.cfg.hintElement.className = 'gallery_hint';
+			this.config.hintElement = document.createElement('div');
+			this.config.hintElement.className = 'gallery_hint';
 			// add the element to the slideshow
-			this.obj.appendChild(this.cfg.hintElement);
+			this.element.appendChild(this.config.hintElement);
 			// a a status class to the parent element
-			this.obj.className += ' gallery_interface_hidden';
+			this.element.className += ' gallery_interface_hidden';
 			// on the mobile version
-			if (this.cfg.onMobile) {
+			if (this.config.onMobile) {
 				// set its event handler
 				this.handleHintiOS();
 			}
@@ -37,9 +37,9 @@ useful.Gallery.prototype.Hint = function (parent) {
 	};
 	this.handleHintiOS = function () {
 		var _this = this;
-		this.obj.addEventListener('touchend', function () {
+		this.element.addEventListener('touchend', function () {
 			// show the interface
-			_this.obj.className = _this.obj.className.replace(/gallery_interface_hidden/gi, 'gallery_interface_visible');
+			_this.element.className = _this.element.className.replace(/gallery_interface_hidden/gi, 'gallery_interface_visible');
 		}, false);
 	};
 };
