@@ -12,12 +12,16 @@ useful.Gallery = useful.Gallery || function () {};
 
 // extend the constructor
 useful.Gallery.prototype.Progress = function (parent) {
-	// properties
+
+	// PROPERTIES
+	
 	"use strict";
 	this.parent = parent;
 	this.config = parent.config;
 	this.element = parent.element;
-	// methods
+
+	// METHODS
+	
 	this.buildProgressIndicator = function () {
 		// create the indicator element
 		this.config.progressIndicator = document.createElement('div');

@@ -1,5 +1,5 @@
-@import "compass/css3";
-@import "compass/utilities";
+
+
 @import "mixins";
 /*
 	pin board / carousel
@@ -12,7 +12,7 @@ section.gallery {
 	position : relative;
 	width : 100%;
 	* {
-		@include box-sizing(border-box);
+		box-sizing: border-box;
 		cursor : pointer;
 	}
 }
@@ -24,10 +24,10 @@ section.gallery {
 		margin : 0;
 		padding : 0;
 		button {
-			@include transition-property(opacity);
-			@include transition-duration(0.3s);
-			@include transition-timing-function(ease);
-			@include opacity(0);
+			transition-property: opacity;
+			transition-duration: 0.3s;
+			transition-timing-function: ease;
+			opacity: 0;
 			@include iconParent(50);
 			background-color : #ff6a00;
 			border : none;
@@ -86,10 +86,10 @@ section.gallery:hover,
 section.gallery.gallery_interface_visible {
 	menu.gallery_toolbar {
 		button {
-			@include opacity(1);
+			opacity: 1;
 		}
 		button.gallery_tool_disabled {
-			@include opacity(1);
+			opacity: 1;
 			background-color : $color-disabled;
 		}
 	}
@@ -99,9 +99,9 @@ section.gallery.gallery_interface_visible {
 */
 section.gallery {
 	form.gallery_filter {
-		@include transition-property(all);
-		@include transition-duration(0.3s);
-		@include transition-timing-function(ease);
+		transition-property: all;
+		transition-duration: 0.3s;
+		transition-timing-function: ease;
 		background-color : $color-passive;
 		height : 40px;
 		margin : 0;
@@ -123,18 +123,18 @@ section.gallery {
 		}
 	}
 	form.gallery_filter_hide {
-		@include opacity(0);
+		opacity: 0;
 		visibility : hidden;
 	}
 	form.gallery_filter_show {
-		@include opacity(0);
+		opacity: 0;
 		visibility : visible;
 	}
 }
 section.gallery:hover,
 section.gallery.gallery_interface_visible {
 	form.gallery_filter_show {
-		@include opacity(1);
+		opacity: 1;
 	}
 }
 
@@ -143,10 +143,10 @@ section.gallery.gallery_interface_visible {
 */
 section.gallery {
 	menu.gallery_pager {
-		@include opacity(0);
-		@include transition-property(opacity);
-		@include transition-duration(0.3s);
-		@include transition-timing-function(ease);
+		opacity: 0;
+		transition-property: opacity;
+		transition-duration: 0.3s;
+		transition-timing-function: ease;
 		background-color : rgba(0,0,0,0.5);
 		height : 48px;
 		margin : 0;
@@ -193,7 +193,7 @@ section.gallery {
 section.gallery:hover,
 section.gallery.gallery_interface_visible {
 	menu.gallery_pager {
-		@include opacity(1);
+		opacity: 1;
 	}
 }
 
@@ -273,11 +273,11 @@ section.gallery {
 		z-index : 300;
 	}
 	article, figure {
-		@include background(linear-gradient(top, #eeeeee 0%,#ffffff 10%));
-		@include box-shadow(0 1px 3px #000);
-		@include transition-property(left, right, opacity);
-		@include transition-duration(0.3s, 0.3s, 0.3s);
-		@include transition-timing-function(ease, ease, ease);
+		background: linear-gradient(top, #eeeeee 0%,#ffffff 10%);
+		box-shadow: 0 1px 3px #000;
+		transition-property: left, right, opacity;
+		transition-duration: 0.3s, 0.3s, 0.3s;
+		transition-timing-function: ease, ease, ease;
 		background: #ffffff;
 		left : 50%;
 		top : 50%;
@@ -402,7 +402,7 @@ section.gallery {
 			width : auto;
 		}
 		figcaption {
-			@include opacity(0.5);
+			opacity: 0.5;
 			background-color : #000;
 			color : #fff;
 			position : absolute;

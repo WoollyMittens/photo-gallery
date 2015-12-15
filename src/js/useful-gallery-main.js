@@ -12,12 +12,16 @@ useful.Gallery = useful.Gallery || function () {};
 
 // extend the constructor
 useful.Gallery.prototype.Main = function (config, context) {
-	// properties
+
+	// PROPERTIES
+
 	"use strict";
 	this.config = config;
 	this.context = context;
 	this.element = config.element;
-	// methods
+
+	// METHODS
+
 	this.init = function () {
 		// if the component is not already active
 		if (!this.config.isActive) {
@@ -77,6 +81,7 @@ useful.Gallery.prototype.Main = function (config, context) {
 		// return the object
 		return this;
 	};
+
 	this.defaultSettings = function () {
 		// EXTERNAL SETTINGS
 		// defines the aspect ratio of the gallery - 4:3 would be 0.75
@@ -131,6 +136,7 @@ useful.Gallery.prototype.Main = function (config, context) {
 		// indicator for interferance of gestures
 		this.config.recentGesture = false;
 	};
+
 	this.updateAll = function () {
 		// re-implement the aspect ratio
 		this.element.style.height = parseInt(this.element.offsetWidth * this.config.aspectRatio, 10) + 'px';
@@ -139,6 +145,7 @@ useful.Gallery.prototype.Main = function (config, context) {
 		this.slides.updateSlides();
 		this.toolbar.updateToolbar();
 	};
+
 	this.resetAll = function () {
 		// restore the global parameters to the default situation
 		this.config.activeSlide = 0;
@@ -151,19 +158,24 @@ useful.Gallery.prototype.Main = function (config, context) {
 		// get the slides that match the filter
 		this.slides.loadSlides(0, 3);
 	};
-	// components
+
+	// COMPONENTS
+
 	this.toolbar = new this.context.Toolbar(this);
 	this.slides = new this.context.Slides(this);
 	this.progress = new this.context.Progress(this);
 	this.pager = new this.context.Pager(this);
 	this.hint = new this.context.Hint(this);
-	// events
+
+	// EVENTS
+
 	this.handleResize = function () {
 		var _this = this;
 		window.addEventListener('resize', function () {
 			_this.updateAll();
 		}, false);
 	};
+
 	this.handleGestures = function () {
 		var _this = this;
 		this.config.startX = null;
@@ -231,6 +243,7 @@ useful.Gallery.prototype.Main = function (config, context) {
 			}
 		}, false);
 	};
+
 	this.handleGesturesiOS = function () {
 		var _this = this;
 		this.config.touchStartX = null;
@@ -288,6 +301,7 @@ useful.Gallery.prototype.Main = function (config, context) {
 			}
 		}, false);
 	};
+
 	this.handleMousewheel = function () {
 		var _this = this;
 		var onMoveSlides = function (event) {
@@ -316,12 +330,13 @@ useful.Gallery.prototype.Main = function (config, context) {
 		this.element.addEventListener('DOMMouseScroll', onMoveSlides, false);
 		this.config.slideContainer.addEventListener('scroll', onLoadSlides, false);
 	};
+
 	this.handleIdle = function () {
 		var _this = this;
 		// timer constant
 		this.config.idleTimer = null;
 		this.config.idleLoop = this.config.allowLoop;
-		// events to cancel the timer
+		// events
 		this.element.addEventListener('mouseout', function () {
 			// allow looping
 			_this.config.allowLoop = true;
@@ -355,18 +370,22 @@ useful.Gallery.prototype.Main = function (config, context) {
 	this.focus = function (index) {
 		this.slides.slideTo(index);
 	};
+
 	this.previous = function () {
 		this.slides.slideBy(-1);
 	};
+
 	this.next = function () {
 		this.slides.slideBy(1);
 	};
+
 	this.pause = function () {
 		// restore looping setting
 		this.config.allowLoop = this.config.idleLoop;
 		// cancel the automatic gallery
 		clearInterval(this.config.idleTimer);
 	};
+
 	this.play = function () {
 		var _this = this;
 		// allow looping
@@ -381,6 +400,7 @@ useful.Gallery.prototype.Main = function (config, context) {
 			}, this.config.idleDelay);
 		}
 	};
+
 	this.transform = function (mode) {
 		switch (mode) {
 		case 1 :

@@ -12,18 +12,23 @@ useful.Gallery = useful.Gallery || function () {};
 
 // extend the constructor
 useful.Gallery.prototype.Pager = function (parent) {
-	// properties
+
+	// PROPERTIES
+	
 	"use strict";
 	this.parent = parent;
 	this.config = parent.config;
 	this.element = parent.element;
-	// methods
+
+	// METHODS
+	
 	this.buildPager = function () {
 		// build the page indicators
 		this.config.pagerContainer = document.createElement('menu');
 		this.config.pagerContainer.className = 'gallery_pager';
 		this.element.appendChild(this.config.pagerContainer);
 	};
+	
 	this.loadPager = function () {
 		var _this = this;
 		var fetchURL;
@@ -39,6 +44,7 @@ useful.Gallery.prototype.Pager = function (parent) {
 			onSuccess : function (reply) { _this.fillPager(reply); }
 		});
 	};
+	
 	this.fillPager = function (reply) {
 		var a, b, parent, fetchedPager, newPagerElement, newPagerLink;
 		// shortcut pointers
@@ -74,6 +80,7 @@ useful.Gallery.prototype.Pager = function (parent) {
 		// update the pager to the initial state
 		this.updatePager();
 	};
+	
 	this.updatePager = function () {
 		var a, b, childNodes;
 		// get the slides from the container
@@ -92,6 +99,7 @@ useful.Gallery.prototype.Pager = function (parent) {
 			this.config.pagerContainer.style.visibility = 'hidden';
 		}
 	};
+	
 	this.handlePager = function (a, newPagerLink) {
 		var _this = this;
 		newPagerLink.onclick = function () {
@@ -103,6 +111,7 @@ useful.Gallery.prototype.Pager = function (parent) {
 			return false;
 		};
 	};
+	
 	this.handlePageriOS = function (a, newPagerLink) {
 		var _this = this;
 		newPagerLink.ontouchend = function () {

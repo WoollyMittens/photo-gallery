@@ -12,12 +12,16 @@ useful.Gallery = useful.Gallery || function () {};
 
 // extend the constructor
 useful.Gallery.prototype.Toolbar = function (parent) {
-	// properties
+
+	// PROPERTIES
+	
 	"use strict";
 	this.parent = parent;
 	this.config = parent.config;
 	this.element = parent.element;
-	// methods
+
+	// METHODS
+	
 	this.buildToolbar = function () {
 		var a, b, newButton;
 		// create the toolbar container
@@ -47,6 +51,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 		// insert into the component
 		this.element.appendChild(this.config.toolbarContainer);
 	};
+	
 	this.updateToolbar = function () {
 		// if looping is turned off
 		if (!this.config.allowLoop && this.config.previousButton && this.config.nextButton) {
@@ -56,6 +61,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			this.config.nextButton.className = (this.config.activeSlide === this.config.slideNodes.length - 1) ? this.config.nextButton.className.replace(/gallery_tool_enabled/gi, 'gallery_tool_disabled') : this.config.nextButton.className.replace(/gallery_tool_disabled/gi, 'gallery_tool_enabled');
 		}
 	};
+	
 	this.toggleFilter = function (button) {
 		// get the filter interface
 		this.config.filterForm = this.config.filterForm || this.element.getElementsByTagName('form');
@@ -73,6 +79,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			}
 		}
 	};
+	
 	this.transformToPinboard = function () {
 		var _this = this;
 		var a, b, resetScroll, cols, rows, rowHeight;
@@ -125,6 +132,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			this.parent.slides.loadSlides(this.config.slideNodes.length, this.config.fetchAmount);
 		}
 	};
+	
 	this.transformToCarousel = function () {
 		var _this = this;
 		var slideClassName;
@@ -159,6 +167,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 		this.config.activeSlide = 0;
 		this.parent.updateAll();
 	};
+	
 	this.handleFilters = function () {
 		var a, b, filterForms, filterGroups, changeEvent;
 		// get all the filter groups
@@ -175,12 +184,14 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			}
 		}
 	};
+	
 	this.handleFilter = function (filterGroup, changeEvent) {
 		var _this = this;
 		filterGroup['on' + changeEvent] = function () {
 			_this.parent.resetAll();
 		};
 	};
+	
 	this.handleClicks = function () {
 		var a, b, allButtons;
 		// set the event handlers of the controls
@@ -189,6 +200,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			this.handleClick(allButtons[a]);
 		}
 	};
+	
 	this.handleClick = function (button) {
 		var _this = this;
 		switch (button.className.split(' ')[0]) {
@@ -249,6 +261,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			break;
 		}
 	};
+	
 	this.handleClicksiOS = function () {
 		var a, b, allButtons;
 		// set the event handlers of the controls
@@ -257,6 +270,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			this.handleClickiOS(allButtons[a]);
 		}
 	};
+	
 	this.handleClickiOS = function (button) {
 		var _this = this;
 		switch (button.className.split(' ')[0]) {

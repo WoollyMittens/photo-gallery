@@ -12,12 +12,16 @@ useful.Gallery = useful.Gallery || function () {};
 
 // extend the constructor
 useful.Gallery.prototype.Hint = function (parent) {
-	// properties
+
+	// PROPERTIES
+	
 	"use strict";
 	this.parent = parent;
 	this.config = parent.config;
 	this.element = parent.element;
-	// methods
+
+	// METHODS
+	
 	this.buildHint = function () {
 		// if the hint is enabled
 		if (this.config.toggleHint) {
@@ -35,6 +39,7 @@ useful.Gallery.prototype.Hint = function (parent) {
 			}
 		}
 	};
+	
 	this.handleHintiOS = function () {
 		var _this = this;
 		this.element.addEventListener('touchend', function () {

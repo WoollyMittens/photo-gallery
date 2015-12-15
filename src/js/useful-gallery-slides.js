@@ -12,12 +12,16 @@ useful.Gallery = useful.Gallery || function () {};
 
 // extend the constructor
 useful.Gallery.prototype.Slides = function (parent) {
-	// properties
+
+	// PROPERTIES
+	
 	"use strict";
 	this.parent = parent;
 	this.config = parent.config;
 	this.element = parent.element;
-	// methods
+
+	// METHODS
+	
 	this.buildSlideContainer = function () {
 		var a, b, movedSlide;
 		// get all the slides
@@ -38,6 +42,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 		// add the container to the component
 		this.element.appendChild(this.config.slideContainer);
 	};
+	
 	this.loadSlides = function (overrideIndex, overrideAmount) {
 		// if there's ajax functionality
 		if (this.config.allowAjax) {
@@ -79,9 +84,11 @@ useful.Gallery.prototype.Slides = function (parent) {
 			}
 		}
 	};
+	
 	this.progressSlides = function (/*reply, this*/) {
 		// show progress indicator
 	};
+	
 	this.insertSlides = function (reply) {
 		// shortcut pointers
 		var a, b, newSlide, fetchedSlides, fetchedSlide;
@@ -129,6 +136,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 			this.parent.pager.fillPager(reply);
 		}
 	};
+	
 	this.updateSlides = function () {
 		var b, c, slideWidth, slideHeight, slideClass, centerClass, resetProgressIndicator;
 		// store the individual slides in an array
@@ -195,6 +203,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 			this.parent.toolbar.transformToPinboard();
 		}
 	};
+	
 	this.slideBy = function (increment) {
 		// update the index
 		this.config.activeSlide = this.config.activeSlide + increment;
@@ -226,6 +235,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 		// update the slides
 		this.parent.updateAll();
 	};
+	
 	this.slideTo = function (index) {
 		// update the index
 		this.config.activeSlide = index;
@@ -237,6 +247,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 		// update the slides
 		this.parent.updateAll();
 	};
+	
 	this.handleSlide = function (index) {
 		var _this = this;
 		this.config.slideNodes[index].addEventListener('click', function (event) {
@@ -263,6 +274,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 			}
 		}, false);
 	};
+	
 	this.handleSlideiOS = function (index) {
 		var _this = this;
 		this.config.slideNodes[index].addEventListener('touchend', function (event) {
