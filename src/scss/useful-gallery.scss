@@ -273,12 +273,12 @@ section.gallery {
 		z-index : 300;
 	}
 	article, figure {
-		background: linear-gradient(top, #eeeeee 0%,#ffffff 10%);
+		background-image: linear-gradient(180deg, #eeeeee 0%,#ffffff 10%);
 		box-shadow: 0 1px 3px #000;
 		transition-property: left, right, opacity;
 		transition-duration: 0.3s, 0.3s, 0.3s;
 		transition-timing-function: ease, ease, ease;
-		background: #ffffff;
+		background-image: #ffffff;
 		left : 50%;
 		top : 50%;
 		overflow : hidden;

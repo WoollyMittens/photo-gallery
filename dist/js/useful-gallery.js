@@ -447,6 +447,46 @@ var useful = useful || {};
 			return url.replace('?', '?time=' + new Date().getTime() + '&');
 		},
 
+		// perform all requests in a single application
+		all : function (queue, results) {
+			// set up storage for the results
+			var _this = this, _url = queue.urls[queue.urls.length - 1], _results = results || [];
+			// perform the first request in the queue
+			this.send({
+				url : _url,
+				post : queue.post || null,
+				contentType : queue.contentType || 'text/xml',
+				timeout : queue.timeout || 4000,
+				onTimeout : queue.onTimeout || function (reply) { return reply; },
+				onProgress : function (reply) {
+					// report the fractional progress of the whole queue
+					queue.onProgress({});
+				},
+				onFailure : queue.onFailure || function (reply) { return reply; },
+				onSuccess : function (reply) {
+					// store the results
+					_results.push({
+						'url' : _url,
+						'response' : reply.response,
+						'responseText' : reply.responseText,
+						'responseXML' : reply.responseXML,
+						'status' : reply.status,
+					});
+					// pop one request off the queue
+					queue.urls.length = queue.urls.length - 1;
+					// if there are more items in the queue
+					if (queue.urls.length > 0) {
+						// perform the next request
+						_this.all(queue, _results);
+					// else
+					} else {
+						// trigger the success handler
+						queue.onSuccess(_results);
+					}
+				}
+			});
+		},
+
 		// create a request that is compatible with the browser
 		create : function (properties) {
 			var serverRequest,
@@ -1412,14 +1452,14 @@ useful.Gallery = useful.Gallery || function () {};
 useful.Gallery.prototype.Slides = function (parent) {
 
 	// PROPERTIES
-	
+
 	"use strict";
 	this.parent = parent;
 	this.config = parent.config;
 	this.element = parent.element;
 
 	// METHODS
-	
+
 	this.buildSlideContainer = function () {
 		var a, b, movedSlide;
 		// get all the slides
@@ -1440,7 +1480,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 		// add the container to the component
 		this.element.appendChild(this.config.slideContainer);
 	};
-	
+
 	this.loadSlides = function (overrideIndex, overrideAmount) {
 		// if there's ajax functionality
 		if (this.config.allowAjax) {
@@ -1482,11 +1522,11 @@ useful.Gallery.prototype.Slides = function (parent) {
 			}
 		}
 	};
-	
+
 	this.progressSlides = function (/*reply, this*/) {
 		// show progress indicator
 	};
-	
+
 	this.insertSlides = function (reply) {
 		// shortcut pointers
 		var a, b, newSlide, fetchedSlides, fetchedSlide;
@@ -1534,7 +1574,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 			this.parent.pager.fillPager(reply);
 		}
 	};
-	
+
 	this.updateSlides = function () {
 		var b, c, slideWidth, slideHeight, slideClass, centerClass, resetProgressIndicator;
 		// store the individual slides in an array
@@ -1601,7 +1641,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 			this.parent.toolbar.transformToPinboard();
 		}
 	};
-	
+
 	this.slideBy = function (increment) {
 		// update the index
 		this.config.activeSlide = this.config.activeSlide + increment;
@@ -1633,7 +1673,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 		// update the slides
 		this.parent.updateAll();
 	};
-	
+
 	this.slideTo = function (index) {
 		// update the index
 		this.config.activeSlide = index;
@@ -1645,7 +1685,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 		// update the slides
 		this.parent.updateAll();
 	};
-	
+
 	this.handleSlide = function (index) {
 		var _this = this;
 		this.config.slideNodes[index].addEventListener('click', function (event) {
@@ -1672,7 +1712,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 			}
 		}, false);
 	};
-	
+
 	this.handleSlideiOS = function (index) {
 		var _this = this;
 		this.config.slideNodes[index].addEventListener('touchend', function (event) {

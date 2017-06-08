@@ -36,6 +36,7 @@ section.gallery {
   position: relative;
   width: 100%; }
   section.gallery * {
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     cursor: pointer; }
 
@@ -46,8 +47,11 @@ section.gallery menu.gallery_toolbar {
   margin: 0;
   padding: 0; }
   section.gallery menu.gallery_toolbar button {
+    -webkit-transition-property: opacity;
     transition-property: opacity;
+    -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease;
     transition-timing-function: ease;
     opacity: 0;
     overflow: hidden;
@@ -123,8 +127,11 @@ section.gallery.gallery_interface_visible menu.gallery_toolbar button.gallery_to
 	pin board filter
 */
 section.gallery form.gallery_filter {
+  -webkit-transition-property: all;
   transition-property: all;
+  -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease;
   transition-timing-function: ease;
   background-color: #ff6a00;
   height: 40px;
@@ -160,8 +167,11 @@ section.gallery.gallery_interface_visible form.gallery_filter_show {
 */
 section.gallery menu.gallery_pager {
   opacity: 0;
+  -webkit-transition-property: opacity;
   transition-property: opacity;
+  -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease;
   transition-timing-function: ease;
   background-color: rgba(0, 0, 0, 0.5);
   height: 48px;
@@ -260,12 +270,17 @@ section.gallery div.gallery_slides {
   z-index: 300; }
 
 section.gallery article, section.gallery figure {
-  background: linear-gradient(top, #eeeeee 0%, #ffffff 10%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), color-stop(10%, #ffffff));
+  background-image: linear-gradient(180deg, #eeeeee 0%, #ffffff 10%);
+  -webkit-box-shadow: 0 1px 3px #000;
   box-shadow: 0 1px 3px #000;
+  -webkit-transition-property: left, right, opacity;
   transition-property: left, right, opacity;
+  -webkit-transition-duration: 0.3s, 0.3s, 0.3s;
   transition-duration: 0.3s, 0.3s, 0.3s;
+  -webkit-transition-timing-function: ease, ease, ease;
   transition-timing-function: ease, ease, ease;
-  background: #ffffff;
+  background-image: #ffffff;
   left: 50%;
   top: 50%;
   overflow: hidden;
