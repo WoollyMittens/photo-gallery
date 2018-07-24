@@ -1,10 +1,7 @@
-
-
-@import "mixins";
 /*
 	pin board / carousel
 */
-section.gallery {
+.gallery {
 	background : #333;
 	border : solid 2px #333;
 	height : 256px;
@@ -19,8 +16,8 @@ section.gallery {
 /*
 	pin board toolbar
 */
-section.gallery {
-	menu.gallery_toolbar {
+.gallery {
+	.gallery_toolbar {
 		margin : 0;
 		padding : 0;
 		button {
@@ -42,53 +39,54 @@ section.gallery {
 		button:before {
 			@include iconCenter(32);
 			background-image : url(../img/gallery.png);
+			background-size: auto;
 		}
-		button.gallery_tool_next {
+		.gallery_tool_next {
 			margin-top : -20px;
 			right : 15px;
 			top : 50%;
 		}
-		button.gallery_tool_next:before {
+		.gallery_tool_next:before {
 			background-position : 0 0;
 		}
-		button.gallery_tool_previous {
+		.gallery_tool_previous {
 			left : 15px;
 			margin-top : -20px;
 			top : 50%;
 		}
-		button.gallery_tool_previous:before {
+		.gallery_tool_previous:before {
 			background-position : 0 -32px;
 		}
-		button.gallery_tool_carousel {
+		.gallery_tool_carousel {
 			right : 15px;
 			top : 15px;
 		}
-		button.gallery_tool_carousel:before {
+		.gallery_tool_carousel:before {
 			background-position : 0 -64px;
 		}
-		button.gallery_tool_pinboard {
+		.gallery_tool_pinboard {
 			right : 15px;
 			top : 15px;
 		}
-		button.gallery_tool_pinboard:before {
+		.gallery_tool_pinboard:before {
 			background-position : 0 -96px;
 		}
-		button.gallery_tool_filter {
+		.gallery_tool_filter {
 			right : 60px;
 			top : 15px;
 		}
-		button.gallery_tool_filter:before {
+		.gallery_tool_filter:before {
 			background-position : 0 -128px;
 		}
 	}
 }
-section.gallery:hover,
-section.gallery.gallery_interface_visible {
-	menu.gallery_toolbar {
+.gallery:hover,
+.gallery.gallery_interface_visible {
+	.gallery_toolbar {
 		button {
 			opacity: 1;
 		}
-		button.gallery_tool_disabled {
+		.gallery_tool_disabled {
 			opacity: 1;
 			background-color : $color-disabled;
 		}
@@ -97,8 +95,8 @@ section.gallery.gallery_interface_visible {
 /*
 	pin board filter
 */
-section.gallery {
-	form.gallery_filter {
+.gallery {
+	.gallery_filter {
 		transition-property: all;
 		transition-duration: 0.3s;
 		transition-timing-function: ease;
@@ -110,7 +108,7 @@ section.gallery {
 		right : 105px;
 		top : 15px;
 		z-index : 400;
-		fieldset.gallery_filter_groups {
+		.gallery_filter_groups {
 			border : none;
 			margin : 0;
 			padding : 10px 8px 6px 8px;
@@ -122,18 +120,18 @@ section.gallery {
 			}
 		}
 	}
-	form.gallery_filter_hide {
+	.gallery_filter_hide {
 		opacity: 0;
 		visibility : hidden;
 	}
-	form.gallery_filter_show {
+	.gallery_filter_show {
 		opacity: 0;
 		visibility : visible;
 	}
 }
-section.gallery:hover,
-section.gallery.gallery_interface_visible {
-	form.gallery_filter_show {
+.gallery:hover,
+.gallery.gallery_interface_visible {
+	.gallery_filter_show {
 		opacity: 1;
 	}
 }
@@ -141,8 +139,8 @@ section.gallery.gallery_interface_visible {
 /*
 	pin board pager
 */
-section.gallery {
-	menu.gallery_pager {
+.gallery {
+	.gallery_pager {
 		opacity: 0;
 		transition-property: opacity;
 		transition-duration: 0.3s;
@@ -176,12 +174,12 @@ section.gallery {
 				width : 8px;
 			}
 		}
-		li.gallery_pager_active {
+		.gallery_pager_active {
 			a {
 				background : #fff none;
 			}
 		}
-		li.gallery_pager_passive {
+		.gallery_pager_passive {
 			border : solid 1px #fff;
 			a {
 				background : #ccc none;
@@ -190,9 +188,9 @@ section.gallery {
 		}
 	}
 }
-section.gallery:hover,
-section.gallery.gallery_interface_visible {
-	menu.gallery_pager {
+.gallery:hover,
+.gallery.gallery_interface_visible {
+	.gallery_pager {
 		opacity: 1;
 	}
 }
@@ -200,8 +198,8 @@ section.gallery.gallery_interface_visible {
 /*
 	pin board progress indicator
 */
-section.gallery {
-	div.gallery_busy {
+.gallery {
+	.gallery_busy {
 		background : #fff url(../img/busy_3.gif) no-repeat 50% 50%;
 		border : solid 1px #000;
 		display : none;
@@ -218,19 +216,19 @@ section.gallery {
 /*
 	carousel mode
 */
-section.gallery.gallery_mode_carousel {
+.gallery.gallery_mode_carousel {
 	height : 256px;
-	menu.gallery_toolbar {
-		button.gallery_tool_previous {
+	.gallery_toolbar {
+		.gallery_tool_previous {
 			display : block;
 		}
-		button.gallery_tool_next {
+		.gallery_tool_next {
 			display : block;
 		}
-		button.gallery_tool_pinboard {
+		.gallery_tool_pinboard {
 			display : block;
 		}
-		button.gallery_tool_carousel {
+		.gallery_tool_carousel {
 			display : none;
 		}
 	}
@@ -239,24 +237,24 @@ section.gallery.gallery_mode_carousel {
 /*
 	pin board mode
 */
-section.gallery.gallery_mode_pinboard {
+.gallery.gallery_mode_pinboard {
 	height : 512px;
-	menu.gallery_toolbar {
+	.gallery_toolbar {
 		right : 18px;
-		button.gallery_tool_previous {
+		.gallery_tool_previous {
 			display : none;
 		}
-		button.gallery_tool_next {
+		.gallery_tool_next {
 			display : none;
 		}
-		button.gallery_tool_pinboard {
+		.gallery_tool_pinboard {
 			display : none;
 		}
-		button.gallery_tool_carousel {
+		.gallery_tool_carousel {
 			display : block;
 		}
 	}
-	menu.gallery_pager {
+	.gallery_pager {
 		display : none;
 	}
 }
@@ -264,8 +262,8 @@ section.gallery.gallery_mode_pinboard {
 /*
 	slides in carousel mode
 */
-section.gallery {
-	div.gallery_slides {
+.gallery {
+	.gallery_slides {
 		height : 100%;
 		overflow : hidden;
 		position : relative;
@@ -333,8 +331,8 @@ section.gallery {
 /*
 	slides in pin board mode
 */
-section.gallery.gallery_mode_pinboard {
-	div.gallery_slides {
+.gallery.gallery_mode_pinboard {
+	.gallery_slides {
 		height : 100%;
 		overflow : auto;
 		overflow-x : hidden;
@@ -364,7 +362,7 @@ section.gallery.gallery_mode_pinboard {
 /*
 	invitation for interaction
 */
-section.gallery div.gallery_hint {
+.gallery .gallery_hint {
 	background : Transparent url(../img/gallery.png) no-repeat 0 -323px;
 	position : absolute;
 	right : 4px;
@@ -373,9 +371,9 @@ section.gallery div.gallery_hint {
 	width : 32px;
 	z-index : 1000;
 }
-section.gallery:hover,
-section.gallery.gallery_interface_visible {
-	div.gallery_hint {
+.gallery:hover,
+.gallery.gallery_interface_visible {
+	.gallery_hint {
 		visibility : hidden;
 	}
 }
@@ -383,7 +381,7 @@ section.gallery.gallery_interface_visible {
 /*
 	slide content markup
 */
-section.gallery {
+.gallery {
 	article {
 		h3 {
 			line-height : 40px;
@@ -414,7 +412,7 @@ section.gallery {
 		}
 	}
 }
-section.gallery.gallery_mode_pinboard {
+.gallery.gallery_mode_pinboard {
 	figure {
 		img {
 			height : auto;

@@ -1,21 +1,8 @@
-/*
-	Source:
-	van Creij, Maurice (2014). "useful.this.js: An scrolling content this.", version 20141127, http://www.woollymittens.nl/.
-
-	License:
-	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
-*/
-
-// create the constructor if needed
-var useful = useful || {};
-useful.Gallery = useful.Gallery || function () {};
-
-// extend the constructor
-useful.Gallery.prototype.Slides = function (parent) {
+// extend the class
+Gallery.prototype.Slides = function (parent) {
 
 	// PROPERTIES
 
-	"use strict";
 	this.parent = parent;
 	this.config = parent.config;
 	this.element = parent.element;
@@ -25,7 +12,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 	this.buildSlideContainer = function () {
 		var a, b, movedSlide;
 		// get all the slides
-		this.config.slideNodes = useful.transitions.select('figure, article', this.element);
+		this.config.slideNodes = transitions.select('figure, article', this.element);
 		// create the slide container
 		this.config.slideContainer = document.createElement('div');
 		// add its properties
@@ -68,7 +55,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 				fetchURL += '&idx=' + slideIndex + '&amt=' + slideAmount + '&grp=' + this.config.activeFilterGroup.join(',');
 				// formulate the ajax call
 				var _this = this;
-				useful.request.send({
+				requests.send({
 					url : fetchURL,
 					post : null,
 					onProgress : function (reply) { _this.progressSlides(reply); },
@@ -96,7 +83,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 		// if there's ajax functionality
 		if (this.config.allowAjax) {
 			// decode the JSON string
-			fetchedSlides = useful.request.decode(reply.responseText);
+			fetchedSlides = requests.decode(reply.responseText);
 			// for every new slide
 			for (a = 0 , b = fetchedSlides.length - 1; a < b; a += 1) {
 				fetchedSlide = fetchedSlides[a];
@@ -140,7 +127,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 	this.updateSlides = function () {
 		var b, c, slideWidth, slideHeight, slideClass, centerClass, resetProgressIndicator;
 		// store the individual slides in an array
-		this.config.slideNodes = useful.transitions.select('figure, article', this.config.slideContainer);
+		this.config.slideNodes = transitions.select('figure, article', this.config.slideContainer);
 		// get the centre class name from the array
 		centerClass = Math.floor(this.config.carouselNames.length / 2);
 		// create a function to reset the progress indicator
@@ -172,7 +159,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 						this.config.animationInProgress = true;
 					}
 					// transition this class
-					useful.transitions.byClass(
+					transitions.byClass(
 						this.config.slideNodes[b],
 						this.config.carouselNames.join(' '),
 						this.config.carouselNames[slideClass],
@@ -188,7 +175,7 @@ useful.Gallery.prototype.Slides = function (parent) {
 				// store the assigned column positions
 				var cols = this.config.pinboardNames.length - 1;
 				// replace the carousel styles with pinboard one
-				useful.transitions.byClass(
+				transitions.byClass(
 					this.config.slideNodes[b],
 					this.config.pinboardNames.join(' '),
 					this.config.pinboardNames[b % cols],
@@ -302,8 +289,3 @@ useful.Gallery.prototype.Slides = function (parent) {
 		}, false);
 	};
 };
-
-// return as a require.js module
-if (typeof module !== 'undefined') {
-	exports = module.exports = useful.Gallery.Slides;
-}

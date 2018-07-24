@@ -1,34 +1,21 @@
-/*
-	Source:
-	van Creij, Maurice (2014). "useful.this.js: An scrolling content this.", version 20141127, http://www.woollymittens.nl/.
-
-	License:
-	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
-*/
-
-// create the constructor if needed
-var useful = useful || {};
-useful.Gallery = useful.Gallery || function () {};
-
-// extend the constructor
-useful.Gallery.prototype.Pager = function (parent) {
+// extend the class
+Gallery.prototype.Pager = function (parent) {
 
 	// PROPERTIES
-	
-	"use strict";
+
 	this.parent = parent;
 	this.config = parent.config;
 	this.element = parent.element;
 
 	// METHODS
-	
+
 	this.buildPager = function () {
 		// build the page indicators
 		this.config.pagerContainer = document.createElement('menu');
 		this.config.pagerContainer.className = 'gallery_pager';
 		this.element.appendChild(this.config.pagerContainer);
 	};
-	
+
 	this.loadPager = function () {
 		var _this = this;
 		var fetchURL;
@@ -36,7 +23,7 @@ useful.Gallery.prototype.Pager = function (parent) {
 		fetchURL = this.element.getElementsByTagName('form')[0].getAttribute('action');
 		fetchURL += '&inf=1&grp=' + this.config.activeFilterGroup.join(',');
 		// formulate the ajax call
-		useful.request.send({
+		requests.send({
 			url : fetchURL,
 			post : null,
 			onProgress : function () {},
@@ -44,14 +31,14 @@ useful.Gallery.prototype.Pager = function (parent) {
 			onSuccess : function (reply) { _this.fillPager(reply); }
 		});
 	};
-	
+
 	this.fillPager = function (reply) {
 		var a, b, parent, fetchedPager, newPagerElement, newPagerLink;
 		// shortcut pointers
 		parent = reply.referer;
 		fetchedPager = [];
 		// decode the JSON string
-		fetchedPager = useful.request.decode(reply.responseText);
+		fetchedPager = requests.decode(reply.responseText);
 		// empty the pager
 		this.config.pagerContainer.innerHTML = '';
 		// for all pages reported
@@ -80,7 +67,7 @@ useful.Gallery.prototype.Pager = function (parent) {
 		// update the pager to the initial state
 		this.updatePager();
 	};
-	
+
 	this.updatePager = function () {
 		var a, b, childNodes;
 		// get the slides from the container
@@ -99,7 +86,7 @@ useful.Gallery.prototype.Pager = function (parent) {
 			this.config.pagerContainer.style.visibility = 'hidden';
 		}
 	};
-	
+
 	this.handlePager = function (a, newPagerLink) {
 		var _this = this;
 		newPagerLink.onclick = function () {
@@ -111,7 +98,7 @@ useful.Gallery.prototype.Pager = function (parent) {
 			return false;
 		};
 	};
-	
+
 	this.handlePageriOS = function (a, newPagerLink) {
 		var _this = this;
 		newPagerLink.ontouchend = function () {
@@ -124,8 +111,3 @@ useful.Gallery.prototype.Pager = function (parent) {
 		};
 	};
 };
-
-// return as a require.js module
-if (typeof module !== 'undefined') {
-	exports = module.exports = useful.Gallery.Pager;
-}

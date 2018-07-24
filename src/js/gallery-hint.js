@@ -1,27 +1,14 @@
-/*
-	Source:
-	van Creij, Maurice (2014). "useful.this.js: An scrolling content this.", version 20141127, http://www.woollymittens.nl/.
-
-	License:
-	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
-*/
-
-// create the constructor if needed
-var useful = useful || {};
-useful.Gallery = useful.Gallery || function () {};
-
-// extend the constructor
-useful.Gallery.prototype.Hint = function (parent) {
+// extend the class
+Gallery.prototype.Hint = function (parent) {
 
 	// PROPERTIES
-	
-	"use strict";
+
 	this.parent = parent;
 	this.config = parent.config;
 	this.element = parent.element;
 
 	// METHODS
-	
+
 	this.buildHint = function () {
 		// if the hint is enabled
 		if (this.config.toggleHint) {
@@ -39,7 +26,7 @@ useful.Gallery.prototype.Hint = function (parent) {
 			}
 		}
 	};
-	
+
 	this.handleHintiOS = function () {
 		var _this = this;
 		this.element.addEventListener('touchend', function () {
@@ -48,8 +35,3 @@ useful.Gallery.prototype.Hint = function (parent) {
 		}, false);
 	};
 };
-
-// return as a require.js module
-if (typeof module !== 'undefined') {
-	exports = module.exports = useful.Gallery.Hint;
-}

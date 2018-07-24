@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-		<title>useful-gallery.js: Pinboard Gallery</title>
+		<title>gallery.js: Pinboard Gallery</title>
 		<style>
 			html { font-family:Sans-Serif; font-size:75%; height:100%; }
 			body { _height:100%; line-height:180%; margin:0; min-height:100%; padding:1%; }
@@ -11,13 +11,6 @@
 			.example-left > article, .example-left > aside { width:48%; padding:1%; float:left; }
 			.example-right > article, .example-right > aside { width:48%; padding:1%; float:right; }
 		</style>
-		<!--[if lte IE 9]>
-			<meta http-equiv="imagetoolbar" content="no"/>
-			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
-			<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.js"></script>
-		<![endif]-->
 	</head>
 	<body>
 		<section class="example example-left">
@@ -29,7 +22,7 @@
 			<aside>
 
 				<!-- Cut below this -->
-				<style>@import url("./css/useful-gallery.css");</style>
+				<style>@import url("./css/gallery.css");</style>
 				<section id="exampleGallery" class="gallery">
 					<article id="gallery_slide_0">
 						<h3>1. Lorem ipsum</h3>
@@ -77,10 +70,10 @@
 						</fieldset>
 					</form>
 				</section>
-				<script src="./js/useful-gallery.js"></script>
+				<script src="./js/gallery.js"></script>
 				<script>
 				//<!--
-					var gallery = new useful.Gallery().init({
+					var gallery = new Gallery({
 						// the target element
 						'element' : document.getElementById('exampleGallery'),
 						// defines the aspect ratio of the gallery - 4:3 would be 0.75

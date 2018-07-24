@@ -1,4 +1,4 @@
-# useful.gallery.js: Pinboard Gallery
+# gallery.js: Pinboard Gallery
 
 This content gallery loads content progressively using AJAX and uses CSS3 transitions for animation and positioning. The optional web service providing the content is based on PHP, but the concept can be easily reproduced in other languages.
 
@@ -9,27 +9,19 @@ Try the <a href="http://www.woollymittens.nl/default.php?url=useful-gallery">dem
 The stylesheet is best included in the header of the document.
 
 ```html
-<link rel="stylesheet" href="./css/useful-gallery.css"/>
+<link rel="stylesheet" href="./css/gallery.css"/>
 ```
 
 This include can be added to the header or placed inline before the script is invoked.
 
 ```html
-<script src="./js/useful-gallery.js"></script>
-```
-
-To enable the use of HTML5 tags in Internet Explorer 8 and lower, include *html5.js*.
-
-```html
-<!--[if lte IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<script src="./js/gallery.js"></script>
 ```
 
 ### Using vanilla JavaScript
 
 ```javascript
-var gallery = new useful.Gallery( document.getElementById('id'), {
+var gallery = new Gallery( document.getElementById('id'), {
 	'aspectRatio' : 1,
 	'carouselNames' : ['gallery_carousel_farleft', 'gallery_carousel_left', 'gallery_carousel_centre', 'gallery_carousel_right', 'gallery_carousel_farright'],
 	'pinboardNames' : ['gallery_pinboard_left', 'gallery_pinboard_right', 'gallery_pinboard_loading'],

@@ -1,27 +1,14 @@
-/*
-	Source:
-	van Creij, Maurice (2014). "useful.this.js: An scrolling content this.", version 20141127, http://www.woollymittens.nl/.
-
-	License:
-	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
-*/
-
-// create the constructor if needed
-var useful = useful || {};
-useful.Gallery = useful.Gallery || function () {};
-
-// extend the constructor
-useful.Gallery.prototype.Toolbar = function (parent) {
+// extend the class
+Gallery.prototype.Toolbar = function (parent) {
 
 	// PROPERTIES
-	
-	"use strict";
+
 	this.parent = parent;
 	this.config = parent.config;
 	this.element = parent.element;
 
 	// METHODS
-	
+
 	this.buildToolbar = function () {
 		var a, b, newButton;
 		// create the toolbar container
@@ -51,7 +38,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 		// insert into the component
 		this.element.appendChild(this.config.toolbarContainer);
 	};
-	
+
 	this.updateToolbar = function () {
 		// if looping is turned off
 		if (!this.config.allowLoop && this.config.previousButton && this.config.nextButton) {
@@ -61,7 +48,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			this.config.nextButton.className = (this.config.activeSlide === this.config.slideNodes.length - 1) ? this.config.nextButton.className.replace(/gallery_tool_enabled/gi, 'gallery_tool_disabled') : this.config.nextButton.className.replace(/gallery_tool_disabled/gi, 'gallery_tool_enabled');
 		}
 	};
-	
+
 	this.toggleFilter = function (button) {
 		// get the filter interface
 		this.config.filterForm = this.config.filterForm || this.element.getElementsByTagName('form');
@@ -70,16 +57,16 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			if (this.config.filterForm[0].className.indexOf('gallery_filter_hide') > -1) {
 				// reveal it
 				button.parentNode.className = button.parentNode.className.replace('Passive', 'Active');
-				useful.transitions.byClass(this.config.filterForm[0], 'gallery_filter_hide', 'gallery_filter_show', null, null, null, null);
+				transitions.byClass(this.config.filterForm[0], 'gallery_filter_hide', 'gallery_filter_show', null, null, null, null);
 			// else
 			} else {
 				// hide it
 				button.parentNode.className = button.parentNode.className.replace('Active', 'Passive');
-				useful.transitions.byClass(this.config.filterForm[0], 'gallery_filter_show', 'gallery_filter_hide', null, null, null, null);
+				transitions.byClass(this.config.filterForm[0], 'gallery_filter_show', 'gallery_filter_hide', null, null, null, null);
 			}
 		}
 	};
-	
+
 	this.transformToPinboard = function () {
 		var _this = this;
 		var a, b, resetScroll, cols, rows, rowHeight;
@@ -94,7 +81,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			}, 1000);
 		}
 		// switch the classname of the parent
-		useful.transitions.byClass(this.element, 'gallery_mode_carousel', 'gallery_mode_pinboard');
+		transitions.byClass(this.element, 'gallery_mode_carousel', 'gallery_mode_pinboard');
 		// change to pinboard mode
 		this.config.carouselMode = false;
 		// store the assigned column positions
@@ -102,7 +89,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 		// for all slides
 		for (a = 0 , b = this.config.slideNodes.length; a < b; a += 1) {
 			// replace the carousel styles with pinboard one
-			useful.transitions.byClass(
+			transitions.byClass(
 				this.config.slideNodes[a],
 				this.config.carouselNames.join(' '),
 				this.config.pinboardNames[a % cols]
@@ -132,7 +119,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			this.parent.slides.loadSlides(this.config.slideNodes.length, this.config.fetchAmount);
 		}
 	};
-	
+
 	this.transformToCarousel = function () {
 		var _this = this;
 		var slideClassName;
@@ -147,7 +134,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			}, 1000);
 		}
 		// switch the classname op the parent
-		useful.transitions.byClass(this.element, 'gallery_mode_pinboard', 'gallery_mode_carousel');
+		transitions.byClass(this.element, 'gallery_mode_pinboard', 'gallery_mode_carousel');
 		// change to carousel mode
 		this.config.carouselMode = true;
 		// for all slides
@@ -157,7 +144,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			// set the proper vertical position for this mode
 			this.config.slideNodes[a].style.top = '50%';
 			// replace the carousel styles with pinboard one
-			useful.transitions.byClass(
+			transitions.byClass(
 				this.config.slideNodes[a],
 				this.config.pinboardNames.join(' '),
 				slideClassName
@@ -167,7 +154,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 		this.config.activeSlide = 0;
 		this.parent.updateAll();
 	};
-	
+
 	this.handleFilters = function () {
 		var a, b, filterForms, filterGroups, changeEvent;
 		// get all the filter groups
@@ -184,14 +171,14 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			}
 		}
 	};
-	
+
 	this.handleFilter = function (filterGroup, changeEvent) {
 		var _this = this;
 		filterGroup['on' + changeEvent] = function () {
 			_this.parent.resetAll();
 		};
 	};
-	
+
 	this.handleClicks = function () {
 		var a, b, allButtons;
 		// set the event handlers of the controls
@@ -200,7 +187,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			this.handleClick(allButtons[a]);
 		}
 	};
-	
+
 	this.handleClick = function (button) {
 		var _this = this;
 		switch (button.className.split(' ')[0]) {
@@ -261,7 +248,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			break;
 		}
 	};
-	
+
 	this.handleClicksiOS = function () {
 		var a, b, allButtons;
 		// set the event handlers of the controls
@@ -270,7 +257,7 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 			this.handleClickiOS(allButtons[a]);
 		}
 	};
-	
+
 	this.handleClickiOS = function (button) {
 		var _this = this;
 		switch (button.className.split(' ')[0]) {
@@ -332,8 +319,3 @@ useful.Gallery.prototype.Toolbar = function (parent) {
 		}
 	};
 };
-
-// return as a require.js module
-if (typeof module !== 'undefined') {
-	exports = module.exports = useful.Gallery.Toolbar;
-}
