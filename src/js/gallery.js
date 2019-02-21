@@ -34,6 +34,5 @@ var Gallery = function (config) {
 };
 
 // return as a require.js module
-if (typeof module !== 'undefined') {
-	exports = module.exports = Gallery;
-}
+if (typeof define != 'undefined') define(['gallery'], function () { return Gallery });
+if (typeof module != 'undefined') module.exports = Gallery;
