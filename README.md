@@ -9,13 +9,35 @@ Try the <a href="http://www.woollymittens.nl/default.php?url=useful-gallery">dem
 The stylesheet is best included in the header of the document.
 
 ```html
-<link rel="stylesheet" href="./css/gallery.css"/>
+<link rel="stylesheet" href="css/gallery.css"/>
 ```
 
 This include can be added to the header or placed inline before the script is invoked.
 
 ```html
-<script src="./js/gallery.js"></script>
+<script src="lib/requests.js"></script>
+<script src="lib/transitions.js"></script>
+<script src="js/gallery.js"></script>
+```
+
+Or use [Require.js](https://requirejs.org/).
+
+```js
+requirejs([
+	'lib/requests.js',
+	'lib/transitions.js',
+	'js/gallery.js'
+], function(requests, transitions, Gallery) {
+	...
+});
+```
+
+Or import into an MVC framework.
+
+```js
+var requests = require('lib/requests.js');
+var transitions = require('lib/transitions.js');
+var Gallery = require('js/gallery.js');
 ```
 
 ### Using vanilla JavaScript
