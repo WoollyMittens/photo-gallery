@@ -1,10 +1,124 @@
 <!DOCTYPE html>
 <html>
 	<head>
-    <title>Redirect to demo</title>
-		<script>document.location.replace('./dist/');</script>
+		<meta charset="UTF-8" />
+		<title>gallery.js: Pinboard Gallery</title>
+		<style>
+			html { font-family:Sans-Serif; font-size:75%; height:100%; }
+			body { _height:100%; line-height:180%; margin:0; min-height:100%; padding:1%; }
+			.example { max-width:960px; margin:0 auto; padding:0; clear:both; }
+			.example > article, .example > aside { width:98%; padding:2%; }
+			.example-left > article, .example-left > aside { width:48%; padding:1%; float:left; }
+			.example-right > article, .example-right > aside { width:48%; padding:1%; float:right; }
+		</style>
 	</head>
 	<body>
-		<a href="./dist/">Start</a>
+		<section class="example example-left">
+			<article>
+				<h2>Pinboard Gallery</h2>
+				<p>This content gallery loads content progressively using AJAX and uses CSS3 transitions for animation and positioning. The optional web service providing the content is based on PHP, but the concept can be easily reproduced in other languages.</p>
+				<p><a class="button downloadButton" href="http://github.com/WoollyMittens/useful-gallery" target="_blank">Download (GitHub)</a></p>
+			</article>
+			<aside>
+
+				<!-- Cut below this -->
+				<style>@import url("./css/gallery.css");</style>
+				<section id="exampleGallery" class="gallery">
+					<article id="gallery_slide_0">
+						<h3>1. Lorem ipsum</h3>
+						<img alt="" class="aside" src="./img/figure_0.jpg"/>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+							<a href="#1" title="More about 'Lorem ipsum dolor sit amet'">More</a>
+						</p>
+					</article>
+					<figure id="gallery_slide_1">
+						<a href="#2"><img alt="" class="full" src="./img/figure_1a.jpg"/></a>
+						<figcaption>2. Excepteur sint occaecat cupidatat non proident.</figcaption>
+					</figure>
+					<article id="gallery_slide_2">
+						<h3>3. Duis aute irure dolor</h3>
+						<p>
+							Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+						</p>
+						<ul>
+							<li><a href="#1">Excepteur sint</a></li>
+							<li><a href="#2">Occaecat cupidatat non</a></li>
+							<li><a href="#3">Proident, sunt in culpa</a></li>
+							<li><a href="#4">Qui officia deserunt</a></li>
+						</ul>
+					</article>
+					<article id="gallery_slide_3">
+						<h3>4. Lorem ipsum</h3>
+						<img alt="" class="aside" src="./img/figure_1.jpg"/>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+							<a href="#" title="More about 'Lorem ipsum dolor sit amet'">More</a>
+						</p>
+					</article>
+					<figure id="gallery_slide_4">
+						<a href="#"><img alt="" class="full" src="./img/figure_1a.jpg"/></a>
+						<figcaption>5. Excepteur sint occaecat</figcaption>
+					</figure>
+					<!-- The form below may be left out, if AJAX functionality is not required -->
+					<form action="./php/gallery.php?foo=bar" class="gallery_filter gallery_filter_hide">
+						<fieldset class="gallery_filter_groups">
+							<legend>Types:</legend>
+							<label><input name="grp" type="checkbox" checked="checked" value="0"/>Text Only</label>
+							<label><input name="grp" type="checkbox" checked="checked" value="1"/>Text and Images</label>
+							<label><input name="grp" type="checkbox" checked="checked" value="2"/>Images</label>
+						</fieldset>
+					</form>
+				</section>
+				<script src="./lib/requests.js"></script>
+				<script src="./lib/transitions.js"></script>
+				<script src="./js/gallery.js"></script>
+				<script>
+				//<!--
+					var gallery = new Gallery({
+						// the target element
+						'element' : document.getElementById('exampleGallery'),
+						// defines the aspect ratio of the gallery - 4:3 would be 0.75
+						'aspectRatio' : 1,
+						// the script will cycle through these classes, the number is not limited
+						'carouselNames' : ['gallery_carousel_farleft', 'gallery_carousel_left', 'gallery_carousel_centre', 'gallery_carousel_right', 'gallery_carousel_farright'],
+						// the script alternates between these classes to divide the slides across columns
+						'pinboardNames' : ['gallery_pinboard_left', 'gallery_pinboard_right', 'gallery_pinboard_loading'],
+						// default behaviour is to show numbers
+						'pagerLabels' : ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet'],
+						// distance between rows of slides in pin board mode
+						'rowOffset' : 18,
+						'pinboardOffset' : 0,
+						// distance from the bottom of the pin board where new slides will be loaded if AJAX is enabled
+						'fetchScrollBottom' : 100,
+						// how far from the unloaded slides preloading should commence
+						'fetchTreshold' : 3,
+						// how many slides to get in one go
+						'fetchAmount' : 5,
+						// don't accept new input until the animation finished
+						'limitSpeed' : true,
+						// immediately cycle to the first slide after reaching the last
+						'allowLoop' : false,
+						// wait this long until starting the automatic slideshow
+						'idleDelay' : 8000,
+						// direction to show the slides in
+						'idleDirection' : 1,					// -1 | 1
+						// what interface elements to show
+						'toggleHint' : true, 					// true | false
+						'togglePager' : true, 					// true | false
+						'toggleFilter' : 'Filter', 				// string | true | false
+						'togglePinboard' : 'View Pin Board',	// string | true | false
+						'toggleCarousel' : 'View Carousel',		// string | true | false
+						'toggleNext' : 'Next Slide',			// string | true | false
+						'togglePrev' : 'Previous Slide',		// string | true | false
+						// how mobile devices are identified to enable touch controls
+						'onMobile' : (navigator.userAgent.indexOf('Mobile')>-1)
+					});
+				//-->
+				</script>
+				<!-- Cut above this -->
+
+			</aside>
+		</section>
 	</body>
 </html>
